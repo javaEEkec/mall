@@ -5,7 +5,9 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- mybatis-generator:generate -->
-    <context id="Tables" targetRuntime="MyBatis3">
+    <context id="myteamTables" targetRuntime="MyBatis3">
+        <!--生成mapper.xml时覆盖原文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
         <commentGenerator>
             <!--  是否去除自动生成的注释 true:是;false:否 -->
             <property name="suppressAllComments" value="true" />
