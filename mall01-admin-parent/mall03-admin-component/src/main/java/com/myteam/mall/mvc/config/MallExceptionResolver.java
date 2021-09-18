@@ -6,13 +6,14 @@ import com.myteam.mall.exception.AccessForbiddenException;
 import com.myteam.mall.exception.LoginFailedException;
 import com.myteam.mall.util.MallUtil;
 import com.myteam.mall.util.ResultEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+@ControllerAdvice
 public class MallExceptionResolver {
 
     /**
