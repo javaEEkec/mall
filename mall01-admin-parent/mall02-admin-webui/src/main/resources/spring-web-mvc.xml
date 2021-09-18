@@ -17,6 +17,8 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+
+
     <!--配置基于XML的异常映射-->
     <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <!-- 配置异常类型和具体视图页面对应关系 -->
@@ -24,10 +26,25 @@
             <props>
                 <!-- key属性指定异常全类名，标签体中指定对应的视图(前后缀拼接) -->
                 <prop key="java.lang.Exception">system-error</prop>
-                <prop key="com.atguigu.crowd.exception.AccessForbiddenException">admin-login</prop>
+                <prop key="com.myteam.mall.exception.AccessForbiddenException">admin-login</prop>
             </props>
         </property>
     </bean>
+
+    <!--配置view-controller，直接把请求地址和视图名称关联起来，从而无需写handler方法-->
+    <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+
+    <!--注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/admin/do/login.html"/>
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/do/logout.html"/>
+            <bean class="com.myteam.mall.mvc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
 

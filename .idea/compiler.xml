@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mall06-common-reverse" />
+        <module name="mall05-common-util" />
+        <module name="mall04-admin-entity" />
+        <module name="mall03-admin-component" />
+        <module name="mall02-admin-webui" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mall01-admin-parent" target="1.8" />
+      <module name="mall01-admin-parent (1)" target="1.8" />
+      <module name="mall01-admin-parent (2)" target="1.8" />
+      <module name="mall02-admin-webui" target="1.8" />
+      <module name="mall02-admin-webui (1)" target="1.8" />
+      <module name="mall02-admin-webui (2)" target="1.8" />
+      <module name="mall03-admin-component" target="1.8" />
+      <module name="mall03-admin-component (1)" target="1.8" />
+      <module name="mall03-admin-component (2)" target="1.8" />
+      <module name="mall04-admin-entity" target="1.8" />
+      <module name="mall04-admin-entity (1)" target="1.8" />
+      <module name="mall04-admin-entity (2)" target="1.8" />
+      <module name="mall05-common-util" target="1.8" />
+      <module name="mall06-common-reverse" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
