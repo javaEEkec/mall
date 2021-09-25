@@ -1,10 +1,14 @@
 package com.myteam.mall.mvc.handler;
 
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Admin;
 import com.myteam.mall.service.api.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +22,8 @@ public class AdminHandler {
 
     @Autowired
     private AdminService adminService;
+
+    private Logger logger = LoggerFactory.getLogger(AdminHandler.class);
 
     @RequestMapping("admin/do/login.html")
     public String doLogin(
@@ -38,4 +44,15 @@ public class AdminHandler {
         return "redirect:/admin/to/login/page.html";
     }
 
+    @RequestMapping("admin/get/page.html")
+    public String getPageInfo(
+        @RequestParam(value = "keyword",defaultValue = "") String keyword,
+        @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+        @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+        ModelMap modelMap
+    ){
+        PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
+        modelMap.addAttribute(MallConstant.ATTR_NAME_PAGE_INFO,pageInfo);
+        return "admin-page";
+    }
 }

@@ -148,6 +148,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectAdminByKeyWord" resultMap="BaseResultMap">
+    select admin_id,admin_acct,admin_name,admin_pswd,admin_type
+    from admin
+    where admin_acct like concat("%",#{keyword},"%")
+    or admin_name like concat("%",#{keyword},"%")
+    or admin_type like concat("%",#{keyword},"%")
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update admin
     <set>

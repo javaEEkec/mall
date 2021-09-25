@@ -1,5 +1,6 @@
 package com.myteam.mall.service.api;
 
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.Admin;
 
 import java.util.List;
@@ -28,4 +29,7 @@ public interface AdminService {
      * @return admin对象
      */
     Admin getAdminByAdminAcct(String adminAcct, String adminPswd);
+
+
+    PageInfo<Admin> getPageInfo(String keyword,Integer pageNum,Integer pageSize);
 }

@@ -1,5 +1,7 @@
 package com.myteam.mall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Admin;
 import com.myteam.mall.entity.AdminExample;
@@ -26,6 +28,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public void saveAdmin(Admin admin) {
+
         adminMapper.insert(admin);
     }
 
@@ -76,5 +79,12 @@ public class AdminServiceImpl implements AdminService {
         }
         // 8. 如果一致就返回Admin对象
         return admin;
+    }
+
+    @Override
+    public PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Admin> adminList = adminMapper.selectAdminByKeyWord(keyword);
+        return new PageInfo<>(adminList);
     }
 }
