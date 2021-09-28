@@ -5,11 +5,15 @@ import com.github.pagehelper.PageInfo;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Admin;
 import com.myteam.mall.entity.AdminExample;
+import com.myteam.mall.exception.LoginAcctAlreadyInUseException;
 import com.myteam.mall.exception.LoginFailedException;
 import com.myteam.mall.mapper.AdminMapper;
 import com.myteam.mall.service.api.AdminService;
 import com.myteam.mall.util.MallUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +25,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    private Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     /**
      * 添加管理员
      *
@@ -29,7 +35,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveAdmin(Admin admin) {
 
-        adminMapper.insert(admin);
+        admin.setAdminPswd(MallUtil.md5(admin.getAdminPswd()));
+        try {
+            adminMapper.insert(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("异常全类名"+e.getClass().getName());
+            //如果捕获到主键重复异常
+            if (e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseException(MallConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 
     @Override

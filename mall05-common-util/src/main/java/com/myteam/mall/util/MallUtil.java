@@ -22,7 +22,7 @@ public class MallUtil {
         // 1.判断source是否有效
         if (source == null || source.length() == 0){
             // 2.如果不是有效数据则抛异常
-            throw new RuntimeException(MallConstant.MESSAGE_STRING_INVALIDATE);
+            throw new NullPointerException(MallConstant.MESSAGE_STRING_INVALIDATE);
         }
 
         //获取MessageDigest对象

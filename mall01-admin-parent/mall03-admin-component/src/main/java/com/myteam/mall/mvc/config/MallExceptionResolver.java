@@ -3,6 +3,7 @@ package com.myteam.mall.mvc.config;
 import com.google.gson.Gson;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.exception.AccessForbiddenException;
+import com.myteam.mall.exception.LoginAcctAlreadyInUseException;
 import com.myteam.mall.exception.LoginFailedException;
 import com.myteam.mall.util.MallUtil;
 import com.myteam.mall.util.ResultEntity;
@@ -15,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @ControllerAdvice
 public class MallExceptionResolver {
+
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String viewName = "admin-add";
+        return commonResolve(viewName,exception,request,response);
+    }
 
     /**
      * 未登录异常
@@ -43,6 +50,7 @@ public class MallExceptionResolver {
         String viewName =  "system-error";
         return commonResolve(viewName,exception,request,response);
     }
+
 
     /** 创建通用方法*/
     private ModelAndView commonResolve(String viewName, Exception exception, HttpServletRequest request, HttpServletResponse response ) throws IOException {

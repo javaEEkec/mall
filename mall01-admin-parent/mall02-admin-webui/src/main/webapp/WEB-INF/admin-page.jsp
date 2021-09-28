@@ -17,6 +17,52 @@
     $(function () {
         // 调用后面声明的函数对页码导航条进行初始化操作
         initPagination();
+
+
+        // 点击新增打开模态框
+        $("#showAddModalBtn").click(function () {
+            $("#adminAddModal").modal("show");
+        });
+
+        // 模态框数据保存
+        $("#adminSaveBtn").click(function () {
+            // 收集表单项中用户输入的数据
+            var admin_acct = $.trim($("#adminAddModal [name=admin_acct]").val());
+            var admin_pswd = $.trim($("#adminAddModal [name=admin_pswd]").val());
+            var admin_name = $.trim($("#adminAddModal [name=admin_name]").val());
+            var admin_type = $.trim($("#adminAddModal [name=admin_type]").val());
+
+            $.ajax({
+                url: "admin/save.json",
+                type: "post",
+                data: {
+                    "adminAcct": admin_acct,
+                    "adminPswd": admin_pswd,
+                    "adminName": admin_name,
+                    "adminType": admin_type
+                },
+                dataType: "json",
+                success: function (response) {
+                    var result = response.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("操作成功,以保存");// 重新加载分页
+                        var pageNum = 99999999
+                        window.location.href = "admin/get/page.html?pageNum="+pageNum;
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + response.message);
+                    }
+                },
+                error:function(response){
+                    layer.msg(response.status+" "+response.statusText);
+                }
+            });
+            // 关闭模态框
+            $("#adminAddModal").modal("hide");
+            // 清空表单
+            // jQuery对象调用click()函数，里面不传任何参数，相当于用户点击了一下
+            $("#adminResetBtn").click();
+        })
     });
 
     function initPagination() {
@@ -45,6 +91,8 @@
         // 由于每一个页码按钮都是超链接，所以在这个函数最后取消超链接的默认行为
         return false;
     }
+
+
 </script>
 <body>
 <%@include file="include-nav.jsp" %>
@@ -68,11 +116,12 @@
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
+                    <button id="batchRemoveBtn" type="button" class="btn btn-danger"
+                            style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
+                    <button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;">
+                        <i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
                     <br>
                     <hr style="clear:both;">
@@ -82,7 +131,7 @@
                             <tr>
                                 <th width="30">#</th>
                                 <th width="30"><input type="checkbox"></th>
-                                <th>id</th>
+                                <th>admin_id</th>
                                 <th>账号</th>
                                 <th>用户名</th>
                                 <th>类型</th>
@@ -131,7 +180,7 @@
         </div>
     </div>
 </div>
-
+<%@include file="modal-admin-add.jsp" %>
 </body>
 </html>
 

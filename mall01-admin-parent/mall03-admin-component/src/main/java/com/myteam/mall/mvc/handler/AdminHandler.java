@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Admin;
 import com.myteam.mall.service.api.AdminService;
+import com.myteam.mall.util.ResultEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +25,6 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
 
-    private Logger logger = LoggerFactory.getLogger(AdminHandler.class);
 
     @RequestMapping("admin/do/login.html")
     public String doLogin(
@@ -54,5 +55,13 @@ public class AdminHandler {
         PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
         modelMap.addAttribute(MallConstant.ATTR_NAME_PAGE_INFO,pageInfo);
         return "admin-page";
+    }
+
+
+    @ResponseBody
+    @RequestMapping("admin/save.json")
+    public ResultEntity<String> saveAdmin(Admin admin){
+        adminService.saveAdmin(admin);
+        return ResultEntity.successWithoutData();
     }
 }
