@@ -151,12 +151,65 @@
 
         //单条删除
         $("#adminPageBody").on("click", ".removeBtn", function () {
-            let adminName = $(this).parent().prev().prev().text();
+            let adminName = $(this).parent().prev().text();
             let adminArray = [{
                 adminId:this.id,
                 adminName:adminName
             }];
             // console.log(adminArray);
+            showConfirmModal(adminArray);
+        });
+
+        // 为总的checkbox绑定单击响应函数
+        $("#summaryBox").click(function () {
+            var currentStatus = this.checked;
+            // 用当前多选框状态设置其它多选框
+            $(".itemBox").prop("checked",currentStatus);
+        })
+
+
+        // 11.全选全不选的反向操作
+        $("#adminPageBody").on("click", ".itemBox", function (){
+
+            // 获取当前已经选中的.itemBox的数量
+            var checkedBoxCount = $(".itemBox:checked").length;
+
+            // 获取全部.itemBox的数量
+            var totalBoxCount = $(".itemBox").length;
+
+            // 使用两者的比较结果设置总的checkBox
+            $("#summaryBox").prop("checked", checkedBoxCount === totalBoxCount)
+        });
+
+        // 12.给批量删除的按钮绑定单击响应函数
+        $("#batchRemoveBtn").click(function (){
+
+            // 创建数组对象用来存放后面获取到的角色对象
+            var adminArray = [];
+
+            // 遍历当前选中的多选框
+            $(".itemBox:checked").each(function (){
+
+                // 使用this引用当前遍历得到的多选框
+                var adminId = this.id;
+                console.log("adminId:"+adminId);
+
+                // 通过DOM操作获取角色名称
+                var adminName = $(this).parent().next().next().next().text();
+
+                adminArray.push({
+                    adminId: adminId,
+                    adminName: adminName
+                });
+            });
+
+            // 检查roleArray的长度是否为0
+            if (adminArray.length === 0) {
+                layer.msg("请至少选择一个执行删除");
+                return;
+            }
+
+            // 调用专门的函数打开确认模态框
             showConfirmModal(adminArray);
         });
     });
@@ -226,7 +279,7 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>admin_id</th>
                                 <th>账号</th>
                                 <th>用户名</th>
@@ -244,7 +297,7 @@
                                 <c:forEach items="${pageInfo.list}" var="admin" varStatus="myStatus">
                                     <tr>
                                         <td>${myStatus.count}</td>
-                                        <td><input type="checkbox"/></td>
+                                        <td><input id="${admin.adminId}" class="itemBox" type="checkbox"/></td>
                                         <td>${admin.adminId}</td>
                                         <td>${admin.adminAcct}</td>
                                         <td>${admin.adminName}</td>
@@ -280,6 +333,7 @@
 </div>
 <%@include file="modal-admin-add.jsp" %>
 <%@include file="modal-admin-edit.jsp" %>
+<%@include file="modal-admin-confirm.jsp"%>
 </body>
 </html>
 
