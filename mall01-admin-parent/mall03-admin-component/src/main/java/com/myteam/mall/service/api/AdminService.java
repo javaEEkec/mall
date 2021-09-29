@@ -36,4 +36,10 @@ public interface AdminService {
     void updateAdmin(Admin admin);
 
     Admin getAdminById(Integer adminId);
+
+    /**
+     * 根据adminId 批量删除admin
+     * @param adminIdList
+     */
+    void removeAdmin(List<Integer> adminIdList);
 }

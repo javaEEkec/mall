@@ -123,4 +123,16 @@ public class AdminServiceImpl implements AdminService {
     public Admin getAdminById(Integer adminId) {
         return adminMapper.selectByPrimaryKey(adminId);
     }
+
+    /**
+     * 根据adminId 批量删除admin
+     * @param adminIdList
+     */
+    @Override
+    public void removeAdmin(List<Integer> adminIdList) {
+        AdminExample adminExample = new AdminExample();
+        AdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andAdminIdIn(adminIdList);
+        adminMapper.deleteByExample(adminExample);
+    }
 }
