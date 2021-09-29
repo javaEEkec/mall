@@ -13,33 +13,34 @@
 <%@include file="include-head.jsp" %>
 <link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+<script type="text/javascript" src="js/my-admin.js"></script>
 <script type="text/javascript">
     $(function () {
         // 调用后面声明的函数对页码导航条进行初始化操作
         initPagination();
 
 
-        // 点击新增打开模态框
+        // 1.点击新增打开模态框
         $("#showAddModalBtn").click(function () {
             $("#adminAddModal").modal("show");
         });
 
-        // 模态框数据保存
+        // 2.模态框数据保存
         $("#adminSaveBtn").click(function () {
             // 收集表单项中用户输入的数据
-            var admin_acct = $.trim($("#adminAddModal [name=admin_acct]").val());
-            var admin_pswd = $.trim($("#adminAddModal [name=admin_pswd]").val());
-            var admin_name = $.trim($("#adminAddModal [name=admin_name]").val());
-            var admin_type = $.trim($("#adminAddModal [name=admin_type]").val());
+            var adminAcct = $.trim($("#adminAddModal [name=adminAcct]").val());
+            var adminPswd = $.trim($("#adminAddModal [name=adminPswd]").val());
+            var adminName = $.trim($("#adminAddModal [name=adminName]").val());
+            var adminType = $.trim($("#adminAddModal [name=adminType]").val());
 
             $.ajax({
                 url: "admin/save.json",
                 type: "post",
                 data: {
-                    "adminAcct": admin_acct,
-                    "adminPswd": admin_pswd,
-                    "adminName": admin_name,
-                    "adminType": admin_type
+                    "adminAcct": adminAcct,
+                    "adminPswd": adminPswd,
+                    "adminName": adminName,
+                    "adminType": adminType
                 },
                 dataType: "json",
                 success: function (response) {
@@ -63,6 +64,61 @@
             // jQuery对象调用click()函数，里面不传任何参数，相当于用户点击了一下
             $("#adminResetBtn").click();
         })
+
+        // 3.点击编辑按钮打开模态框
+        $("#adminPageBody").on("click",".pencilBtn",function () {
+            // 打开模态框
+            $("#adminEditModal").modal("show");
+            window.adminId = this.id;
+            var admin = getAdminById(adminId);
+            if (admin == null){
+                $("#adminEditModal").modal("hide");
+            }else {
+                // 回显表单数据
+                $("#adminEditModal [name=adminAcct]").val(admin.adminAcct)
+                $("#adminEditModal [name=adminName]").val(admin.adminName)
+                $("#adminEditModal [name=adminType]").val(admin.adminType)
+            }
+        });
+
+        // 4.给更新模态框中的更新按钮绑定单机响应函数
+        $("#updateAdminBtn").click(function () {
+            // 收集表单数据
+            var adminAcct = $("#adminEditModal [name=adminAcct]").val();
+            var adminName = $("#adminEditModal [name=adminName]").val();
+            var adminType = $("#adminEditModal [name=adminType]").val();
+
+            // 发送Ajax请求
+            $.ajax({
+                url: "admin/update.json",
+                data: {
+                    "adminId":window.adminId,
+                    "adminAcct":adminAcct,
+                    "adminName":adminName,
+                    "adminType":adminType
+                },
+                dataType:"json",
+                success: function (resp){
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("更新成功！");
+
+                        // 重新加载分页
+                        window.location.href="admin/get/page.html?pageNum="+${pageInfo.pageNum};
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + response.message);
+                    }
+                },
+                error:function(response){
+                    layer.msg(response.status+" "+response.statusText);
+                }
+            });
+            //关闭模态框
+            $("#adminEditModal").modal("hide");
+        });
+
+
     });
 
     function initPagination() {
@@ -138,7 +194,7 @@
                                 <th width="100">操作</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="adminPageBody">
                             <c:if test="${empty pageInfo.list}">
                                 <tr>
                                     <td colspan="7" align="center">抱歉！没有找到你想要的数据！</td>
@@ -156,9 +212,9 @@
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs"><i
                                                     class=" glyphicon glyphicon-check"></i></button>
-                                            <button type="button" class="btn btn-primary btn-xs"><i
+                                            <button id="${admin.adminId}" type="button" class="btn btn-primary btn-xs pencilBtn"><i
                                                     class=" glyphicon glyphicon-pencil"></i></button>
-                                            <button type="button" class="btn btn-danger btn-xs"><i
+                                            <button id="${admin.adminId}" type="button" class="btn btn-danger btn-xs removeBtn"><i
                                                     class=" glyphicon glyphicon-remove"></i></button>
                                         </td>
                                     </tr>
@@ -181,6 +237,7 @@
     </div>
 </div>
 <%@include file="modal-admin-add.jsp" %>
+<%@include file="modal-admin-edit.jsp"%>
 </body>
 </html>
 

@@ -31,7 +31,7 @@ public class AdminHandler {
             @RequestParam("adminAcct") String adminAcct,
             @RequestParam("adminPswd") String adminPswd,
             HttpSession session
-    ){
+    ) {
         Admin admin = adminService.getAdminByAdminAcct(adminAcct, adminPswd);
         // 2.将登录成功返回的admin对象存入Session域
         session.setAttribute(MallConstant.ATTR_NAME_LOGIN_ADMIN, admin);
@@ -39,7 +39,7 @@ public class AdminHandler {
     }
 
     @RequestMapping("admin/do/logout.html")
-    public String doLogout(HttpSession session){
+    public String doLogout(HttpSession session) {
         // 强制Session失效
         session.invalidate();
         return "redirect:/admin/to/login/page.html";
@@ -47,21 +47,36 @@ public class AdminHandler {
 
     @RequestMapping("admin/get/page.html")
     public String getPageInfo(
-        @RequestParam(value = "keyword",defaultValue = "") String keyword,
-        @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-        @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
-        ModelMap modelMap
-    ){
+            @RequestParam(value = "keyword", defaultValue = "") String keyword,
+            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+            ModelMap modelMap
+    ) {
         PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
-        modelMap.addAttribute(MallConstant.ATTR_NAME_PAGE_INFO,pageInfo);
+        modelMap.addAttribute(MallConstant.ATTR_NAME_PAGE_INFO, pageInfo);
         return "admin-page";
     }
 
 
     @ResponseBody
     @RequestMapping("admin/save.json")
-    public ResultEntity<String> saveAdmin(Admin admin){
+    public ResultEntity<String> saveAdmin(Admin admin) {
         adminService.saveAdmin(admin);
         return ResultEntity.successWithoutData();
     }
+
+    @ResponseBody
+    @RequestMapping("admin/update.json")
+    public ResultEntity<String> updateAdmin(Admin admin) {
+        adminService.updateAdmin(admin);
+        return ResultEntity.successWithoutData();
+    }
+
+    @ResponseBody
+    @RequestMapping("admin/get/admin.json")
+    public ResultEntity<Admin> getAdmin(Integer adminId){
+        Admin admin = adminService.getAdminById(adminId);
+        return ResultEntity.successWithData(admin);
+    }
+
 }

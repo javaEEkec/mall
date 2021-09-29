@@ -6,6 +6,7 @@ import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Admin;
 import com.myteam.mall.entity.AdminExample;
 import com.myteam.mall.exception.LoginAcctAlreadyInUseException;
+import com.myteam.mall.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.myteam.mall.exception.LoginFailedException;
 import com.myteam.mall.mapper.AdminMapper;
 import com.myteam.mall.service.api.AdminService;
@@ -102,5 +103,24 @@ public class AdminServiceImpl implements AdminService {
         PageHelper.startPage(pageNum,pageSize);
         List<Admin> adminList = adminMapper.selectAdminByKeyWord(keyword);
         return new PageInfo<>(adminList);
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        try {
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("异常全类名"+e.getClass().getName());
+            //如果捕获到主键重复异常
+            if (e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseForUpdateException(MallConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+    }
+
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return adminMapper.selectByPrimaryKey(adminId);
     }
 }
