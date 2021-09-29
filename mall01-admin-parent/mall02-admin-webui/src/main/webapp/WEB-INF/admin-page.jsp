@@ -48,14 +48,14 @@
                     if (result === "SUCCESS") {
                         layer.msg("操作成功,以保存");// 重新加载分页
                         var pageNum = 99999999
-                        window.location.href = "admin/get/page.html?pageNum="+pageNum;
+                        window.location.href = "admin/get/page.html?pageNum=" + pageNum;
                     }
                     if (result === "FAILED") {
                         layer.msg("操作失败！" + response.message);
                     }
                 },
-                error:function(response){
-                    layer.msg(response.status+" "+response.statusText);
+                error: function (response) {
+                    layer.msg(response.status + " " + response.statusText);
                 }
             });
             // 关闭模态框
@@ -66,14 +66,14 @@
         })
 
         // 3.点击编辑按钮打开模态框
-        $("#adminPageBody").on("click",".pencilBtn",function () {
+        $("#adminPageBody").on("click", ".pencilBtn", function () {
             // 打开模态框
             $("#adminEditModal").modal("show");
             window.adminId = this.id;
             var admin = getAdminById(adminId);
-            if (admin == null){
+            if (admin == null) {
                 $("#adminEditModal").modal("hide");
-            }else {
+            } else {
                 // 回显表单数据
                 $("#adminEditModal [name=adminAcct]").val(admin.adminAcct)
                 $("#adminEditModal [name=adminName]").val(admin.adminName)
@@ -92,34 +92,73 @@
             $.ajax({
                 url: "admin/update.json",
                 data: {
-                    "adminId":window.adminId,
-                    "adminAcct":adminAcct,
-                    "adminName":adminName,
-                    "adminType":adminType
+                    "adminId": window.adminId,
+                    "adminAcct": adminAcct,
+                    "adminName": adminName,
+                    "adminType": adminType
                 },
-                dataType:"json",
-                success: function (resp){
+                dataType: "json",
+                success: function (resp) {
                     let result = resp.result;
                     if (result === "SUCCESS") {
                         layer.msg("更新成功！");
 
                         // 重新加载分页
-                        window.location.href="admin/get/page.html?pageNum="+${pageInfo.pageNum};
+                        window.location.href = "admin/get/page.html?pageNum=" +${pageInfo.pageNum};
                     }
                     if (result === "FAILED") {
                         layer.msg("操作失败！" + response.message);
                     }
                 },
-                error:function(response){
-                    layer.msg(response.status+" "+response.statusText);
+                error: function (response) {
+                    layer.msg(response.status + " " + response.statusText);
                 }
             });
             //关闭模态框
             $("#adminEditModal").modal("hide");
         });
 
+        // 8. 点击确认模态框中的确认删除按钮执行删除
+        $("#confirmRemoveBtn").click(function () {
 
+            let requestBody = JSON.stringify(window.adminIdArray);
+            $.ajax({
+                url: "admin/remove/by/admin/id/array.json",
+                type: "post",
+                data: requestBody,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (resp) {
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("删除成功！");
 
+                        // 重新加载分页
+                        // generatePage();
+                        window.location.href = "admin/get/page.html?pageNum=" +${pageInfo.pageNum};
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + resp.message);
+                    }
+                },
+                error: function (resp) {
+                    layer.msg(resp.status + "" + resp.statusText);
+                }
+            });
+            // 关闭模态框
+            $("#adminConfirmModal").modal("hide");
+        });
+
+        //单条删除
+        $("#adminPageBody").on("click", ".removeBtn", function () {
+            let adminName = $(this).parent().prev().prev().text();
+            let adminArray = [{
+                adminId:this.id,
+                adminName:adminName
+            }];
+            // console.log(adminArray);
+            showConfirmModal(adminArray);
+        });
     });
 
     function initPagination() {
@@ -213,9 +252,11 @@
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs"><i
                                                     class=" glyphicon glyphicon-check"></i></button>
-                                            <button id="${admin.adminId}" type="button" class="btn btn-primary btn-xs pencilBtn"><i
+                                            <button id="${admin.adminId}" type="button"
+                                                    class="btn btn-primary btn-xs pencilBtn"><i
                                                     class=" glyphicon glyphicon-pencil"></i></button>
-                                            <button id="${admin.adminId}" type="button" class="btn btn-danger btn-xs removeBtn"><i
+                                            <button id="${admin.adminId}" type="button"
+                                                    class="btn btn-danger btn-xs removeBtn"><i
                                                     class=" glyphicon glyphicon-remove"></i></button>
                                         </td>
                                     </tr>
@@ -238,7 +279,7 @@
     </div>
 </div>
 <%@include file="modal-admin-add.jsp" %>
-<%@include file="modal-admin-edit.jsp"%>
+<%@include file="modal-admin-edit.jsp" %>
 </body>
 </html>
 

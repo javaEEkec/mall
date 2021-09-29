@@ -19,7 +19,7 @@
       <form>
         <div class="modal-body">
           <h4>确认是否删除下列用户</h4>
-          <div id="roleNameDiv" style="text-align: center;"></div>
+          <div id="adminNameDiv" style="text-align: center;"></div>
         </div>
         <div class="modal-footer">
           <button id="confirmRemoveBtn" type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> 确认删除</button>
