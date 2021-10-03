@@ -18,6 +18,7 @@
                 connectionURL="jdbc:mysql://localhost:3306/mall_v1?serverTimezone=UTC"
                 userId="root"
                 password="1234">
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
         <!--  默认 false，把 JDBC DECIMAL  和 NUMERIC  类型解析为 Integer，为 true 时把
         JDBC DECIMAL
@@ -47,6 +48,6 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!--  数据库表名字和我们的 entity 类对应的映射指定 -->
-        <table tableName="admin" domainObjectName="Admin" />
+        <table tableName="user" domainObjectName="UserPO" />
     </context>
 </generatorConfiguration>

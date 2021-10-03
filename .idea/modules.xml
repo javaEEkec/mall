@@ -8,6 +8,17 @@
       <module fileurl="file://$PROJECT_DIR$/mall01-admin-parent/mall04-admin-entity/mall04-admin-entity.iml" filepath="$PROJECT_DIR$/mall01-admin-parent/mall04-admin-entity/mall04-admin-entity.iml" />
       <module fileurl="file://$PROJECT_DIR$/mall05-common-util/mall05-common-util.iml" filepath="$PROJECT_DIR$/mall05-common-util/mall05-common-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/mall06-common-reverse/mall06-common-reverse.iml" filepath="$PROJECT_DIR$/mall06-common-reverse/mall06-common-reverse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall07-user-parent.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall07-user-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall08-user-eureka/mall08-user-eureka.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall08-user-eureka/mall08-user-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall09-user-entity/mall09-user-entity.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall09-user-entity/mall09-user-entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall10-user-mysql-provider/mall10-user-mysql-provider.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall10-user-mysql-provider/mall10-user-mysql-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall11-user-redis-provider/mall11-user-redis-provider.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall11-user-redis-provider/mall11-user-redis-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall12-user-portal-consumer/mall12-user-portal-consumer.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall12-user-portal-consumer/mall12-user-portal-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall13-user-product-consumer/mall13-user-product-consumer.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall13-user-product-consumer/mall13-user-product-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall14-user-order-consumer/mall14-user-order-consumer.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall14-user-order-consumer/mall14-user-order-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall15-user-pay-consumer/mall15-user-pay-consumer.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall15-user-pay-consumer/mall15-user-pay-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall16-user-zuul/mall16-user-zuul.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall16-user-zuul/mall16-user-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mall07-user-parent/mall17-user-api/mall17-user-api.iml" filepath="$PROJECT_DIR$/mall07-user-parent/mall17-user-api/mall17-user-api.iml" />
     </modules>
   </component>
 </project>

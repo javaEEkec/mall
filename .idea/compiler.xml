@@ -2,15 +2,26 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mall14-user-order-consumer" />
+        <module name="mall04-admin-entity" />
+        <module name="mall17-user-api" />
+        <module name="mall03-admin-component" />
+        <module name="mall08-user-eureka" />
+        <module name="mall09-user-entity" />
+        <module name="mall13-user-product-consumer" />
+        <module name="mall15-user-pay-consumer" />
+        <module name="mall11-user-redis-provider" />
+        <module name="mall02-admin-webui" />
         <module name="mall06-common-reverse" />
         <module name="mall05-common-util" />
-        <module name="mall04-admin-entity" />
-        <module name="mall03-admin-component" />
-        <module name="mall02-admin-webui" />
+        <module name="mall12-user-portal-consumer" />
+        <module name="mall16-user-zuul" />
+        <module name="mall10-user-mysql-provider" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -28,6 +39,17 @@
       <module name="mall04-admin-entity (2)" target="1.8" />
       <module name="mall05-common-util" target="1.8" />
       <module name="mall06-common-reverse" target="1.8" />
+      <module name="mall07-user-parent" target="8" />
+      <module name="mall08-user-eureka" target="8" />
+      <module name="mall09-user-entity" target="8" />
+      <module name="mall10-user-mysql-provider" target="8" />
+      <module name="mall11-user-redis-provider" target="8" />
+      <module name="mall12-user-portal-consumer" target="8" />
+      <module name="mall13-user-product-consumer" target="8" />
+      <module name="mall14-user-order-consumer" target="8" />
+      <module name="mall15-user-pay-consumer" target="8" />
+      <module name="mall16-user-zuul" target="8" />
+      <module name="mall17-user-api" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

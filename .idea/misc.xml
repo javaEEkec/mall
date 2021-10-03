@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/mall05-common-util/pom.xml" />
         <option value="$PROJECT_DIR$/mall06-common-reverse/pom.xml" />
         <option value="$PROJECT_DIR$/mall01-admin-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/mall07-user-parent/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
