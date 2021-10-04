@@ -6,6 +6,7 @@ import com.myteam.mall.mapper.UserPOMapper;
 import com.myteam.mall.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class UserServiceImpl implements UserService {
         List<UserPO> list = userPOMapper.selectByExample(example);
 
         return list.get(0);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Override
+    public void saveUser(UserPO userPO) {
+        userPOMapper.insertSelective(userPO);
     }
 
 }
