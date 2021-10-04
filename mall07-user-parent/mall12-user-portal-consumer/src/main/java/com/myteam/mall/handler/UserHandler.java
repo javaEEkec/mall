@@ -43,7 +43,7 @@ public class UserHandler {
             modelMap.addAttribute(MallConstant.ATTR_NAME_MESSAGE,saveUserResultEntity.getMessage());
             return "user-register";
         }
-        return "user-login";
+        return "redirect:/portal/user/to/login/page";
     }
 
 }
