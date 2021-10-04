@@ -21,7 +21,7 @@ public class MallWebMvcConfig implements WebMvcConfigurer {
         //浏览器访问的地址
         String urlPath = "/portal/user/to/reg/page.html";
         //目标试图的名称
-        String viewName = "user-reg";
+        String viewName = "user-register";
         registry.addViewController(urlPath).setViewName(viewName);
     }
 }
