@@ -19,6 +19,7 @@
         <module>mall15-user-pay-consumer</module>
         <module>mall16-user-zuul</module>
         <module>mall17-user-api</module>
+        <module>mall18-user-adv</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

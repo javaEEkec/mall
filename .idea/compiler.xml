@@ -19,6 +19,7 @@
         <module name="mall02-admin-webui" />
         <module name="mall06-common-reverse" />
         <module name="mall05-common-util" />
+        <module name="mall18-user-adv" />
         <module name="mall12-user-portal-consumer" />
         <module name="mall16-user-zuul" />
         <module name="mall10-user-mysql-provider" />
@@ -50,6 +51,7 @@
       <module name="mall15-user-pay-consumer" target="8" />
       <module name="mall16-user-zuul" target="8" />
       <module name="mall17-user-api" target="8" />
+      <module name="mall18-user-adv" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
