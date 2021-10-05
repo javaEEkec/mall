@@ -49,7 +49,6 @@ public class UserHandler {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(createTime);
         userDetailVO.setCreateTime(format);
-//        session.setAttribute(MallConstant.ATTR_NAME_USER_DETAIL,userDetailVO);
         return ResultEntity.successWithData(userDetailVO);
     }
 
