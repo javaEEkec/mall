@@ -1,10 +1,13 @@
 package com.myteam.mall;
 
 import com.myteam.mall.entity.po.UserPO;
+import com.myteam.mall.entity.vo.UserDetailVO;
 import com.myteam.mall.mapper.UserPOMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +44,21 @@ public class MybatisTest {
         UserPO userPO = new UserPO(null,"2269213","ljs",encode,"abaaba","f","linjs6288@gmail.com",
                 "13690596288","广州市天河区龙洞广东金融学院","img1.jpg",new Date());
         userPOMapper.insert(userPO);
+    }
+
+    @Test
+    public void testSelectID(){
+        UserPO userPO = userPOMapper.selectByPrimaryKey(6);
+        System.out.println(userPO);
+    }
+
+    @Test
+    public void testCopy(){
+        UserPO userPO = userPOMapper.selectByPrimaryKey(1);
+        UserDetailVO userDetailVO = new UserDetailVO();
+        BeanUtils.copyProperties(userPO,userDetailVO);
+        System.out.println(userPO);
+        System.out.println(userDetailVO);
     }
 
 }

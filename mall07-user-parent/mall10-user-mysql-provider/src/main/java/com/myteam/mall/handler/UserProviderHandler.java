@@ -36,7 +36,7 @@ public class UserProviderHandler {
 
     @RequestMapping("/get/userpo/by/user/acct/remote")
     ResultEntity<UserPO> getUserPOByUserAcctRemote(@RequestParam("userAcct") String userAcct){
-        UserPO userPO = null;
+        UserPO userPO;
         try {
             // 1.调用本地Service完成查询
             userPO = userService.getUserPOByUserAcct(userAcct);
@@ -45,6 +45,17 @@ public class UserProviderHandler {
         } catch (Exception e) {
             e.printStackTrace();
             // 3. 异常则返回异常信息
+            return ResultEntity.failed(e.getMessage());
+        }
+    }
+    @RequestMapping("/get/userpo/by/user/id/remote")
+    ResultEntity<UserPO> getUserPOByUserId(@RequestParam("userId") Integer userId){
+        UserPO userPO;
+        try{
+            userPO = userService.getUserPOByUserId(userId);
+            return ResultEntity.successWithData(userPO);
+        }catch (Exception e){
+            e.printStackTrace();
             return ResultEntity.failed(e.getMessage());
         }
     }

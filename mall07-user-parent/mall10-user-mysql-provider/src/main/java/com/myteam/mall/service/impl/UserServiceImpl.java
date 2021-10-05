@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
         userPOMapper.insertSelective(userPO);
     }
 
+    @Override
+    public UserPO getUserPOByUserId(Integer userId) {
+        return userPOMapper.selectByPrimaryKey(userId);
+    }
+
 }

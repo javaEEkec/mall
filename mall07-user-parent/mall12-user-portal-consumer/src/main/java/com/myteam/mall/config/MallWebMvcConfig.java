@@ -24,6 +24,7 @@ public class MallWebMvcConfig implements WebMvcConfigurer {
         String viewName = "user-register";
         registry.addViewController(urlPath).setViewName(viewName);
         registry.addViewController("/portal/user/to/login/page").setViewName("user-login");
-        registry.addViewController("/portal/member/to/center/page").setViewName("user-center");
+        registry.addViewController("/portal/user/to/center/page").setViewName("user-center");
+        registry.addViewController("/portal/user/to/user/detail").setViewName("user-detail");
     }
 }

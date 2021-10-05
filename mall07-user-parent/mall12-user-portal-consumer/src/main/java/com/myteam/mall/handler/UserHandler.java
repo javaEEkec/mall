@@ -3,18 +3,22 @@ package com.myteam.mall.handler;
 import com.myteam.mall.api.MySQLRemoteService;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.po.UserPO;
+import com.myteam.mall.entity.vo.UserDetailVO;
 import com.myteam.mall.entity.vo.UserLoginVO;
 import com.myteam.mall.entity.vo.UserVO;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -25,6 +29,29 @@ public class UserHandler {
 
     @Autowired
     private MySQLRemoteService mysqlRemoteService;
+
+    @ResponseBody
+    @RequestMapping("/do/user/detail")
+    public ResultEntity<UserDetailVO> doUserDetail(Integer userId, ModelMap modelMap){
+        ResultEntity<UserPO> resultEntity = mysqlRemoteService.getUserPOByUserId(userId);
+        if (ResultEntity.FAILED.equals(resultEntity.getResult())){
+            modelMap.addAttribute(MallConstant.ATTR_NAME_EXCEPTION,resultEntity.getMessage());
+            return ResultEntity.failed(resultEntity.getMessage());
+        }
+        if (resultEntity.getData() == null){
+            modelMap.addAttribute(MallConstant.ATTR_NAME_EXCEPTION,MallConstant.MESSAGE_USER_DETAIL_NO_FOUND);
+            return ResultEntity.failed((resultEntity.getMessage()));
+        }
+        // 复制属性
+        UserDetailVO userDetailVO = new UserDetailVO();
+        BeanUtils.copyProperties(resultEntity.getData(),userDetailVO);
+        Date createTime = resultEntity.getData().getCreateTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(createTime);
+        userDetailVO.setCreateTime(format);
+//        session.setAttribute(MallConstant.ATTR_NAME_USER_DETAIL,userDetailVO);
+        return ResultEntity.successWithData(userDetailVO);
+    }
 
     @RequestMapping("/do/user/register")
     public String register(UserVO userVO, ModelMap modelMap){
@@ -46,7 +73,7 @@ public class UserHandler {
             modelMap.addAttribute(MallConstant.ATTR_NAME_MESSAGE,saveUserResultEntity.getMessage());
             return "user-register";
         }
-        return "redirect:/portal/user/to/login/page";
+        return "redirect:http://www.mall.com/portal/user/to/login/page";
     }
 
     @RequestMapping("/portal/user/do/login")
@@ -77,13 +104,14 @@ public class UserHandler {
         // 如果密码不匹配，则
         if (!matchesResult){
             modelMap.addAttribute(MallConstant.ATTR_NAME_EXCEPTION,MallConstant.MESSAGE_LOGIN_FAILED);
+            return "user-login";
         }
 
         //创建UserLoginVO对象存入session域
         UserLoginVO userLoginVO = new UserLoginVO(userPO.getUserId(), userPO.getUserName(), userPO.getEmail());
         session.setAttribute(MallConstant.ATTR_NAME_LOGIN_USER,userLoginVO);
 
-        return "redirect:http://www.mall.com/portal/member/to/center/page";
+        return "redirect:http://www.mall.com/portal/user/to/center/page";
     }
 
     /**
@@ -94,7 +122,7 @@ public class UserHandler {
 
         session.invalidate();
 
-        return "redirect:/";
+        return "redirect:http://www.mall.com/";
     }
 
 }

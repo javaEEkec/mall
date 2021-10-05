@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>个人中心</title>
+    <base th:href="@{/}"/>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+        #topcontrol {
+            color: #fff;
+            z-index: 99;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            background: #222;
+            position: relative;
+            right: 14px !important;
+            bottom: 11px !important;
+            border-radius: 3px !important;
+        }
+
+        #topcontrol:after {
+            /*top: -2px;*/
+            left: 8.5px;
+            content: "\f106";
+            position: absolute;
+            text-align: center;
+            font-family: FontAwesome;
+        }
+
+        #topcontrol:hover {
+            color: #fff;
+            background: #18ba9b;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html" th:href="@{/}" style="font-size:32px;">拼客——大学生自己的购物平台</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> [[${session.loginUser.userName}]]<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="member.html" th:href="@{/portal/member/to/center/page}"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html" th:href="@{/portal/user/logout}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-sm-3 col-md-3 column">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="thumbnail" style="    border-radius: 0px;">
+                        <img src="img/services-box1.jpg" class="img-thumbnail" alt="">
+                        <div class="caption" style="text-align:center;">
+                            <h3>
+                                [[${session.loginUser.userName}]]
+                            </h3>
+                            <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="list-group">-->
+<!--                <div class="list-group-item active">-->
+<!--                    资产总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>-->
+<!--                </div>-->
+<!--                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">-->
+<!--                    个人详细信息<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
+                <div class="panel-body">
+                    <form role="form" id="editUserFrom">
+                        <input name="userId" id="inputUserId" type="hidden" th:value="${session.loginUser.userId}">
+                        <div class="form-group">
+                            <label for="inputUserName">用户名</label>
+                            <input name="userName" type="text" class="form-control" id="inputUserName" >
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNickName">昵称</label>
+                            <input name="nickname" type="text" class="form-control" id="inputNickName">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNickName">性别</label>
+                            <input type="radio" name="gender" value="m">男
+                            <input type="radio" name="gender" value="f">女
+                            <input type="radio" name="gender" value="n" checked="checked">未知
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">邮箱地址</label>
+                            <input name="email" type="email" class="form-control" id="exampleInputEmail1">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContactPhone">联系电话</label>
+                            <input name="contactPhone" type="text" class="form-control" id="inputContactPhone">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">收货地址</label>
+                            <input name="address" type="text" class="form-control" id="inputAddress">
+                        </div>
+                        <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i> 修改</button>
+                        <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top:20px;">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div id="footer">
+                <div class="footerNav">
+                    <a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
+                </div>
+                <div class="copyRight">
+                    Copyright ?2017-2017atguigu.com 版权所有
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-3.5.1.js}"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+<script th:src="@{/js/my-user.js}"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="script/docs.min.js"></script>
+<script src="script/back-to-top.js"></script>
+<script src="script/echarts.js"></script>
+<script>
+
+    $(function () {
+        let userId = $('#inputUserId').val()
+        let userDetail = getUserDetailByUserId(userId);
+        //回显表单数据
+        $("#editUserFrom [name=userName]").val(userDetail.userName);
+        $('#editUserFrom [name=nickname]').val(userDetail.nickname);
+        $("#editUserFrom [name=email]").val(userDetail.email);
+        $("#editUserFrom [name=address]").val(userDetail.address);
+        $("#editUserFrom [name=contactPhone]").val(userDetail.contactPhone);
+    })
+</script>
+</body>
+</html>
