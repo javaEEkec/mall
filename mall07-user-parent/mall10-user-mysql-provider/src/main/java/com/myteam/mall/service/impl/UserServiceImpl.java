@@ -28,6 +28,10 @@ public class UserServiceImpl implements UserService {
 
         List<UserPO> list = userPOMapper.selectByExample(example);
 
+        if (list == null || list.size() == 0){
+            return null;
+        }
+
         return list.get(0);
     }
 
