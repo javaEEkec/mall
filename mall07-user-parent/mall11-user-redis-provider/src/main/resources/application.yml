@@ -4,7 +4,7 @@ spring:
   application:
     name: myteam-mall-redis
   redis:
-    host: 124.70.139.239
+    host: 127.0.0.1
 
 eureka:
   client:

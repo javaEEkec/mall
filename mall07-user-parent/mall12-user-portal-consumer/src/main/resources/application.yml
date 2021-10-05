@@ -9,10 +9,9 @@ spring:
     suffix: .html
     cache: false
   redis:
-    host: 124.70.139.239
+    host: 127.0.0.1
   session:
     store-type: redis
-
 
 ribbon:
   ReadTimeout: 60000
