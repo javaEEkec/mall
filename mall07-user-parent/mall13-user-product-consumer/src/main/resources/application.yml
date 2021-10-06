@@ -1,0 +1,27 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: myteam-mall-product
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+
+huaweicloud:
+  obs:
+    access-key-id: C7MSZTKHGOAYXSVXQGZL
+    access-key-secret: 0xh9SuIfOGDYzJgI8paIvywkojpWblgS2ijsuHll
+    bucket-domain: https://myteam001.obs.cn-south-1.myhuaweicloud.com
+    bucket-name: myteam001
+    end-point: https://obs.cn-south-1.myhuaweicloud.com
+
