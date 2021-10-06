@@ -48,6 +48,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!--  数据库表名字和我们的 entity 类对应的映射指定 -->
-        <table tableName="user" domainObjectName="UserPO" />
+<!--        <table tableName="inventory_product" domainObjectName="InventoryProduct" />-->
+        <table tableName="online_product" domainObjectName="OnlineProduct" />
     </context>
 </generatorConfiguration>
