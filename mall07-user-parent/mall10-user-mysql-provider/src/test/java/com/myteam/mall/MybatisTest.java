@@ -1,7 +1,10 @@
 package com.myteam.mall;
 
 import com.myteam.mall.entity.po.UserPO;
+import com.myteam.mall.entity.vo.PortalCategoryVO;
+import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.entity.vo.UserDetailVO;
+import com.myteam.mall.mapper.OnlineProductMapper;
 import com.myteam.mall.mapper.UserPOMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
@@ -17,6 +20,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +32,9 @@ public class MybatisTest {
 
     @Autowired
     private UserPOMapper userPOMapper;
+
+    @Autowired
+    private OnlineProductMapper onlineProductMapper;
 
     @Test
     public void testConnection() throws SQLException {
@@ -59,6 +66,23 @@ public class MybatisTest {
         BeanUtils.copyProperties(userPO,userDetailVO);
         System.out.println(userPO);
         System.out.println(userDetailVO);
+    }
+
+    @Test
+    public void testLoadCategoryData(){
+        List<PortalCategoryVO> portalCategoryVOList = onlineProductMapper.selectPortalCategoryVOList();
+
+        for (PortalCategoryVO portalCategoryVO : portalCategoryVOList) {
+            String category = portalCategoryVO.getCategory();
+            log.info("category="+category);
+            List<ProductSimpleVO> productSimpleVOList = portalCategoryVO.getProductSimpleVOList();
+            for (ProductSimpleVO productSimpleVO: productSimpleVOList) {
+                if (productSimpleVO == null){
+                    continue;
+                }
+                log.info(productSimpleVO.toString());
+            }
+        }
     }
 
 }

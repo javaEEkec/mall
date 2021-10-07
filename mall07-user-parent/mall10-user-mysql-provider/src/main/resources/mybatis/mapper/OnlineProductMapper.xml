@@ -203,6 +203,29 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  
+  <resultMap id="loadPortalProductListResultMap" type="com.myteam.mall.entity.vo.PortalCategoryVO">
+    <result column="category" property="category"/>
+    <collection property="productSimpleVOList"
+                column="category"
+                ofType="com.myteam.mall.entity.vo.ProductSimpleVO"
+                select="com.myteam.mall.mapper.OnlineProductMapper.selectProductSimpleVOList"/>
+  </resultMap>
+  <select id="selectPortalCategoryVOList" resultMap="loadPortalProductListResultMap">
+    select distinct category from online_product
+  </select>
+  <select id="selectProductSimpleVOList" resultType="com.myteam.mall.entity.vo.ProductSimpleVO">
+    select product_id productId,
+           product_name productName,
+           brand,
+           price,
+           product_img productImg
+           from online_product
+        where category = #{category}
+        order by product_id
+        Limit 0,4
+  </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update online_product
     <set>
