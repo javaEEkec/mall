@@ -5,8 +5,8 @@
       <configuration>
         <webroots />
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
           <root url="file://$MODULE_DIR$/src/main/resources" />
+          <root url="file://$MODULE_DIR$/src/main/java" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -190,5 +190,7 @@
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-core:10.10.1" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-slf4j:10.10.1" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-hystrix:10.10.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:3.2" level="project" />
   </component>
 </module>

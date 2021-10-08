@@ -1,8 +1,10 @@
 package com.myteam.mall.handler;
 
 
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.api.MySQLRemoteService;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
+import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,4 +32,7 @@ public class PortalHandler {
     public ResultEntity<List<PortalCategoryVO>> getPortalCategoryProductData(){
         return mysqlRemoteService.getPortalCategoryDataRemote();
     }
+
+
+
 }

@@ -39,4 +39,5 @@ public interface OnlineProductMapper {
     List<ProductSimpleVO> selectProductSimpleVOList(String category);
 
 
+    List<ProductSimpleVO> selectProductsByKeyword(String keyword);
 }

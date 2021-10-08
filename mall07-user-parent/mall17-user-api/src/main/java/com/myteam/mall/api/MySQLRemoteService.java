@@ -1,7 +1,9 @@
 package com.myteam.mall.api;
 
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.po.UserPO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
+import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,4 +40,9 @@ public interface MySQLRemoteService {
      */
     @RequestMapping("/get/portal/category/data/remote")
     public ResultEntity<List<PortalCategoryVO>> getPortalCategoryDataRemote();
+
+    @RequestMapping("/online/product/get/page/info/remote")
+    public ResultEntity<PageInfo<ProductSimpleVO>> getProductSimpleVOPageInfoRemote(@RequestParam("keyword") String keyword,
+                                                                                    @RequestParam("pageNum") Integer pageNum,
+                                                                                    @RequestParam("pageSize") Integer pageSize);
 }

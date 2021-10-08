@@ -85,4 +85,16 @@ public class MybatisTest {
         }
     }
 
+    @Test
+    public void testSelectProductsByKeyword(){
+        List<ProductSimpleVO> productSimpleVOList = onlineProductMapper.selectProductsByKeyword("水果");
+        for (ProductSimpleVO p:
+             productSimpleVOList) {
+            if (p == null){
+                continue;
+            }
+            log.info(p.toString());
+        }
+    }
+
 }

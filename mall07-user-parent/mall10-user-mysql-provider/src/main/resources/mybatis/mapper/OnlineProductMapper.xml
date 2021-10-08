@@ -225,8 +225,19 @@
         order by product_id
         Limit 0,4
   </select>
-  
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectProductsByKeyword" resultType="com.myteam.mall.entity.vo.ProductSimpleVO">
+      select product_id productId,
+             product_name productName,
+             brand,
+             price,
+             product_img productImg
+      from online_product
+    where product_name like concat('%',#{keyword},'%')
+    or brand like concat('%',#{keyword},'%')
+    or category like concat('%',#{keyword},'%')
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map">
     update online_product
     <set>
       <if test="record.productId != null">

@@ -23,3 +23,6 @@ zuul:
     mall-portal:
       service-id: myteam-mall-portal
       path: /**
+    mall-product:
+      service-id: myteam-mall-product
+      path: /product/**
