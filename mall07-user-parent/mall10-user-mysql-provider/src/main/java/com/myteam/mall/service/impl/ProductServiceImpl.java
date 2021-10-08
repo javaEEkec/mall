@@ -30,4 +30,9 @@ public class ProductServiceImpl implements ProductService {
         List<ProductSimpleVO> productList = onlineProductMapper.selectProductsByKeyword(keyword);
         return new PageInfo<>(productList);
     }
+
+    @Override
+    public OnlineProduct getProductById(Integer productId) {
+        return onlineProductMapper.selectByPrimaryKey(productId);
+    }
 }

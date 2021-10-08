@@ -42,4 +42,16 @@ public class ProductProviderHandler {
             return ResultEntity.failed(e.getMessage());
         }
     }
+
+    @RequestMapping("online/product/get/detail/remote")
+    public ResultEntity<OnlineProduct> getProductById(Integer productId){
+        try {
+            OnlineProduct onlineProduct = productService.getProductById(productId);
+            return ResultEntity.successWithData(onlineProduct);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultEntity.failed(e.getMessage());
+        }
+
+    }
 }

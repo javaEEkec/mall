@@ -19,6 +19,8 @@ public class AccessPassResources {
         PASS_RES_SET.add("/portal/user/logout");
         PASS_RES_SET.add("/get/portal/category/product/data");
         PASS_RES_SET.add("/product/to/page");
+        PASS_RES_SET.add("/product/get/products/page/info");
+        PASS_RES_SET.add("/product/get/online/product/detail/by/id");
     }
 
     public static final Set<String> STATIC_RES_SET = new HashSet<>();

@@ -25,4 +25,6 @@ public interface ProductService {
      * @return
      */
     PageInfo<ProductSimpleVO> getProductsPageInfo(String keyword, Integer pageNum, Integer pageSize);
+
+    OnlineProduct getProductById(Integer productId);
 }

@@ -1,5 +1,6 @@
 package com.myteam.mall;
 
+import com.myteam.mall.entity.po.OnlineProduct;
 import com.myteam.mall.entity.po.UserPO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
@@ -95,6 +96,12 @@ public class MybatisTest {
             }
             log.info(p.toString());
         }
+    }
+
+    @Test
+    public void testSelectProductById(){
+        OnlineProduct onlineProduct = onlineProductMapper.selectByPrimaryKey(3);
+        System.out.println(onlineProduct);
     }
 
 }

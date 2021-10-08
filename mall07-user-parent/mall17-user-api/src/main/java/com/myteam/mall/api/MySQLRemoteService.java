@@ -1,6 +1,7 @@
 package com.myteam.mall.api;
 
 import com.github.pagehelper.PageInfo;
+import com.myteam.mall.entity.po.OnlineProduct;
 import com.myteam.mall.entity.po.UserPO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
@@ -41,8 +42,23 @@ public interface MySQLRemoteService {
     @RequestMapping("/get/portal/category/data/remote")
     public ResultEntity<List<PortalCategoryVO>> getPortalCategoryDataRemote();
 
+    /**
+     * 根据关键词查询商品的分页信息
+     * @param keyword
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping("/online/product/get/page/info/remote")
     public ResultEntity<PageInfo<ProductSimpleVO>> getProductSimpleVOPageInfoRemote(@RequestParam("keyword") String keyword,
                                                                                     @RequestParam("pageNum") Integer pageNum,
                                                                                     @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * 根据商品编号返回商品的详细信息
+     * @param productId 产品编号
+     * @return
+     */
+    @RequestMapping("online/product/get/detail/remote")
+    public ResultEntity<OnlineProduct> getProductById(@RequestParam("productId") Integer productId);
 }

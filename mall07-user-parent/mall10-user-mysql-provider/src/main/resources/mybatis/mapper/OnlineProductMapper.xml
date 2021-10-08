@@ -73,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_name, brand, shop_id, price, product_img, category, produce_time, 
-    describe, activity_type, end_time, online_num
+    product_id, product_name, brand, shop_id, price, product_img, category, produce_time,
+    'describe', activity_type, end_time, online_num
   </sql>
   <select id="selectByExample" parameterType="com.myteam.mall.entity.po.OnlineProductExample" resultMap="BaseResultMap">
     select
