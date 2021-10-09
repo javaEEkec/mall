@@ -13,6 +13,7 @@ public class MallConstant {
     public static final String MESSAGE_STRING_INVALIDATE = "数据不合法，禁用传入空数据！";
     public static final String MESSAGE_SYSTEM_ERROR_LOGIN_NOT_UNIQUE = "系统错误：系统账号不唯一!";
     public static final String MESSAGE_USER_DETAIL_NO_FOUND = "找不到用户的详细信息";
+    public static final String MESSAGE_PRODUCT_DETAIL_NO_FOUND = "抱歉！查不到该商品的数据";
 
     public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
     public static final String ATTR_NAME_MESSAGE = "message";

@@ -1,9 +1,12 @@
 package com.myteam.mall.test;
 
 
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.Admin;
+import com.myteam.mall.entity.Shop;
 import com.myteam.mall.mapper.AdminMapper;
 import com.myteam.mall.service.api.AdminService;
+import com.myteam.mall.service.api.ShopService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -23,6 +26,9 @@ public class CrowdTest {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private ShopService shopService;
+
     @Test
     public void testConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -41,6 +47,19 @@ public class CrowdTest {
     public void testTx(){
         Admin admin  = new Admin(null,"22692","ljs","123456","user_admin");
         adminService.saveAdmin(admin);
+    }
+
+    @Test
+    public void saveShop(){
+        Shop shop = new Shop(null,"10004","platform33","老刘","1254862588");
+
+        shopService.saveShop(shop);
+    }
+
+    @Test
+    public void testPageShop(){
+        PageInfo<Shop> pageInfo = shopService.getPageInfo("", 1, 2);
+        System.out.println(pageInfo);
     }
 
 

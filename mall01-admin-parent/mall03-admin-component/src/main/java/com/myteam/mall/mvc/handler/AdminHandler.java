@@ -28,7 +28,7 @@ public class AdminHandler {
     private AdminService adminService;
 
 
-    @RequestMapping("admin/do/login.html")
+    @RequestMapping("/admin/do/login.html")
     public String doLogin(
             @RequestParam("adminAcct") String adminAcct,
             @RequestParam("adminPswd") String adminPswd,
@@ -40,14 +40,14 @@ public class AdminHandler {
         return "redirect:/admin/to/main/page.html";
     }
 
-    @RequestMapping("admin/do/logout.html")
+    @RequestMapping("/admin/do/logout.html")
     public String doLogout(HttpSession session) {
         // 强制Session失效
         session.invalidate();
         return "redirect:/admin/to/login/page.html";
     }
 
-    @RequestMapping("admin/get/page.html")
+    @RequestMapping("/admin/get/page.html")
     public String getPageInfo(
             @RequestParam(value = "keyword", defaultValue = "") String keyword,
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -61,21 +61,21 @@ public class AdminHandler {
 
 
     @ResponseBody
-    @RequestMapping("admin/save.json")
+    @RequestMapping("/admin/save.json")
     public ResultEntity<String> saveAdmin(Admin admin) {
         adminService.saveAdmin(admin);
         return ResultEntity.successWithoutData();
     }
 
     @ResponseBody
-    @RequestMapping("admin/update.json")
+    @RequestMapping("/admin/update.json")
     public ResultEntity<String> updateAdmin(Admin admin) {
         adminService.updateAdmin(admin);
         return ResultEntity.successWithoutData();
     }
 
     @ResponseBody
-    @RequestMapping("admin/get/admin.json")
+    @RequestMapping("/admin/get/admin.json")
     public ResultEntity<Admin> getAdmin(Integer adminId){
         Admin admin = adminService.getAdminById(adminId);
         return ResultEntity.successWithData(admin);
@@ -83,7 +83,7 @@ public class AdminHandler {
 
 
     @ResponseBody
-    @RequestMapping("admin/remove/by/admin/id/array.json")
+    @RequestMapping("/admin/remove/by/admin/id/array.json")
     public ResultEntity<Admin> removeByAdminIdArray(@RequestBody List<Integer> adminIdList){
         adminService.removeAdmin(adminIdList);
         return ResultEntity.successWithoutData();

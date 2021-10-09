@@ -2,10 +2,7 @@ package com.myteam.mall.mvc.config;
 
 import com.google.gson.Gson;
 import com.myteam.mall.constant.MallConstant;
-import com.myteam.mall.exception.AccessForbiddenException;
-import com.myteam.mall.exception.LoginAcctAlreadyInUseException;
-import com.myteam.mall.exception.LoginAcctAlreadyInUseForUpdateException;
-import com.myteam.mall.exception.LoginFailedException;
+import com.myteam.mall.exception.*;
 import com.myteam.mall.util.MallUtil;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @ControllerAdvice
 public class MallExceptionResolver {
+
+    @ExceptionHandler(value = ShopAcctAlreadyInUseException.class)
+    public ModelAndView resolveShopAcctAlreadyInUseException(LoginAcctAlreadyInUseForUpdateException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "shop-add";
+        return commonResolve(viewName,exception,request,response);
+    }
 
     @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
     public ModelAndView resolveLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseForUpdateException exception,HttpServletRequest request,HttpServletResponse response) throws IOException {

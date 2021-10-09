@@ -2,6 +2,7 @@ package com.myteam.mall.handler;
 
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.api.MySQLRemoteService;
+import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.po.OnlineProduct;
 import com.myteam.mall.entity.vo.ProductDetailVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
@@ -42,7 +43,7 @@ public class ProductConsumerHandler {
         ResultEntity<OnlineProduct> resultEntity = mysqlRemoteService.getProductById(productId);
         OnlineProduct onlineProduct = resultEntity.getData();
         if (onlineProduct == null){
-            return ResultEntity.failed("抱歉！查不到该商品的数据");
+            return ResultEntity.failed(MallConstant.MESSAGE_PRODUCT_DETAIL_NO_FOUND);
         }
         Date produceTime0 = onlineProduct.getProduceTime();
         Date endTime0 = onlineProduct.getEndTime();

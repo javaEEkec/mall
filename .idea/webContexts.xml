@@ -5,6 +5,9 @@
       <map>
         <entry key="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp/WEB-INF/admin-page.jsp" value="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp/WEB-INF/include-head.jsp" value="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp/WEB-INF/inventory-product-page.jsp" value="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp/WEB-INF/online-product-page.jsp" value="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp/WEB-INF/shop-list.jsp" value="file://$PROJECT_DIR$/mall01-admin-parent/mall02-admin-webui/src/main/webapp" />
       </map>
     </option>
   </component>
