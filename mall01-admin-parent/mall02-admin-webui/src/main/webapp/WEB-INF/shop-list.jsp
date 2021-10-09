@@ -1,4 +1,4 @@
-<%--
+﻿<%--
   Created by IntelliJ IDEA.
   User: mzx
   Date: 2021/9/7
@@ -12,7 +12,20 @@
 <%@include file="include-head.jsp" %>
 <link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+<script type="text/javascript" src="js/my-shop.js"></script>
+<script type="text/javascript">
+    $(function (){
+        // 1.为分页操作准备初始化数据
+        window.pageNum = 1;
+        window.pageSize = 5;
+        window.keyword = "";
 
+        //2.调用执行分页函数，显示分页效果
+        generatePage();
+
+
+    })
+</script>
 <body>
 <%@include file="include-nav.jsp" %>
 <div class="container-fluid">
@@ -50,7 +63,7 @@
                             <tr>
                                 <th width="30">#</th>
                                 <th width="30"><input id="summaryBox" type="checkbox"></th>
-                                <th>商家遍号</th>
+                                <th>shop_acct</th>
                                 <th>商家名</th>
                                 <th>负责人</th>
                                 <th>电话</th>
@@ -66,7 +79,6 @@
                                     <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
                                 </td>
                             </tr>
-
                             </tfoot>
                         </table>
                     </div>

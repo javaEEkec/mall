@@ -5,7 +5,7 @@ import com.myteam.mall.entity.OnlineProductExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface OnlineProductMapper {
+public interface OnlineProductMapper0 {
     long countByExample(OnlineProductExample example);
 
     int deleteByExample(OnlineProductExample example);

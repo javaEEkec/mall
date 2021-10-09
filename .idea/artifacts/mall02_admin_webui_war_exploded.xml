@@ -82,6 +82,7 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.4.2" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:5.4.2" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:5.4.2" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.22" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.4" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.4" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.6" />

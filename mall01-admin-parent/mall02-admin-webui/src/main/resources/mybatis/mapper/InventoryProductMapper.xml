@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myteam.mall.mapper.InventoryProductMapper">
+<mapper namespace="com.myteam.mall.mapper.InventoryProductMapper0">
   <resultMap id="BaseResultMap" type="com.myteam.mall.entity.InventoryProduct">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -203,6 +203,12 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectProductByKeyword" resultMap="BaseResultMap">
+    select product_id,product_name,brand,shop_id,price,product_img,category,produce_time,`describe`,activity_type,end_time,inventory_num
+        from inventory_product
+    where product_name like concat('%',#{keyword},'%')
+    or brand like concat('%',#{keyword},'%')
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update inventory_product

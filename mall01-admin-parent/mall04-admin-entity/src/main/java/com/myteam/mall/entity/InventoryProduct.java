@@ -123,4 +123,5 @@ public class InventoryProduct {
     public void setInventoryNum(Integer inventoryNum) {
         this.inventoryNum = inventoryNum;
     }
+
 }

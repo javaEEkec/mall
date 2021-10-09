@@ -5,7 +5,7 @@ import com.myteam.mall.entity.InventoryProductExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface InventoryProductMapper {
+public interface InventoryProductMapper0 {
     long countByExample(InventoryProductExample example);
 
     int deleteByExample(InventoryProductExample example);
@@ -27,4 +27,6 @@ public interface InventoryProductMapper {
     int updateByPrimaryKeySelective(InventoryProduct record);
 
     int updateByPrimaryKey(InventoryProduct record);
+
+    List<InventoryProduct> selectProductByKeyword(String keyword);
 }

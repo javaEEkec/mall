@@ -5,7 +5,7 @@ package com.myteam.mall.util;
  * @author ljs
  */
 public class ResultEntity<T> {
-    private static final String SUCCESS = "SUCCESS";
+    public static final String SUCCESS = "SUCCESS";
     public static final String FAILED = "FAILED";
     /**
      * 用来封装当前请求处理的结果是成功还是失败
