@@ -23,7 +23,66 @@
         //2.调用执行分页函数，显示分页效果
         generatePage();
 
+        // 3. 查询操作
+        $("#searchBtn").click(function () {
+            window.keyword = $("#keywordInput").val();
+            generatePage();
+        });
 
+        // 4. 点击新增打开模态框
+        $("#showAddModalBtn").click(function () {
+            $("#addShopModal").modal("show");
+        });
+
+        // 5.模态框数据保存
+        $("#shopSaveBtn").click(function () {
+            // 1.获取用户在模态框中输入的角色名，trim去前后空格
+            // #addModal表示找到整个模态框
+            // 空格表示在后代元素中继续查找
+            // [name=roleName]表示匹配name属性等于roleName的元素
+            let shopAcct = $.trim($("#addShopModal [name=shopAcct]").val())
+            let shopName = $.trim($("#addShopModal [name=shopName]").val());
+            let shopPersonincharge = $.trim($("#addShopModal [name=shopPersonincharge]").val())
+            let shopPersonphone = $.trim($("#addShopModal [name=shopPersonphone]").val())
+
+            console.log("打印：shopName" +shopName);
+            // 发送ajax请求
+            $.ajax({
+                url: "admin/do/save/shop.json",
+                type: "post",
+                data: {
+                    shopAcct: shopAcct,
+                    shopName: shopName,
+                    shopPersonincharge: shopPersonincharge,
+                    shopPersonphone: shopPersonphone
+                },
+                dataType: "json",
+                success: function (resp) {
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("已保存");
+
+                        // 重新加载分页
+                        window.pageNum = 99999999;
+                        generatePage();
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + resp.message);
+                    }
+                },
+                error: function (resp) {
+                    layer.msg(resp.status + "" + resp.statusText);
+                }
+            });
+
+            // 关闭模态框
+            $("#addShopModal").modal("hide");
+
+            // 清空表单
+            // jQuery对象调用click()函数，里面不传任何参数，相当于用户点击了一下
+            $("#shopResetBtn").click();
+
+        });
     })
 </script>
 <body>
@@ -88,6 +147,8 @@
     </div>
 </div>
 
+<%--新增商家模态框--%>
+<%@include file="modal-shop-add.jsp"%>
 </body>
 </html>
 
