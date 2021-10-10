@@ -60,7 +60,7 @@ public class CrowdTest {
 
     @Test
     public void saveShop(){
-        Shop shop = new Shop(null,"10004","platform33","老刘","1254862588");
+        Shop shop = new Shop(null,"10004","platform33","老刘","1254862588","12345");
 
         shopService.saveShop(shop);
     }

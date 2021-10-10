@@ -31,7 +31,7 @@ public class UserHandler {
     private MySQLRemoteService mysqlRemoteService;
 
     @ResponseBody
-    @RequestMapping("/do/user/detail")
+    @RequestMapping("/get/user/detail")
     public ResultEntity<UserDetailVO> doUserDetail(Integer userId, ModelMap modelMap){
         ResultEntity<UserPO> resultEntity = mysqlRemoteService.getUserPOByUserId(userId);
         if (ResultEntity.FAILED.equals(resultEntity.getResult())){

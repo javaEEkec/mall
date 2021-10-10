@@ -38,30 +38,6 @@ public class InventoryProductHandler {
         return ResultEntity.successWithData(pageInfo);
     }
 
-    @RequestMapping("admin/save/inventory/product.json")
-    public ResultEntity<String> saveInventoryProduct(InventoryProduct inventoryProduct,
-                                                     MultipartFile picture)throws IOException{
-
-        ResultEntity<String> uploadPictureEntity = MallUtil.uploadFileToObs("https://obs.cn-south-1.myhuaweicloud.com",
-                "C7MSZTKHGOAYXSVXQGZL",
-                "0xh9SuIfOGDYzJgI8paIvywkojpWblgS2ijsuHll",
-                picture.getInputStream(),
-                "myteam001",
-                "https://obs.cn-south-1.myhuaweicloud.com",
-                picture.getOriginalFilename());
-
-        String result = uploadPictureEntity.getResult();
-        //判断图片上传是否成功
-        if (ResultEntity.SUCCESS.equals(result)){
-            //如果成功则从返回的数据中获取图片的访问路径
-            String imgPath = uploadPictureEntity.getData();
-            inventoryProduct.setProductImg(imgPath);
-        }else {
-            return ResultEntity.failed("上传图片失败");
-        }
-        inventoryProductService.saveInventoryProduct(inventoryProduct);
-        return ResultEntity.successWithoutData();
-    }
 
     @RequestMapping("admin/get/inventory/product/detail.json")
     public ResultEntity<InventoryProduct> getInventoryProductDetail(Integer productId){
@@ -104,6 +80,8 @@ public class InventoryProductHandler {
         inventoryProductService.increaseOrDecreaseInventory(productId,changeNum);
         return ResultEntity.successWithoutData();
     }
+
+
 
 
 

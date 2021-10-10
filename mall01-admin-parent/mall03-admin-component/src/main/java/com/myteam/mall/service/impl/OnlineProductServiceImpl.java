@@ -32,7 +32,7 @@ public class OnlineProductServiceImpl implements OnlineProductService {
 
     @Override
     public OnlineProduct getOnlineProductById(Integer productId) {
-        return null;
+        return onlineProductMapper.selectByPrimaryKey(productId);
     }
 
     @Override

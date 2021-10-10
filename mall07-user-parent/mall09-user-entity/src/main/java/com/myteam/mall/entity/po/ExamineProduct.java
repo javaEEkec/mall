@@ -1,4 +1,4 @@
-package com.myteam.mall.entity;
+package com.myteam.mall.entity.po;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -7,11 +7,14 @@ import lombok.ToString;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @author mzx
+ */
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class InventoryProduct {
-    private Integer productId;
+public class ExamineProduct {
+    private Integer id;
 
     private String productName;
 
@@ -35,12 +38,14 @@ public class InventoryProduct {
 
     private Integer inventoryNum;
 
-    public Integer getProductId() {
-        return productId;
+    private String status;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getProductName() {
@@ -131,4 +136,11 @@ public class InventoryProduct {
         this.inventoryNum = inventoryNum;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
 }

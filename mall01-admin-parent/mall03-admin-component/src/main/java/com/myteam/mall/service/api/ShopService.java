@@ -2,7 +2,6 @@ package com.myteam.mall.service.api;
 
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.Shop;
-import org.springframework.stereotype.Service;
 
 /**
  * @author mzx

@@ -1,6 +1,6 @@
 function getUserDetailByUserId(userId) {
     let ajaxResult = $.ajax({
-        url: "/do/user/detail",
+        url: "/get/user/detail",
         type: "post",
         data: {
             userId:userId

@@ -1,8 +1,9 @@
 package com.myteam.mall.mapper;
 
+import java.util.List;
+
 import com.myteam.mall.entity.Shop;
 import com.myteam.mall.entity.ShopExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ShopMapper {

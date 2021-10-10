@@ -1,15 +1,12 @@
 package com.myteam.mall.service.impl;
 
-import checkers.units.quals.A;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Shop;
-import com.myteam.mall.exception.LoginAcctAlreadyInUseException;
 import com.myteam.mall.exception.ShopAcctAlreadyInUseException;
 import com.myteam.mall.mapper.ShopMapper;
 import com.myteam.mall.service.api.ShopService;
-import com.myteam.mall.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;

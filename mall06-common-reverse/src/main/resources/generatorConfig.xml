@@ -50,6 +50,7 @@
         <!--  数据库表名字和我们的 entity 类对应的映射指定 -->
 <!--        <table tableName="inventory_product" domainObjectName="InventoryProduct" />-->
 <!--        <table tableName="online_product" domainObjectName="OnlineProduct" />-->
-        <table tableName="shop" domainObjectName="Shop" />
+<!--        <table tableName="examine_product" domainObjectName="ExamineProduct" />-->
+        <table tableName="shop" domainObjectName="Shop"/>
     </context>
 </generatorConfiguration>

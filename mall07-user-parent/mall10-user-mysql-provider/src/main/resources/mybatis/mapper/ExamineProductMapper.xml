@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myteam.mall.mapper.InventoryProductMapper0">
-  <resultMap id="BaseResultMap" type="com.myteam.mall.entity.InventoryProduct">
-    <id column="product_id" jdbcType="INTEGER" property="productId" />
+<mapper namespace="com.myteam.mall.mapper.ExamineProductMapper1">
+  <resultMap id="BaseResultMap" type="com.myteam.mall.entity.po.ExamineProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="brand" jdbcType="VARCHAR" property="brand" />
     <result column="shop_id" jdbcType="INTEGER" property="shopId" />
@@ -14,6 +14,7 @@
     <result column="activity_type" jdbcType="VARCHAR" property="activityType" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="inventory_num" jdbcType="INTEGER" property="inventoryNum" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,16 +75,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_name, brand, shop_id, price, product_img, category, produce_time, 
-    'describe', activity_type, end_time, inventory_num
+    id, product_name, brand, shop_id, price, product_img, category, produce_time, describe, 
+    activity_type, end_time, inventory_num, status
   </sql>
-  <select id="selectByExample" parameterType="com.myteam.mall.entity.InventoryProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.myteam.mall.entity.po.ExamineProductExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from inventory_product
+    from examine_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,36 +95,36 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from inventory_product
-    where product_id = #{productId,jdbcType=INTEGER}
+    from examine_product
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from inventory_product
-    where product_id = #{productId,jdbcType=INTEGER}
+    delete from examine_product
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.myteam.mall.entity.InventoryProductExample">
-    delete from inventory_product
+  <delete id="deleteByExample" parameterType="com.myteam.mall.entity.po.ExamineProductExample">
+    delete from examine_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.myteam.mall.entity.InventoryProduct">
-    insert into inventory_product (product_id, product_name, brand, 
+  <insert id="insert" parameterType="com.myteam.mall.entity.po.ExamineProduct">
+    insert into examine_product (id, product_name, brand, 
       shop_id, price, product_img, 
       category, produce_time, describe, 
-      activity_type, end_time, inventory_num
-      )
-    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      activity_type, end_time, inventory_num, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
       #{shopId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{productImg,jdbcType=VARCHAR}, 
       #{category,jdbcType=VARCHAR}, #{produceTime,jdbcType=TIMESTAMP}, #{describe,jdbcType=VARCHAR}, 
-      #{activityType,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{inventoryNum,jdbcType=INTEGER}
-      )
+      #{activityType,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{inventoryNum,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.myteam.mall.entity.InventoryProduct">
-    insert into inventory_product
+  <insert id="insertSelective" parameterType="com.myteam.mall.entity.po.ExamineProduct">
+    insert into examine_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        product_id,
+      <if test="id != null">
+        id,
       </if>
       <if test="productName != null">
         product_name,
@@ -158,10 +159,13 @@
       <if test="inventoryNum != null">
         inventory_num,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="productName != null">
         #{productName,jdbcType=VARCHAR},
@@ -196,56 +200,22 @@
       <if test="inventoryNum != null">
         #{inventoryNum,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.myteam.mall.entity.InventoryProductExample" resultType="java.lang.Long">
-    select count(*) from inventory_product
+  <select id="countByExample" parameterType="com.myteam.mall.entity.po.ExamineProductExample" resultType="java.lang.Long">
+    select count(*) from examine_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  
-  <resultMap id="ProductVOResultMap" type="com.myteam.mall.entity.InventoryProductVO">
-    <id column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="brand" jdbcType="VARCHAR" property="brand" />
-    <result column="price" jdbcType="VARCHAR" property="price"/>
-    <result column="inventory_num" jdbcType="VARCHAR" property="inventoryNum"/>
-    <result column="category" jdbcType="VARCHAR" property="category"/>
-    <association property="shop" javaType="com.myteam.mall.entity.Shop">
-      <id column="shop_id" jdbcType="INTEGER" property="shopId"/>
-      <result column="shop_acct" jdbcType="VARCHAR" property="shopAcct"/>
-      <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
-      <result column="shop_personincharge" jdbcType="VARCHAR" property="shopPersonincharge"/>
-      <result column="shop_personphone" jdbcType="VARCHAR" property="shopPersonphone"/>
-    </association>
-   </resultMap>
-  <select id="selectProductVOByKeyword" resultMap="ProductVOResultMap">
-    select i.product_id,
-           i.product_name,
-           i.brand,
-           i.price,
-           i.inventory_num,
-           i.category,
-           s.shop_id,
-           s.shop_acct,
-           s.shop_name,
-           s.shop_personincharge,
-           s.shop_personphone
-        from inventory_product i,shop s
-    where i.shop_id = s.shop_id
-    and (product_name like concat('%',#{keyword},'%')
-    or shop_name like concat('%',#{keyword},'%'))
-  </select>
-  <select id="selectInventoryNum" resultType="java.lang.Integer">
-    select inventory_num from inventory_product
-    where product_id = #{productId}
-  </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update inventory_product
+    update examine_product
     <set>
-      <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.productName != null">
         product_name = #{record.productName,jdbcType=VARCHAR},
@@ -280,14 +250,17 @@
       <if test="record.inventoryNum != null">
         inventory_num = #{record.inventoryNum,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update inventory_product
-    set product_id = #{record.productId,jdbcType=INTEGER},
+    update examine_product
+    set id = #{record.id,jdbcType=INTEGER},
       product_name = #{record.productName,jdbcType=VARCHAR},
       brand = #{record.brand,jdbcType=VARCHAR},
       shop_id = #{record.shopId,jdbcType=INTEGER},
@@ -298,13 +271,14 @@
       describe = #{record.describe,jdbcType=VARCHAR},
       activity_type = #{record.activityType,jdbcType=VARCHAR},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      inventory_num = #{record.inventoryNum,jdbcType=INTEGER}
+      inventory_num = #{record.inventoryNum,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.myteam.mall.entity.InventoryProduct">
-    update inventory_product
+  <update id="updateByPrimaryKeySelective" parameterType="com.myteam.mall.entity.po.ExamineProduct">
+    update examine_product
     <set>
       <if test="productName != null">
         product_name = #{productName,jdbcType=VARCHAR},
@@ -339,11 +313,14 @@
       <if test="inventoryNum != null">
         inventory_num = #{inventoryNum,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
-    where product_id = #{productId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.myteam.mall.entity.InventoryProduct">
-    update inventory_product
+  <update id="updateByPrimaryKey" parameterType="com.myteam.mall.entity.po.ExamineProduct">
+    update examine_product
     set product_name = #{productName,jdbcType=VARCHAR},
       brand = #{brand,jdbcType=VARCHAR},
       shop_id = #{shopId,jdbcType=INTEGER},
@@ -354,7 +331,8 @@
       describe = #{describe,jdbcType=VARCHAR},
       activity_type = #{activityType,jdbcType=VARCHAR},
       end_time = #{endTime,jdbcType=TIMESTAMP},
-      inventory_num = #{inventoryNum,jdbcType=INTEGER}
-    where product_id = #{productId,jdbcType=INTEGER}
+      inventory_num = #{inventoryNum,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

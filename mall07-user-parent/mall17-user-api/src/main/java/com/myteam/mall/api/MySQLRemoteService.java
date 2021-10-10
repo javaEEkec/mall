@@ -1,6 +1,7 @@
 package com.myteam.mall.api;
 
 import com.github.pagehelper.PageInfo;
+import com.myteam.mall.entity.po.ExamineProduct;
 import com.myteam.mall.entity.po.OnlineProduct;
 import com.myteam.mall.entity.po.UserPO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
@@ -60,5 +61,12 @@ public interface MySQLRemoteService {
      * @return
      */
     @RequestMapping("online/product/get/detail/remote")
-    public ResultEntity<OnlineProduct> getProductById(@RequestParam("productId") Integer productId);
+    ResultEntity<OnlineProduct> getProductById(@RequestParam("productId") Integer productId);
+
+    /**
+     * 将待审核入库的商品信息上传至后台
+     * @param examineProduct
+     */
+    @RequestMapping("save/examine/product/remote")
+    ResultEntity<String> saveExamineProduct(ExamineProduct examineProduct);
 }
