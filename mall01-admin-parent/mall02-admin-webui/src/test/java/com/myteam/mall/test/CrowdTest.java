@@ -6,6 +6,7 @@ import com.myteam.mall.entity.Admin;
 import com.myteam.mall.entity.InventoryProductVO;
 import com.myteam.mall.entity.Shop;
 import com.myteam.mall.mapper.AdminMapper;
+import com.myteam.mall.mapper.InventoryProductMapper0;
 import com.myteam.mall.service.api.AdminService;
 import com.myteam.mall.service.api.InventoryProductService;
 import com.myteam.mall.service.api.ShopService;
@@ -33,6 +34,9 @@ public class CrowdTest {
 
     @Autowired
     private InventoryProductService inventoryProductService;
+
+    @Autowired
+    private InventoryProductMapper0 inventoryProductMapper0;
 
     @Test
     public void testConnection() throws SQLException {
@@ -71,6 +75,17 @@ public class CrowdTest {
     public void testInventoryProductVOPageInfo(){
         PageInfo<InventoryProductVO> productPageInfo = inventoryProductService.getProductPageInfo("", 1, 5);
         System.out.println(productPageInfo);
+    }
+
+    @Test
+    public void testGetInventoryNum(){
+        Integer integer = inventoryProductMapper0.selectInventoryNum(1);
+        System.out.println("inventoryNum="+integer);
+    }
+
+    @Test
+    public void testChangeInventoryNum(){
+        inventoryProductService.increaseOrDecreaseInventory(1,110);
     }
 
 }

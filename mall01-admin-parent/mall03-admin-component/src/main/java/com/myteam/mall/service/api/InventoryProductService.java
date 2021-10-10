@@ -11,4 +11,6 @@ public interface InventoryProductService {
     PageInfo<InventoryProductVO> getProductPageInfo(String keyword, Integer pageNum, Integer pageSize);
 
     void saveInventoryProduct(InventoryProduct inventoryProduct);
+
+    void increaseOrDecreaseInventory(Integer productId, Integer changeNum);
 }

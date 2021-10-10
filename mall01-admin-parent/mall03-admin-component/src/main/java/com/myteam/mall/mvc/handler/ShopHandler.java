@@ -21,7 +21,6 @@ public class ShopHandler {
 
     @RequestMapping("/admin/do/save/shop.json")
     public ResultEntity<String> saveShop(Shop shop){
-        System.out.println(shop);
         shopService.saveShop(shop);
         return ResultEntity.successWithoutData();
     }

@@ -236,6 +236,10 @@
     where i.shop_id = s.shop_id
     and product_name like concat('%',#{keyword},'%')
   </select>
+  <select id="selectInventoryNum" resultType="java.lang.Integer">
+    select inventory_num from inventory_product
+    where product_id = #{productId}
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update inventory_product
     <set>

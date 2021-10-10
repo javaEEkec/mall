@@ -204,7 +204,39 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+
+  <resultMap id="OnlineProductVOResultMap" type="com.myteam.mall.entity.OnlineProductVO">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="price" jdbcType="VARCHAR" property="price"/>
+    <result column="online_num" jdbcType="VARCHAR" property="onlineNum"/>
+    <result column="category" jdbcType="VARCHAR" property="category"/>
+    <association property="shop" javaType="com.myteam.mall.entity.Shop">
+      <id column="shop_id" jdbcType="INTEGER" property="shopId"/>
+      <result column="shop_acct" jdbcType="VARCHAR" property="shopAcct"/>
+      <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
+      <result column="shop_personincharge" jdbcType="VARCHAR" property="shopPersonincharge"/>
+      <result column="shop_personphone" jdbcType="VARCHAR" property="shopPersonphone"/>
+    </association>
+  </resultMap>
+    <select id="selectProductVOByKeyword" resultMap="OnlineProductVOResultMap">
+      select i.product_id,
+             i.product_name,
+             i.brand,
+             i.price,
+             i.online_num,
+             i.category,
+             s.shop_id,
+             s.shop_acct,
+             s.shop_name,
+             s.shop_personincharge,
+             s.shop_personphone
+      from online_product i,shop s
+      where i.shop_id = s.shop_id
+        and product_name like concat('%',#{keyword},'%')
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update online_product
     <set>
       <if test="record.productId != null">

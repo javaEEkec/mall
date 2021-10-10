@@ -3,6 +3,8 @@ package com.myteam.mall.mapper;
 import com.myteam.mall.entity.OnlineProduct;
 import com.myteam.mall.entity.OnlineProductExample;
 import java.util.List;
+
+import com.myteam.mall.entity.OnlineProductVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface OnlineProductMapper0 {
@@ -27,4 +29,6 @@ public interface OnlineProductMapper0 {
     int updateByPrimaryKeySelective(OnlineProduct record);
 
     int updateByPrimaryKey(OnlineProduct record);
+
+    List<OnlineProductVO> selectProductVOByKeyword(String keyword);
 }

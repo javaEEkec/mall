@@ -31,4 +31,6 @@ public interface InventoryProductMapper0 {
     int updateByPrimaryKey(InventoryProduct record);
 
     List<InventoryProductVO> selectProductVOByKeyword(String keyword);
+
+    Integer selectInventoryNum(Integer productId);
 }

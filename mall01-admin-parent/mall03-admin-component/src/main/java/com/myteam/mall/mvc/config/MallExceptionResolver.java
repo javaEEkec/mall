@@ -9,15 +9,25 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+/**
+ * @author ljs
+ */
 @ControllerAdvice
 public class MallExceptionResolver {
 
+    @ExceptionHandler(value = DecreaseNumOverInventoryNumException.class)
+    public ModelAndView resolveDecreaseNumOverInventoryNumException(DecreaseNumOverInventoryNumException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "inventory-product-page";
+        return commonResolve(viewName,exception,request,response);
+    }
+
     @ExceptionHandler(value = ShopAcctAlreadyInUseException.class)
-    public ModelAndView resolveShopAcctAlreadyInUseException(LoginAcctAlreadyInUseForUpdateException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
-        String viewName = "shop-add";
+    public ModelAndView resolveShopAcctAlreadyInUseException(ShopAcctAlreadyInUseException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "shop-list";
         return commonResolve(viewName,exception,request,response);
     }
 

@@ -11,4 +11,11 @@ public class StringTest {
         String encoding = MallUtil.md5(source);
         System.out.println(encoding);
     }
+
+    @Test
+    public void testInteger(){
+        Integer i = 100;
+        Integer j = 0;
+        System.out.println( -i <= 0);
+    }
 }

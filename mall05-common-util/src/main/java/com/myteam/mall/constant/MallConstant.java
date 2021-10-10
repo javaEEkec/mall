@@ -18,4 +18,5 @@ public class MallConstant {
     public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
     public static final String ATTR_NAME_MESSAGE = "message";
     public static final String ATTR_NAME_USER_DETAIL = "userDetail";
+    public static final String MESSAGE_OVER_INVENTORY_NUM = "超出商品库存";
 }
