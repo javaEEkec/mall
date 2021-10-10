@@ -3,6 +3,8 @@ package com.myteam.mall.mapper;
 import com.myteam.mall.entity.InventoryProduct;
 import com.myteam.mall.entity.InventoryProductExample;
 import java.util.List;
+
+import com.myteam.mall.entity.InventoryProductVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface InventoryProductMapper0 {
@@ -28,5 +30,5 @@ public interface InventoryProductMapper0 {
 
     int updateByPrimaryKey(InventoryProduct record);
 
-    List<InventoryProduct> selectProductByKeyword(String keyword);
+    List<InventoryProductVO> selectProductVOByKeyword(String keyword);
 }

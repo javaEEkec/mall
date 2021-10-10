@@ -2,6 +2,7 @@ package com.myteam.mall.mvc.handler;
 
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.InventoryProduct;
+import com.myteam.mall.entity.InventoryProductVO;
 import com.myteam.mall.service.api.InventoryProductService;
 import com.myteam.mall.util.MallUtil;
 import com.myteam.mall.util.ResultEntity;
@@ -23,12 +24,12 @@ public class InventoryProductHandler {
     private InventoryProductService inventoryProductService;
 
     @RequestMapping("admin/inventory/product/page/info.json")
-    public ResultEntity<PageInfo<InventoryProduct>> getInventoryProductPageInfo(
+    public ResultEntity<PageInfo<InventoryProductVO>> getInventoryProductPageInfo(
             @RequestParam(value = "keyword", defaultValue = "") String keyword,
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize
     ){
-        PageInfo<InventoryProduct> pageInfo = inventoryProductService.getProductPageInfo(keyword, pageNum, pageSize);
+        PageInfo<InventoryProductVO> pageInfo = inventoryProductService.getProductPageInfo(keyword, pageNum, pageSize);
         return ResultEntity.successWithData(pageInfo);
     }
 
@@ -56,6 +57,13 @@ public class InventoryProductHandler {
         inventoryProductService.saveInventoryProduct(inventoryProduct);
         return ResultEntity.successWithoutData();
     }
+
+    @RequestMapping("admin/get/inventory/product/detail.json")
+    public ResultEntity<InventoryProduct> getInventoryProductDetail(Integer productId){
+        InventoryProduct inventoryProductById = inventoryProductService.getInventoryProductById(productId);
+        return ResultEntity.successWithData(inventoryProductById);
+    }
+
 
 
 

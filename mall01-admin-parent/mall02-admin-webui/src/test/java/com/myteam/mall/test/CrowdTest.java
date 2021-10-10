@@ -3,9 +3,11 @@ package com.myteam.mall.test;
 
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.Admin;
+import com.myteam.mall.entity.InventoryProductVO;
 import com.myteam.mall.entity.Shop;
 import com.myteam.mall.mapper.AdminMapper;
 import com.myteam.mall.service.api.AdminService;
+import com.myteam.mall.service.api.InventoryProductService;
 import com.myteam.mall.service.api.ShopService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class CrowdTest {
 
     @Autowired
     private ShopService shopService;
+
+    @Autowired
+    private InventoryProductService inventoryProductService;
 
     @Test
     public void testConnection() throws SQLException {
@@ -62,6 +67,10 @@ public class CrowdTest {
         System.out.println(pageInfo);
     }
 
-
+    @Test
+    public void testInventoryProductVOPageInfo(){
+        PageInfo<InventoryProductVO> productPageInfo = inventoryProductService.getProductPageInfo("", 1, 5);
+        System.out.println(productPageInfo);
+    }
 
 }

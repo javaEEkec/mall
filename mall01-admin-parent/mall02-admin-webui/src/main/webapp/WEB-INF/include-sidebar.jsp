@@ -27,17 +27,22 @@
                 </ul>
             </li>
             <li class="list-group-item tree-closed">
-                <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">1</span></span>
+                <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span>
                 <ul style="margin-top:10px;display:none;">
 
                     <li style="height:30px;">
                         <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 广告审核</a>
                     </li>
-
+                    <li style="height:30px;">
+                        <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 商品审核</a>
+                    </li>
+                    <li style="height:30px;">
+                        <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 商家入驻审核</a>
+                    </li>
                 </ul>
             </li>
             <li class="list-group-item tree-closed">
-                <span><i class="glyphicon glyphicon-th-large"></i> 业务管理 <span class="badge" style="float:right">4</span></span>
+                <span><i class="glyphicon glyphicon-th-large"></i> 业务流程 <span class="badge" style="float:right">6</span></span>
                 <ul style="margin-top:10px;display:none;">
                     <li style="height:30px;">
                         <a href="admin/to/inventory/product/page.html"><i class="glyphicon glyphicon-picture"></i> 库存商品管理</a>
@@ -50,6 +55,12 @@
                     </li>
                     <li style="height:30px;">
                         <a href="admin/to/shop/list/page.html"><i class="glyphicon glyphicon-comment"></i> 店铺列表</a>
+                    </li>
+                    <li style="height:30px;">
+                        <a href=""><i class="glyphicon glyphicon-comment"></i>订单管理</a>
+                    </li>
+                    <li style="height:30px;">
+                        <a href=""><i class="glyphicon glyphicon-comment"></i>投诉处理</a>
                     </li>
                 </ul>
             </li>

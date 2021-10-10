@@ -75,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     product_id, product_name, brand, shop_id, price, product_img, category, produce_time, 
-    describe, activity_type, end_time, inventory_num
+    'describe', activity_type, end_time, inventory_num
   </sql>
   <select id="selectByExample" parameterType="com.myteam.mall.entity.InventoryProductExample" resultMap="BaseResultMap">
     select
@@ -204,11 +204,37 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <select id="selectProductByKeyword" resultMap="BaseResultMap">
-    select product_id,product_name,brand,shop_id,price,product_img,category,produce_time,`describe`,activity_type,end_time,inventory_num
-        from inventory_product
-    where product_name like concat('%',#{keyword},'%')
-    or brand like concat('%',#{keyword},'%')
+  
+  <resultMap id="ProductVOResultMap" type="com.myteam.mall.entity.InventoryProductVO">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="price" jdbcType="VARCHAR" property="price"/>
+    <result column="inventory_num" jdbcType="VARCHAR" property="inventoryNum"/>
+    <result column="category" jdbcType="VARCHAR" property="category"/>
+    <association property="shop" javaType="com.myteam.mall.entity.Shop">
+      <id column="shop_id" jdbcType="INTEGER" property="shopId"/>
+      <result column="shop_acct" jdbcType="VARCHAR" property="shopAcct"/>
+      <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
+      <result column="shop_personincharge" jdbcType="VARCHAR" property="shopPersonincharge"/>
+      <result column="shop_personphone" jdbcType="VARCHAR" property="shopPersonphone"/>
+    </association>
+   </resultMap>
+  <select id="selectProductVOByKeyword" resultMap="ProductVOResultMap">
+    select i.product_id,
+           i.product_name,
+           i.brand,
+           i.price,
+           i.inventory_num,
+           i.category,
+           s.shop_id,
+           s.shop_acct,
+           s.shop_name,
+           s.shop_personincharge,
+           s.shop_personphone
+        from inventory_product i,shop s
+    where i.shop_id = s.shop_id
+    and product_name like concat('%',#{keyword},'%')
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update inventory_product

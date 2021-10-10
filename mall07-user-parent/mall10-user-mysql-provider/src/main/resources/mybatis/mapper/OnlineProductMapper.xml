@@ -109,7 +109,7 @@
   <insert id="insert" parameterType="com.myteam.mall.entity.po.OnlineProduct">
     insert into online_product (product_id, product_name, brand, 
       shop_id, price, product_img, 
-      category, produce_time, describe, 
+      category, produce_time, 'describe',
       activity_type, end_time, online_num
       )
     values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
