@@ -29,6 +29,14 @@ public class OnlineProductHandler {
         OnlineProduct onlineProduct = onlineProductService.getOnlineProductById(productId);
         return ResultEntity.successWithData(onlineProduct);
     }
-    //商品下架
+
+    /**
+     * 商品下架
+     * @return
+     */
+    @RequestMapping("admin/do/sold/out/online/product.json")
+    public ResultEntity<String> doSoldOutOnlineProduct(){
+        return null;
+    }
 
 }
