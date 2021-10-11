@@ -1,4 +1,4 @@
-package com.myteam.mall.entity.vo;
+package com.myteam.mall.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,23 +20,13 @@ public class ExamineProductVO {
 
     private String brand;
 
-    private Integer shopId;
-
-    private BigDecimal price;
-
-    private String productImg;
-
     private String category;
 
-    private String produceTime;
-
-    private String description;
-
-    private String activityType;
-
-    private String endTime;
+    private BigDecimal price;
 
     private Integer inventoryNum;
 
     private String status;
+
+    private Shop shop;
 }

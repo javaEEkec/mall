@@ -1,8 +1,14 @@
 package com.myteam.mall.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OnlineProduct {
     private Integer productId;
 
@@ -20,7 +26,7 @@ public class OnlineProduct {
 
     private Date produceTime;
 
-    private String describe;
+    private String description;
 
     private String activityType;
 
@@ -92,12 +98,12 @@ public class OnlineProduct {
         this.produceTime = produceTime;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String getActivityType() {

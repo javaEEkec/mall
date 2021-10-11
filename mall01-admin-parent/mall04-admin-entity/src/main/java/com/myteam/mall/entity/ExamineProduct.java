@@ -7,6 +7,9 @@ import lombok.ToString;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @author ljs
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -27,7 +30,7 @@ public class ExamineProduct {
 
     private Date produceTime;
 
-    private String describe;
+    private String description;
 
     private String activityType;
 
@@ -101,12 +104,12 @@ public class ExamineProduct {
         this.produceTime = produceTime;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String getActivityType() {

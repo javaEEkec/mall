@@ -1,16 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mzx
-  Date: 2021/10/10
-  Time: 9:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<div id="inventoryProductModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">商品详情</h4>
+            </div>
+            <div class="modal-body">
 
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</div>

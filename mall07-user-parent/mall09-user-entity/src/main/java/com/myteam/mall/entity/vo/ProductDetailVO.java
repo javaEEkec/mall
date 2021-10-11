@@ -30,7 +30,7 @@ public class ProductDetailVO {
 
     private String produceTime;
 
-    private String describe;
+    private String description;
 
     private String activityType;
 

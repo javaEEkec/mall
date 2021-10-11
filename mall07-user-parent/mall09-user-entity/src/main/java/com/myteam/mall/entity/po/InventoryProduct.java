@@ -27,7 +27,7 @@ public class InventoryProduct {
 
     private Date produceTime;
 
-    private String describe;
+    private String description;
 
     private String activityType;
 
@@ -99,12 +99,12 @@ public class InventoryProduct {
         this.produceTime = produceTime;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String getActivityType() {

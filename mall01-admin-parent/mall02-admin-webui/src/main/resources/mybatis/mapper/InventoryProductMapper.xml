@@ -10,7 +10,7 @@
     <result column="product_img" jdbcType="VARCHAR" property="productImg" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="produce_time" jdbcType="TIMESTAMP" property="produceTime" />
-    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="activity_type" jdbcType="VARCHAR" property="activityType" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="inventory_num" jdbcType="INTEGER" property="inventoryNum" />
@@ -75,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     product_id, product_name, brand, shop_id, price, product_img, category, produce_time, 
-    'describe', activity_type, end_time, inventory_num
+    description, activity_type, end_time, inventory_num
   </sql>
   <select id="selectByExample" parameterType="com.myteam.mall.entity.InventoryProductExample" resultMap="BaseResultMap">
     select
@@ -110,12 +110,12 @@
   <insert id="insert" parameterType="com.myteam.mall.entity.InventoryProduct">
     insert into inventory_product (product_id, product_name, brand, 
       shop_id, price, product_img, 
-      category, produce_time, describe, 
+      category, produce_time, description,
       activity_type, end_time, inventory_num
       )
     values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
       #{shopId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{productImg,jdbcType=VARCHAR}, 
-      #{category,jdbcType=VARCHAR}, #{produceTime,jdbcType=TIMESTAMP}, #{describe,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{produceTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
       #{activityType,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{inventoryNum,jdbcType=INTEGER}
       )
   </insert>
@@ -146,8 +146,8 @@
       <if test="produceTime != null">
         produce_time,
       </if>
-      <if test="describe != null">
-        describe,
+      <if test="description != null">
+        description,
       </if>
       <if test="activityType != null">
         activity_type,
@@ -184,8 +184,8 @@
       <if test="produceTime != null">
         #{produceTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="describe != null">
-        #{describe,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="activityType != null">
         #{activityType,jdbcType=VARCHAR},
@@ -268,8 +268,8 @@
       <if test="record.produceTime != null">
         produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARCHAR},
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.activityType != null">
         activity_type = #{record.activityType,jdbcType=VARCHAR},
@@ -295,7 +295,7 @@
       product_img = #{record.productImg,jdbcType=VARCHAR},
       category = #{record.category,jdbcType=VARCHAR},
       produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
       activity_type = #{record.activityType,jdbcType=VARCHAR},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
       inventory_num = #{record.inventoryNum,jdbcType=INTEGER}
@@ -327,8 +327,8 @@
       <if test="produceTime != null">
         produce_time = #{produceTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="activityType != null">
         activity_type = #{activityType,jdbcType=VARCHAR},
@@ -351,7 +351,7 @@
       product_img = #{productImg,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       produce_time = #{produceTime,jdbcType=TIMESTAMP},
-      describe = #{describe,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       activity_type = #{activityType,jdbcType=VARCHAR},
       end_time = #{endTime,jdbcType=TIMESTAMP},
       inventory_num = #{inventoryNum,jdbcType=INTEGER}
