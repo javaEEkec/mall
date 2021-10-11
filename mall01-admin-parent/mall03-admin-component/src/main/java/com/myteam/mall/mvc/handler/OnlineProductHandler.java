@@ -37,7 +37,7 @@ public class OnlineProductHandler {
     @RequestMapping("admin/do/sold/out/online/product.json")
     public ResultEntity<String> doSoldOutOnlineProduct(){
 
-        String s = "";
+        int i = 1;
         return null;
     }
 
