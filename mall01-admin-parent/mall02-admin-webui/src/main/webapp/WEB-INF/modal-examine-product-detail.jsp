@@ -10,7 +10,7 @@
                 <h4 class="modal-title">商品详情</h4>
             </div>
                 <div class="modal-body">
-                    商品编号：<b id="id"></b><br>
+                    编号：<b id="id"></b><br>
                     商品名称：<b id="productName"></b><br>
                     品牌：<b id="brand"></b><br>
                     价格：<b id="price"></b><br>

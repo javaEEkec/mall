@@ -31,7 +31,7 @@
         });
 
         // 4.点击打开商品详情模态框
-        $(".examineDetailBtn").click(function () {
+        $("#examineProductPageBody").on("click",".examineDetailBtn",function () {
             $("#examineProductModal").modal("show");
             let id = this.id;
             let examineProduct = getExamineProductById(id);

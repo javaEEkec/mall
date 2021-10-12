@@ -78,7 +78,7 @@ function fillTableBody(pageInfo) {
 
         var detailBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-success btn-xs\"><i class=\" glyphicon glyphicon-eye-open\"></i></button>";
         var pencilBtn = "<button id='" + productId + "' type='button' class='btn btn-primary btn-xs pencilBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
-        var removeBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-danger btn-xs removeBtn\"><i class=\" glyphicon glyphicon-remove\"></i></button>";
+        var upLineBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-danger btn-xs upLineBtn\"><i class=\" glyphicon glyphicon-arrow-down\"></i></button>";
 
         var buttonTd = "<td>" + detailBtn + " " + pencilBtn + " " + removeBtn + "</td>"
         var tr = "<tr>" + numberTd + productNameTd +brandTd+ shopNameTd +priceTd + categoryTd+ onlineNumTd + buttonTd + "</tr>";

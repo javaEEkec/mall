@@ -62,8 +62,14 @@ public class InventoryProductHandler {
         }
         InventoryProduct inventoryProduct = inventoryProductService.getInventoryProductById(productId);
         if (inventoryProduct != null){
+            //商品上架后减少库存数量
+            inventoryProductService.increaseOrDecreaseInventory(productId,-onlineNum);
             OnlineProduct onlineProduct1 = new OnlineProduct();
+            //复制属性
             BeanUtils.copyProperties(inventoryProduct,onlineProduct1);
+            //设置上架的数量
+            onlineProduct1.setOnlineNum(onlineNum);
+
             onlineProductService.saveOnlineProduct(onlineProduct1);
         }
         return ResultEntity.successWithoutData();

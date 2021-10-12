@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
 <script type="text/javascript" src="js/my-inventory-product.js"></script>
+<script type="text/javascript" src="js/jutils.min.js"></script>
 <script type="text/javascript">
     $(function () {
         // 1.为分页操作准备初始化数据
@@ -28,6 +29,56 @@
             window.keyword = $("#keywordInput").val();
             generatePage();
         });
+
+        // 4.打开商品详情模态框
+        $("#inventoryProductPageBody").on("click",".inventoryDetailBtn",function () {
+            $("#inventoryProductModal").modal("show");
+            let productId = this.id;
+            let inventoryProduct = getInventoryProductById(productId);
+            let produceTime = jutils.formatDate(new Date(inventoryProduct.produceTime),`YYYY-MM-DD HH:ii:ss`);
+            let endTime = jutils.formatDate(new Date(inventoryProduct.endTime),`YYYY-MM-DD HH:ii:ss`);
+
+            $("#productId").text(inventoryProduct.productId);
+            $("#productName").text(inventoryProduct.productName);
+            $("#brand").text(inventoryProduct.brand);
+            $("#price").text(inventoryProduct.price);
+            $("#productImg").attr("src",inventoryProduct.productImg);
+            $("#category").text(inventoryProduct.category);
+            $("#produceTime").text(produceTime);
+            $("#activityType").text(inventoryProduct.activityType);
+            $("#description").text(inventoryProduct.description);
+            $("#endTime").text(endTime);
+            $("#inventoryNum").text(inventoryProduct.inventoryNum);
+        });
+
+        //5.点击编辑按钮打开改变商品库存的模态框
+        $("#inventoryProductPageBody").on("click",".pencilBtn",function () {
+            $("#inventoryNumChangeModal").modal("show");
+            let productId = this.id;
+            $("#changeProductId").text(productId);
+        })
+
+        $("#confirmChangeBtn").click(function () {
+            let productId = $("#changeProductId").text();
+            let changeNum = $("#changeNum").val();
+            changeInventoryProductNum(productId,changeNum);
+            $("#inventoryNumChangeModal").modal("hide");
+        })
+
+        // 6.打开上架商品确认模态框
+        $("#inventoryProductPageBody").on("click",".onlineBtn",function () {
+            $("#putOnlineModal").modal("show");
+            let productId = this.id;
+            $("#showProductId").text(productId);
+        })
+
+        // 7.点击确认上架商品
+        $("#confirmOnlineBtn").click(function () {
+            let productId = $("#showProductId").text();
+            let onlineNum = $("#inputOnlineNum").val();
+            pushToOnlineProduct(productId,onlineNum);
+            $("#putOnlineModal").modal("hide");
+        })
     })
 </script>
 <body>
@@ -50,8 +101,8 @@
                         </div>
                         <button id="searchBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<%--                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>--%>
+<%--                    <button type="button" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> 新增</button>--%>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -99,6 +150,78 @@
     </div>
 </div>
 
+
+<div id="inventoryProductModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">商品详情</h4>
+            </div>
+            <div class="modal-body">
+                商品编号：<b id="productId"></b><br>
+                商品名称：<b id="productName"></b><br>
+                品牌：<b id="brand"></b><br>
+                价格：<b id="price"></b><br>
+                图片：<img id="productImg" src="" width="200px" height="160px" alt="商品图片"><br>
+                类别：<b id="category"></b><br>
+                描述：<b id="description"></b><br>
+                生产日期：<b id="produceTime"></b><br>
+                活动类型：<b id="activityType"></b><br>
+                过期日期：<b id="endTime"></b><br>
+                库存数量：<b id="inventoryNum"></b><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="inventoryNumChangeModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">增减库存</h4>
+            </div>
+            <div class="modal-body">
+                商品编号:<p id="changeProductId"></p>
+                <p>增加库存的数量</p>
+                <input id="changeNum" type="number" />
+                <p>正数表示增加库存，负数表示减少库存</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmChangeBtn" type="button" class="btn btn-success">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="putOnlineModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">上架商品</h4>
+            </div>
+            <div class="modal-body">
+                商品ID：<p id="showProductId"></p>
+                上架数量：<input id="inputOnlineNum" type="number">
+            </div>
+            <div class="modal-footer">
+                <button id="confirmOnlineBtn" type="button" class="btn btn-success">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
