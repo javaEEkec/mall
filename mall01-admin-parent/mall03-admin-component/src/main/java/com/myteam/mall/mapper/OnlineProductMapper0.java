@@ -31,4 +31,6 @@ public interface OnlineProductMapper0 {
     int updateByPrimaryKey(OnlineProduct record);
 
     List<OnlineProductVO> selectProductVOByKeyword(String keyword);
+
+    Integer selectOnlineNum(Integer productId);
 }

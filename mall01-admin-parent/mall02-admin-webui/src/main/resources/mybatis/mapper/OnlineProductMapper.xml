@@ -236,6 +236,9 @@
       where i.shop_id = s.shop_id
         and product_name like concat('%',#{keyword},'%')
     </select>
+    <select id="selectOnlineNum" resultType="java.lang.Integer">
+      select online_num from online_product where product_id = ${productId}
+    </select>
     <update id="updateByExampleSelective" parameterType="map">
     update online_product
     <set>

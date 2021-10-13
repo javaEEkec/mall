@@ -1,6 +1,7 @@
 package com.myteam.mall.exception;
 
 public class DecreaseNumOverInventoryNumException extends RuntimeException{
+    private static final long serialVersionUID = 1L;
 
     public DecreaseNumOverInventoryNumException() {
     }

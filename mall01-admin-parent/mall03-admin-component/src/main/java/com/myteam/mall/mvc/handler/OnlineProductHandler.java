@@ -47,4 +47,16 @@ public class OnlineProductHandler {
         return ResultEntity.successWithoutData();
     }
 
+    /**
+     * 改变商品的上架数量，
+     * @param productId
+     * @param changeNum 正数表示增加上架的商品，此时商品库存减少相应的数量；负数会减少上架商品的数量，库存增加相应的数量
+     * @return
+     */
+    @RequestMapping("increase/or/decrease/online/product/num.json")
+    public ResultEntity<String> changeOnlineProductNum(Integer productId,Integer changeNum){
+        onlineProductService.updateOnlineProductNum(productId,changeNum);
+        return ResultEntity.successWithoutData();
+    }
+
 }

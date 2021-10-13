@@ -19,6 +19,12 @@ import java.io.IOException;
 @ControllerAdvice
 public class MallExceptionResolver {
 
+    @ExceptionHandler(value = DecreaseNumOverOnlineNumException.class)
+    public ModelAndView resolveDecreaseNumOverInventoryNumException(DecreaseNumOverOnlineNumException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "online-product-page";
+        return commonResolve(viewName,exception,request,response);
+    }
+
     @ExceptionHandler(value = DecreaseNumOverInventoryNumException.class)
     public ModelAndView resolveDecreaseNumOverInventoryNumException(DecreaseNumOverInventoryNumException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
         String viewName = "inventory-product-page";
