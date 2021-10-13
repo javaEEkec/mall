@@ -1,9 +1,7 @@
 package com.myteam.mall.api;
 
 import com.github.pagehelper.PageInfo;
-import com.myteam.mall.entity.po.ExamineProduct;
-import com.myteam.mall.entity.po.OnlineProduct;
-import com.myteam.mall.entity.po.UserPO;
+import com.myteam.mall.entity.po.*;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.util.ResultEntity;
@@ -69,4 +67,15 @@ public interface MySQLRemoteService {
      */
     @RequestMapping("save/examine/product/remote")
     ResultEntity<String> saveExamineProduct(ExamineProduct examineProduct);
+
+    /**
+     * 将商户提交的注册申请提交给后台
+     * @param shopCheck 商户注册信息
+     * @return
+     */
+    @RequestMapping("save/shop/check/remote")
+    ResultEntity<String> saveShopCheck(ShopCheck shopCheck);
+
+    @RequestMapping("get/shop/by/acct/remote")
+    ResultEntity<Shop> getShopByShopAcctRemote(String shopAcct);
 }
