@@ -78,4 +78,7 @@ public interface MySQLRemoteService {
 
     @RequestMapping("get/shop/by/acct/remote")
     ResultEntity<Shop> getShopByShopAcctRemote(@RequestParam("shopAcct") String shopAcct);
+
+    @RequestMapping("get/shop/by/id/remote")
+    ResultEntity<Shop> getShopByIdRemote(@RequestParam("shopId") Integer shopId);
 }

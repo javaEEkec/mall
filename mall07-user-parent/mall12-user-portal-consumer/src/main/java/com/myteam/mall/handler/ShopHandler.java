@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -76,6 +77,21 @@ public class ShopHandler {
     public String doLogout(HttpSession session){
         session.invalidate();
         return "redirect:http://www.mall.com/";
+    }
+
+    @ResponseBody
+    @RequestMapping("/shop/get/shop/detail/by/id")
+    public ResultEntity<Shop> getShopDetail(Integer shopId){
+        ResultEntity<Shop> shopResultEntity = mysqlRemoteService.getShopByIdRemote(shopId);
+
+        if (ResultEntity.FAILED.equals(shopResultEntity.getResult())){
+            return ResultEntity.failed(shopResultEntity.getMessage());
+        }
+        if (shopResultEntity.getData() == null){
+            return ResultEntity.failed("没有查到该用户的信息");
+        }
+
+        return shopResultEntity;
     }
 
 

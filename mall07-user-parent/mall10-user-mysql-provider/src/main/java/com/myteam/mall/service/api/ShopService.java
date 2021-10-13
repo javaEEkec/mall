@@ -13,4 +13,6 @@ public interface ShopService {
 
 
     Shop getShopByShopAcct(String shopAcct);
+
+    Shop getShopById(Integer shopId);
 }

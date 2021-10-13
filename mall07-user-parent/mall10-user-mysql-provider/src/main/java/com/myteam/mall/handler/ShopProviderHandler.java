@@ -34,4 +34,15 @@ public class ShopProviderHandler {
             return ResultEntity.failed(e.getMessage());
         }
     }
+
+    @RequestMapping("get/shop/by/id/remote")
+    ResultEntity<Shop> getShopByIdRemote(@RequestParam("shopId") Integer shopId){
+        try{
+            Shop shop = shopService.getShopById(shopId);
+            return ResultEntity.successWithData(shop);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultEntity.failed(e.getMessage());
+        }
+    }
 }

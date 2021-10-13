@@ -45,4 +45,9 @@ public class ShopServiceImpl implements ShopService {
 
         return shops.get(0);
     }
+
+    @Override
+    public Shop getShopById(Integer shopId) {
+        return shopMapper.selectByPrimaryKey(shopId);
+    }
 }
