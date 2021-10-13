@@ -15,4 +15,6 @@ public interface OnlineProductService {
     OnlineProduct getOnlineProductById(Integer productId);
 
     void saveOnlineProduct(OnlineProduct onlineProduct);
+
+    void deleteOnlineProduct(Integer productId);
 }

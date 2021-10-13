@@ -39,4 +39,9 @@ public class OnlineProductServiceImpl implements OnlineProductService {
     public void saveOnlineProduct(OnlineProduct onlineProduct) {
         onlineProductMapper.insert(onlineProduct);
     }
+
+    @Override
+    public void deleteOnlineProduct(Integer productId) {
+        onlineProductMapper.deleteByPrimaryKey(productId);
+    }
 }

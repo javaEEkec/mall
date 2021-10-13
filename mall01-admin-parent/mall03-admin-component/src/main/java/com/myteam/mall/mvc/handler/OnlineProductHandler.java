@@ -2,6 +2,7 @@ package com.myteam.mall.mvc.handler;
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.OnlineProduct;
 import com.myteam.mall.entity.OnlineProductVO;
+import com.myteam.mall.service.api.InventoryProductService;
 import com.myteam.mall.service.api.OnlineProductService;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class OnlineProductHandler {
 
     @Autowired
     private OnlineProductService onlineProductService;
+
+    @Autowired
+    private InventoryProductService inventoryProductService;
 
     @RequestMapping("admin/online/product/page/info.json")
     public ResultEntity<PageInfo<OnlineProductVO>> getOnlineProductVOPageInfo(
@@ -36,7 +40,11 @@ public class OnlineProductHandler {
      */
     @RequestMapping("admin/do/sold/out/online/product.json")
     public ResultEntity<String> doSoldOutOnlineProduct(Integer productId){
-        return null;
+        OnlineProduct onlineProductById = onlineProductService.getOnlineProductById(productId);
+        Integer onlineNum = onlineProductById.getOnlineNum();
+        onlineProductService.deleteOnlineProduct(productId);
+        inventoryProductService.increaseOrDecreaseInventory(productId,onlineNum);
+        return ResultEntity.successWithoutData();
     }
 
 }
