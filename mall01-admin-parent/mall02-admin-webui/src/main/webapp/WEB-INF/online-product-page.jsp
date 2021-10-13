@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
 <script type="text/javascript" src="js/my-online-product.js"></script>
+<script type="text/javascript" src="js/jutils.min.js"></script>
 <script type="text/javascript">
     $(function () {
         // 1.为分页操作准备初始化数据
@@ -27,6 +28,27 @@
         $("#searchBtn").click(function () {
             window.keyword = $("#keywordInput").val();
             generatePage();
+        });
+
+        // 4.打开商品详情模态框
+        $("#onlineProductPageBody").on("click",".onlineDetailBtn",function () {
+            $("#onlineProductModal").modal("show");
+            let productId = this.id;
+            let onlineProduct = getOnlineProductById(productId);
+            let produceTime = jutils.formatDate(new Date(onlineProduct.produceTime),`YYYY-MM-DD HH:ii:ss`);
+            let endTime = jutils.formatDate(new Date(onlineProduct.endTime),`YYYY-MM-DD HH:ii:ss`);
+
+            $("#productId").text(onlineProduct.productId);
+            $("#productName").text(onlineProduct.productName);
+            $("#brand").text(onlineProduct.brand);
+            $("#price").text(onlineProduct.price);
+            $("#productImg").attr("src",onlineProduct.productImg);
+            $("#category").text(onlineProduct.category);
+            $("#produceTime").text(produceTime);
+            $("#activityType").text(onlineProduct.activityType);
+            $("#description").text(onlineProduct.description);
+            $("#endTime").text(endTime);
+            $("#onlineNum").text(onlineProduct.onlineNum);
         });
     })
 </script>
@@ -100,6 +122,33 @@
     </div>
 </div>
 
+
+<div id="onlineProductModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">商品详情</h4>
+            </div>
+            <div class="modal-body">
+                商品编号：<b id="productId"></b><br>
+                商品名称：<b id="productName"></b><br>
+                品牌：<b id="brand"></b><br>
+                价格：<b id="price"></b><br>
+                图片：<img id="productImg" src="" width="200px" height="160px" alt="商品图片"><br>
+                类别：<b id="category"></b><br>
+                描述：<b id="description"></b><br>
+                生产日期：<b id="produceTime"></b><br>
+                活动类型：<b id="activityType"></b><br>
+                过期日期：<b id="endTime"></b><br>
+                上架数量：<b id="onlineNum"></b><br>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 

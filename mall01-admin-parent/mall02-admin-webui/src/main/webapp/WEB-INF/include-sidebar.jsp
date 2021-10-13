@@ -37,7 +37,7 @@
                         <a href="admin/to/examine/product/page.html"><i class="glyphicon glyphicon-check"></i> 商品审核</a>
                     </li>
                     <li style="height:30px;">
-                        <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 商家入驻审核</a>
+                        <a href="admin/to/check/shop/page.html"><i class="glyphicon glyphicon-check"></i> 商家入驻审核</a>
                     </li>
                 </ul>
             </li>

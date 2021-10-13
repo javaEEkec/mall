@@ -4,7 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.Shop;
+import com.myteam.mall.entity.ShopCheck;
+import com.myteam.mall.entity.ShopCheckExample;
+import com.myteam.mall.entity.ShopExample;
 import com.myteam.mall.exception.ShopAcctAlreadyInUseException;
+import com.myteam.mall.mapper.ShopCheckMapper;
 import com.myteam.mall.mapper.ShopMapper;
 import com.myteam.mall.service.api.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopMapper shopMapper;
+
+    @Autowired
+    private ShopCheckMapper shopCheckMapper;
 
     @Override
     public void saveShop(Shop shop) {
@@ -41,5 +48,41 @@ public class ShopServiceImpl implements ShopService {
         List<Shop> shopList = shopMapper.selectShopByKeyWord(keyword);
 
         return new PageInfo<>(shopList);
+    }
+
+    @Override
+    public PageInfo<ShopCheck> getCheckPageInfo(String keyword, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<ShopCheck> list = shopCheckMapper.selectShopCheckByKeyword(keyword);
+        return new PageInfo<>(list);
+    }
+
+    @Override
+    public void updateShopCheckStatus(Integer id, Integer operation) {
+        String status = operation==0?"审核通过":"审核不通过";
+
+        //封装查询条件
+        ShopCheckExample example = new ShopCheckExample();
+        ShopCheckExample.Criteria criteria = example.createCriteria();
+
+        criteria.andIdEqualTo(id);
+
+        ShopCheck shopCheck = new ShopCheck();
+        shopCheck.setShopCheckStatus(status);
+
+        shopCheckMapper.updateByExampleSelective(shopCheck,example);
+    }
+
+    @Override
+    public List<Shop> getShopByAcct(String shopAcct) {
+        ShopExample shopExample = new ShopExample();
+        ShopExample.Criteria criteria = shopExample.createCriteria();
+        criteria.andShopAcctEqualTo(shopAcct);
+        return shopMapper.selectByExample(shopExample);
+    }
+
+    @Override
+    public ShopCheck getShopCheckById(Integer id) {
+        return shopCheckMapper.selectByPrimaryKey(id);
     }
 }

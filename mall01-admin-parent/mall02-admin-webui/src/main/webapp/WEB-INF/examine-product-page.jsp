@@ -31,17 +31,17 @@
         });
 
         // 4.点击打开商品详情模态框
-        $("#examineProductPageBody").on("click",".examineDetailBtn",function () {
+        $("#examineProductPageBody").on("click", ".examineDetailBtn", function () {
             $("#examineProductModal").modal("show");
             let id = this.id;
             let examineProduct = getExamineProductById(id);
-            let produceTime = jutils.formatDate(new Date(examineProduct.produceTime),`YYYY-MM-DD HH:ii:ss`);
-            let endTime = jutils.formatDate(new Date(examineProduct.endTime),`YYYY-MM-DD HH:ii:ss`);
+            let produceTime = jutils.formatDate(new Date(examineProduct.produceTime), `YYYY-MM-DD HH:ii:ss`);
+            let endTime = jutils.formatDate(new Date(examineProduct.endTime), `YYYY-MM-DD HH:ii:ss`);
             $("#id").text(examineProduct.id);
             $("#productName").text(examineProduct.productName);
             $("#brand").text(examineProduct.brand);
             $("#price").text(examineProduct.price);
-            $("#productImg").attr("src",examineProduct.productImg);
+            $("#productImg").attr("src", examineProduct.productImg);
             $("#category").text(examineProduct.category);
             $("#produceTime").text(produceTime);
             $("#activityType").text(examineProduct.activityType);
@@ -52,46 +52,46 @@
         });
 
         // 5.点击审核不通过按钮
-        $("#failedCheckBtn").click(function (){
+        $("#failedCheckBtn").click(function () {
             let id = $("#id").text();
-           $.ajax({
-               url: "check/product/by/id.json",
-               data:{
-                   "id": id,
-                   "operation": 1
-               },
-               dataType: "json",
-               success:function (resp) {
-                   let result = resp.result;
-                   if (result === "SUCCESS") {
-                       layer.msg("更新成功！");
+            $.ajax({
+                url: "check/product/by/id.json",
+                data: {
+                    "id": id,
+                    "operation": 1
+                },
+                dataType: "json",
+                success: function (resp) {
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("更新成功！");
 
-                       // 重新加载分页
-                       generatePage();
-                   }
-                   if (result === "FAILED") {
-                       layer.msg("操作失败！" + response.message);
-                   }
-               },
-               error: function (response) {
-                   layer.msg(response.status + " " + response.statusText);
-               }
-           });
+                        // 重新加载分页
+                        generatePage();
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + resp.message);
+                    }
+                },
+                error: function (response) {
+                    layer.msg(response.status + " " + response.statusText);
+                }
+            });
             //关闭模态框
             $("#examineProductModal").modal("hide");
         });
 
         //点击通过审核入库
-        $("#accessCheckBtn").click(function (){
+        $("#accessCheckBtn").click(function () {
             let id = $("#id").text();
             $.ajax({
                 url: "check/product/by/id.json",
-                data:{
+                data: {
                     "id": id,
                     "operation": 0
                 },
                 dataType: "json",
-                success:function (resp) {
+                success: function (resp) {
                     let result = resp.result;
                     if (result === "SUCCESS") {
                         layer.msg("更新成功！");
@@ -128,13 +128,20 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input id="keywordInput" class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <input id="keywordInput" class="form-control has-success" type="text"
+                                       placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button id="searchBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                        <button id="searchBtn" type="button" class="btn btn-warning"><i
+                                class="glyphicon glyphicon-search"></i> 查询
+                        </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
+                            class=" glyphicon glyphicon-remove"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-primary" style="float:right;"
+                            onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增
+                    </button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -184,7 +191,7 @@
 </div>
 
 
-<%@include file="modal-examine-product-detail.jsp"%>
+<%@include file="modal-examine-product-detail.jsp" %>
 </body>
 </html>
 

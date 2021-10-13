@@ -1,10 +1,8 @@
-﻿// 执行分页操作
-function generatePage() {
+﻿function generatePage() {
     // 1.获取分页数据
     var pageInfo = getPageInfoRemote();
     // 2.填充表格
     fillTableBody(pageInfo);
-
 }
 
 // 远程访问服务器端程序获取pageInfo数据
@@ -12,7 +10,7 @@ function getPageInfoRemote() {
 
     console.log("pageNum=" + window.pageNum);
     var ajaxResult = $.ajax({
-        url: "admin/get/shop/page/info.json",
+        url: "admin/check/shop/page/info.json",
         type: "post",
         data: {
             "pageNum": window.pageNum,
@@ -46,41 +44,45 @@ function getPageInfoRemote() {
 // 填充表格
 function fillTableBody(pageInfo) {
 
-    var shopPageBody = $("#shopPageBody");
+    var shopCheckPageBody = $("#shopCheckPageBody");
     // 清除tbody原来的内容
-    shopPageBody.empty();
+    shopCheckPageBody.empty();
     //这里清空是为了当查询不到结果时不显示底部分页导航条
     $("#Pagination").empty();
     // 判断pageInfo是否有效
     if (pageInfo == null || pageInfo.list == null || pageInfo.list.length === 0) {
-        shopPageBody.append("<tr><td colspan='4' align='center'>抱歉！没有查询到您搜索的数据</td></tr>");
+        shopCheckPageBody.append("<tr><td colspan='4' align='center'>抱歉！没有查询到您搜索的数据</td></tr>");
         return;
     }
     // 使用pageInfo的list属性填充tBody
     for (let i = 0; i < pageInfo.list.length; i++) {
 
-        let shop = pageInfo.list[i];
-        let shopId = shop.shopId;
-        let shopAcct = shop.shopAcct;
-        let shopName = shop.shopName;
-        let shopPersonInCharge = shop.shopPersonincharge;
-        let shopPersonPhone = shop.shopPersonphone;
+        let shopCheck = pageInfo.list[i];
+        let id = shopCheck.id;
+        let shopAcct = shopCheck.shopAcct;
+        let shopName = shopCheck.shopName;
+        let shopPersonInCharge = shopCheck.shopPersonincharge;
+        let shopPersonPhone = shopCheck.shopPersonphone;
+        let shopCheckStatus = shopCheck.shopCheckStatus;
 
+        console.log(shopCheck);
         let numberTd = "<td>" + (i + 1) + "</td>";
-        let checkboxTd = "<td><input id='" + shopId + "' class='itemBox' type='checkbox'></td>";
         let shopAcctTd = "<td>" + shopAcct + "</td>";
         let shopNameTd = "<td>" + shopName + "</td>";
         let shopPersonInChargeTd = "<td>" + shopPersonInCharge + "</td>";
         let shopPersonPhoneTd = "<td>" + shopPersonPhone + "</td>";
+        let shopCheckStatusTd = "<td>" + shopCheckStatus + "</td>";
 
-        var checkBtn = "<button type=\"button\" class=\"btn btn-success btn-xs\"><i class=\" glyphicon glyphicon-check\"></i></button>";
-        var pencilBtn = "<button id='" + shopId + "' type='button' class='btn btn-primary btn-xs pencilBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
-        var removeBtn = "<button id='" + shopId + "' type=\"button\" class=\"btn btn-danger btn-xs removeBtn\"><i class=\" glyphicon glyphicon-remove\"></i></button>";
+        var checkBtn = "<button id='" + id + "' type=\"button\" class=\"btn btn-success btn-xs checkBtn\"><i class=\" glyphicon glyphicon-check\"></i></button>";
+        // var pencilBtn = "<button id='" + id + "' type='button' class='btn btn-primary btn-xs pencilBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
+        // var removeBtn = "<button id='" + id + "' type=\"button\" class=\"btn btn-danger btn-xs removeBtn\"><i class=\" glyphicon glyphicon-remove\"></i></button>";
 
-        var buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>"
-        var tr = "<tr>" + numberTd + checkboxTd + shopAcctTd+ shopNameTd + shopPersonInChargeTd + shopPersonPhoneTd + buttonTd + "</tr>";
+        var buttonTd = "<td>" + checkBtn + " " +
+            // pencilBtn + " " + removeBtn +
+            "</td>"
+        var tr = "<tr>" + numberTd + shopAcctTd+ shopNameTd + shopPersonInChargeTd + shopPersonPhoneTd +shopCheckStatusTd+ buttonTd + "</tr>";
 
-        shopPageBody.append(tr);
+        shopCheckPageBody.append(tr);
     }
     // 生成分页导航条
     generateNavigator(pageInfo);
@@ -107,8 +109,6 @@ function generateNavigator(pageInfo) {
     // 调用pagination()函数
     $("#Pagination").pagination(totalRecord, properties);
 
-
-
 }
 
 // 翻页时的回调函数
@@ -124,3 +124,33 @@ function paginationCallBack(pageIndex, jQuery) {
 }
 
 
+function getShopCheckById(id) {
+    let ajaxResult = $.ajax({
+        url: "get/shop/check/detail/by/id.json",
+        type: "post",
+        data: {
+            id: id
+        },
+        //取消异步执行
+        async: false,
+        dataType:"json"
+    });
+    console.log(ajaxResult);
+    // 判断当前响应状态码是否为200
+    var statusCode = ajaxResult.status;
+    // 如果当前响应状态码不是200，说明出现错误，显示提示信息，让当前函数停止执行
+    if (statusCode !== 200) {
+        layer.msg("失败! 状态码=" + statusCode + " 提示信息=" + ajaxResult.statusText);
+        return null;
+    }
+    // 如果响应码为200，说明请求处理成功，获取pageInfo
+    var resultEntity = ajaxResult.responseJSON;
+    // 从resultEntity属性中获取result属性
+    var result = resultEntity.result;
+    // 判断result是否成功
+    if (result === "FAILED") {
+        layer.msg(resultEntity.message);
+        return null;
+    }
+    return resultEntity.data;
+}

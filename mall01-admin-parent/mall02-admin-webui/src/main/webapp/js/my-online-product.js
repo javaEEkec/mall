@@ -76,11 +76,11 @@ function fillTableBody(pageInfo) {
         let categoryTd = "<td>" + category + "</td>";
         let onlineNumTd = "<td>" + onlineNum + "</td>";
 
-        var detailBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-success btn-xs\"><i class=\" glyphicon glyphicon-eye-open\"></i></button>";
+        var detailBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-success btn-xs onlineDetailBtn\"><i class=\" glyphicon glyphicon-eye-open\"></i></button>";
         var pencilBtn = "<button id='" + productId + "' type='button' class='btn btn-primary btn-xs pencilBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
-        var upLineBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-danger btn-xs upLineBtn\"><i class=\" glyphicon glyphicon-arrow-down\"></i></button>";
+        var upLineBtn = "<button id='" + productId + "' type=\"button\" class=\"btn btn-danger btn-xs upLineBtn\"><i class=\"glyphicon glyphicon-arrow-down\"></i></button>";
 
-        var buttonTd = "<td>" + detailBtn + " " + pencilBtn + " " + removeBtn + "</td>"
+        var buttonTd = "<td>" + detailBtn + " " + pencilBtn + " " + upLineBtn + "</td>"
         var tr = "<tr>" + numberTd + productNameTd +brandTd+ shopNameTd +priceTd + categoryTd+ onlineNumTd + buttonTd + "</tr>";
 
         onlineProductPageBody.append(tr);
@@ -123,6 +123,40 @@ function paginationCallBack(pageIndex, jQuery) {
     // 由于每一个页码按钮都是超链接，所以在这个函数最后取消超链接的默认行为
     return false;
 }
+
+// 获取商品详细数据
+function getOnlineProductById(productId){
+    let ajaxResult = $.ajax({
+        url: "admin/get/online/product/detail.json",
+        type: "post",
+        data: {
+            productId: productId
+        },
+        //取消异步执行
+        async: false,
+        dataType:"json"
+    });
+    console.log(ajaxResult);
+    // 判断当前响应状态码是否为200
+    var statusCode = ajaxResult.status;
+    // 如果当前响应状态码不是200，说明出现错误，显示提示信息，让当前函数停止执行
+    if (statusCode !== 200) {
+        layer.msg("失败! 状态码=" + statusCode + " 提示信息=" + ajaxResult.statusText);
+        return null;
+    }
+    // 如果响应码为200，说明请求处理成功，获取pageInfo
+    var resultEntity = ajaxResult.responseJSON;
+    // 从resultEntity属性中获取result属性
+    var result = resultEntity.result;
+    // 判断result是否成功
+    if (result === "FAILED") {
+        layer.msg(resultEntity.message);
+        return null;
+    }
+    return resultEntity.data;
+}
+
+
 
 
 

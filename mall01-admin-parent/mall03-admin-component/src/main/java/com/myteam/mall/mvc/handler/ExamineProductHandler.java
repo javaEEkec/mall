@@ -55,6 +55,7 @@ public class ExamineProductHandler {
     @RequestMapping("check/product/by/id.json")
     public ResultEntity<String> checkExamineProduct(Integer id,Integer operation){
         examineService.updateExamineProductStatus(id,operation);
+        //如果审核操作为通过
         if (operation == 0){
             ExamineProduct examineProduct = examineService.getExamineProductById(id);
             if (examineProduct == null){

@@ -31,12 +31,11 @@ public class OnlineProductHandler {
     }
 
     /**
-     * 商品下架
+     * 商品下架入库
      * @return
      */
     @RequestMapping("admin/do/sold/out/online/product.json")
-    public ResultEntity<String> doSoldOutOnlineProduct(){
-
+    public ResultEntity<String> doSoldOutOnlineProduct(Integer productId){
         return null;
     }
 
