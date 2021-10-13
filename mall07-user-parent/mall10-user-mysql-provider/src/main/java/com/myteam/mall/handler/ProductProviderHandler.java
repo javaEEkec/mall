@@ -10,6 +10,7 @@ import com.myteam.mall.service.api.ProductService;
 import com.myteam.mall.util.ResultEntity;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,7 +67,7 @@ public class ProductProviderHandler {
      * @param examineProduct
      */
     @RequestMapping("save/examine/product/remote")
-    ResultEntity<String> saveExamineProduct(ExamineProduct examineProduct){
+    ResultEntity<String> saveExamineProduct(@RequestBody ExamineProduct examineProduct){
         examineProductService.saveExamineProduct(examineProduct);
         return ResultEntity.successWithoutData();
     }

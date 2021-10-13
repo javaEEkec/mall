@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myteam.mall.mapper.ShopMapper">
+<mapper namespace="com.myteam.mall.mapper.ShopMapper1">
   <resultMap id="BaseResultMap" type="com.myteam.mall.entity.po.Shop">
     <id column="shop_id" jdbcType="INTEGER" property="shopId" />
     <result column="shop_acct" jdbcType="VARCHAR" property="shopAcct" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     shop_id, shop_acct, shop_pwd, shop_name, shop_personincharge, shop_personphone
   </sql>
-  <select id="selectByExample" parameterType="com.myteam.mall.entity.ShopExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.myteam.mall.entity.po.ShopExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,13 +94,13 @@
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.myteam.mall.entity.ShopExample">
+  <delete id="deleteByExample" parameterType="com.myteam.mall.entity.po.ShopExample">
     delete from shop
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.myteam.mall.entity.Shop">
+  <insert id="insert" parameterType="com.myteam.mall.entity.po.Shop">
     insert into shop (shop_id, shop_acct, shop_pwd, 
       shop_name, shop_personincharge, shop_personphone
       )
@@ -108,7 +108,7 @@
       #{shopName,jdbcType=VARCHAR}, #{shopPersonincharge,jdbcType=VARCHAR}, #{shopPersonphone,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.myteam.mall.entity.Shop">
+  <insert id="insertSelective" parameterType="com.myteam.mall.entity.po.Shop">
     insert into shop
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="shopId != null">
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.myteam.mall.entity.ShopExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.myteam.mall.entity.po.ShopExample" resultType="java.lang.Long">
     select count(*) from shop
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -200,7 +200,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.myteam.mall.entity.Shop">
+  <update id="updateByPrimaryKeySelective" parameterType="com.myteam.mall.entity.po.Shop">
     update shop
     <set>
       <if test="shopAcct != null">
@@ -221,7 +221,7 @@
     </set>
     where shop_id = #{shopId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.myteam.mall.entity.Shop">
+  <update id="updateByPrimaryKey" parameterType="com.myteam.mall.entity.po.Shop">
     update shop
     set shop_acct = #{shopAcct,jdbcType=VARCHAR},
       shop_pwd = #{shopPwd,jdbcType=VARCHAR},

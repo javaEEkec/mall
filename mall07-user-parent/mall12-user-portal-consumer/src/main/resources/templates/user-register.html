@@ -32,6 +32,7 @@
 
     <form action="/do/user/register" method="post" class="form-signin" role="form">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户注册</h2>
+        <a th:href="@{/portal/shop/to/register/page}">商户注册</a>
         <p th:text="${message}">从请求域取出的提示消息</p>
         <div class="form-group has-success has-feedback">
             <input name="userAcct" type="text" class="form-control" id="inputUserAcct" placeholder="请输入登录账号" autofocus>

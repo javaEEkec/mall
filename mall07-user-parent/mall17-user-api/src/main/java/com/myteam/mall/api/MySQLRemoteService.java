@@ -66,7 +66,7 @@ public interface MySQLRemoteService {
      * @param examineProduct
      */
     @RequestMapping("save/examine/product/remote")
-    ResultEntity<String> saveExamineProduct(ExamineProduct examineProduct);
+    ResultEntity<String> saveExamineProduct(@RequestBody ExamineProduct examineProduct);
 
     /**
      * 将商户提交的注册申请提交给后台
@@ -74,8 +74,8 @@ public interface MySQLRemoteService {
      * @return
      */
     @RequestMapping("save/shop/check/remote")
-    ResultEntity<String> saveShopCheck(ShopCheck shopCheck);
+    ResultEntity<String> saveShopCheck(@RequestBody ShopCheck shopCheck);
 
     @RequestMapping("get/shop/by/acct/remote")
-    ResultEntity<Shop> getShopByShopAcctRemote(String shopAcct);
+    ResultEntity<Shop> getShopByShopAcctRemote(@RequestParam("shopAcct") String shopAcct);
 }

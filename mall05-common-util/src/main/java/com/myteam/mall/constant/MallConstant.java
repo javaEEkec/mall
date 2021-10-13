@@ -7,6 +7,7 @@ public class MallConstant {
     public static final String ATTR_NAME_EXCEPTION = "exception";
     public static final String ATTR_NAME_LOGIN_ADMIN = "loginAdmin";
     public static final String ATTR_NAME_LOGIN_USER = "loginUser";
+    public static final String ATTR_NAME_LOGIN_SHOP = "loginShop";
     public static final String MESSAGE_LOGIN_FAILED = "抱歉！，账号或密码错误，请重新输入！";
     public static final String MESSAGE_LOGIN_ACCT_ALREADY_IN_USE = "账号已被占用！";
     public static final String MESSAGE_ACCESS_FORBIDDEN = "请登录后访问！";

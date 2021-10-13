@@ -25,6 +25,7 @@ public class ShopHandler {
 
     @RequestMapping("/do/shop/register")
     public String doShopRegister(ShopCheck shopCheck, ModelMap modelMap){
+        shopCheck.setShopCheckStatus("待审核");
         //执行密码加密：SpringSecurity加密算法SHA-256+随机盐+密钥对密码进行加密
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         shopCheck.setShopPwd(passwordEncoder.encode(shopCheck.getShopPwd()));
@@ -42,7 +43,7 @@ public class ShopHandler {
     }
 
     @RequestMapping("/do/shop/login")
-    public String doShopLogin(@RequestParam("shopAcct") String shopAcct, @RequestParam("shopPswd") String shopPswd,
+    public String doShopLogin(@RequestParam("shopAcct") String shopAcct, @RequestParam("shopPwd") String shopPswd,
                               ModelMap modelMap, HttpSession session){
         ResultEntity<Shop> resultEntity = mysqlRemoteService.getShopByShopAcctRemote(shopAcct);
         if (ResultEntity.FAILED.equals(resultEntity.getResult())){
@@ -51,7 +52,7 @@ public class ShopHandler {
         }
 
         Shop shop = resultEntity.getData();
-
+        System.out.println(shop);
         if (shop ==null){
             modelMap.addAttribute(MallConstant.ATTR_NAME_EXCEPTION,MallConstant.MESSAGE_LOGIN_FAILED);
             return "shop-login";
@@ -66,9 +67,9 @@ public class ShopHandler {
             return "shop-login";
         }
 
-        session.setAttribute(MallConstant.ATTR_NAME_LOGIN_USER,shop);
+        session.setAttribute(MallConstant.ATTR_NAME_LOGIN_SHOP,shop);
 
-        return "redirect:http://www.mall.com/portal/shop/to/center/page";
+        return "redirect:http://www.mall.com/portal/shop/to/shop/center";
     }
 
     @RequestMapping("/shop/logout")

@@ -28,5 +28,6 @@ public class MallWebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/portal/user/to/user/detail").setViewName("user-detail");
         registry.addViewController("/portal/shop/to/register/page").setViewName("shop-register");
         registry.addViewController("/portal/shop/to/login/page").setViewName("shop-login");
+        registry.addViewController("/portal/shop/to/shop/center").setViewName("shop-center");
     }
 }

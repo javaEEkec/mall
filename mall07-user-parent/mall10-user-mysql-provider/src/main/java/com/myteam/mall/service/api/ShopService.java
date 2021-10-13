@@ -1,5 +1,6 @@
 package com.myteam.mall.service.api;
 
+import com.myteam.mall.entity.po.Shop;
 import com.myteam.mall.entity.po.ShopCheck;
 
 /**
@@ -9,4 +10,7 @@ public interface ShopService {
 
 
     void saveShopCheck(ShopCheck shopCheck);
+
+
+    Shop getShopByShopAcct(String shopAcct);
 }

@@ -4,10 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
+/**
+ * @author mzx
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Shop {
+public class Shop implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Integer shopId;
 
     private String shopAcct;

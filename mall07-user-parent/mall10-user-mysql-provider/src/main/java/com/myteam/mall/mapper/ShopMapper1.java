@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface ShopMapper {
+public interface ShopMapper1 {
     long countByExample(ShopExample example);
 
     int deleteByExample(ShopExample example);
