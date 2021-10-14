@@ -25,6 +25,7 @@ public class AccessPassResources {
         PASS_RES_SET.add("/portal/shop/to/login/page");
         PASS_RES_SET.add("/portal/shop/to/register/page");
         PASS_RES_SET.add("/shop/logout");
+        PASS_RES_SET.add("/shop/get/shop/detail/by/id");
 
     }
 

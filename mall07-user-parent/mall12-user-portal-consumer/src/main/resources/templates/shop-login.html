@@ -31,6 +31,7 @@
 
   <form action="/do/shop/login" method="post" class="form-signin" role="form">
     <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 商户登录</h2>
+    <a th:href="@{/portal/user/to/login/page}">用户登录</a>
     <p th:text="${exception}">从请求域取出的提示消息</p>
     <div class="form-group has-success has-feedback">
       <input name="shopAcct" type="text" class="form-control" id="inputShopAcct" placeholder="请输入商户账号" autofocus>

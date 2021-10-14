@@ -3,6 +3,7 @@ package com.myteam.mall.handler;
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.api.MySQLRemoteService;
 import com.myteam.mall.config.OBSProperties;
+import com.myteam.mall.config.OSSProperties;
 import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.po.ExamineProduct;
 import com.myteam.mall.entity.po.InventoryProduct;
@@ -38,6 +39,9 @@ public class ProductConsumerHandler {
     @Autowired
     private OBSProperties obsProperties;
 
+    @Autowired
+    private OSSProperties ossProperties;
+
     @ResponseBody
     @RequestMapping("get/products/page/info")
     public ResultEntity<PageInfo<ProductSimpleVO>> getProductsPageInfo(
@@ -69,16 +73,26 @@ public class ProductConsumerHandler {
     }
 
     @ResponseBody
-    @RequestMapping("shop/commit/inventory/product/to/examine")
+    @RequestMapping("/shop/commit/inventory/product/to/examine")
     public ResultEntity<String> saveExamineProduct(ExamineProductVO examineProductVo,
                                                    MultipartFile picture) throws IOException, ParseException {
 
-        ResultEntity<String> uploadPictureEntity = MallUtil.uploadFileToObs(obsProperties.getEndPoint(),
-                obsProperties.getAccessKeyId(),
-                obsProperties.getAccessKeySecret(),
+        boolean pictureIsEmpty = true;
+
+        if (picture != null){
+            pictureIsEmpty = picture.isEmpty();
+        }
+        if (pictureIsEmpty){
+            return ResultEntity.failed(MallConstant.MESSAGE_PICTURE_EMPTY);
+        }
+
+        ResultEntity<String> uploadPictureEntity = MallUtil.uploadFileToOss(
+                ossProperties.getEndPoint(),
+                ossProperties.getAccessKeyId(),
+                ossProperties.getAccessKeySecret(),
                 picture.getInputStream(),
-                obsProperties.getBucketName(),
-                obsProperties.getBucketDomain(),
+                ossProperties.getBucketName(),
+                ossProperties.getBucketDomain(),
                 picture.getOriginalFilename());
 
         String result = uploadPictureEntity.getResult();
