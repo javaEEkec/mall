@@ -38,6 +38,8 @@
     <mvc:view-controller path="/admin/to/shop/list/page.html" view-name="shop-list"/>
     <mvc:view-controller path="/admin/to/examine/product/page.html" view-name="examine-product-page"/>
     <mvc:view-controller path="/admin/to/check/shop/page.html" view-name="check-shop-page"/>
+    <mvc:view-controller path="/admin/to/order/page.html" view-name="order-page"/>
+    <mvc:view-controller path="/admin/to/compliant/page.html" view-name="compliant-page"/>
 
     <!--注册拦截器-->
     <mvc:interceptors>

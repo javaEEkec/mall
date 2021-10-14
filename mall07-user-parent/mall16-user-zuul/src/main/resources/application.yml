@@ -7,6 +7,10 @@ spring:
     host: 127.0.0.1
   session:
     store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 
 ribbon:
   ReadTimeout: 60000
@@ -26,3 +30,8 @@ zuul:
     mall-product:
       service-id: myteam-mall-product
       path: /product/**
+    mall-order:
+      service-id: myteam-mall-order
+      path: /order/**
+
+

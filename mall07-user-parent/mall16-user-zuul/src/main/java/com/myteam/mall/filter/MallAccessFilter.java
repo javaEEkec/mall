@@ -93,8 +93,6 @@ public class MallAccessFilter extends ZuulFilter {
         // 3.尝试从 Session 对象中获取已登录用户
         Object loginUser = session.getAttribute(MallConstant.ATTR_NAME_LOGIN_USER);
         Object loginShop = session.getAttribute(MallConstant.ATTR_NAME_LOGIN_SHOP);
-        System.out.println("loginUser="+loginUser);
-        System.out.println("loginShop="+loginShop);
         // 4.判断 loginUser 是否为空
         if (loginUser == null && loginShop == null){
             // 5.从requestContext对象中获取Response对象
