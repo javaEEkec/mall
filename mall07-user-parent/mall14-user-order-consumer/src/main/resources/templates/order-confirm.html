@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UFT-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <title>订单</title>
+  <base th:href="@{/}">
+  <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-3.5.1.js}"></script>
+  <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+  <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+  <link rel="stylesheet" href="/css/theme.css" th:href="@{/css/theme.css}">
+  <script type="text/javascript">
+    $(document).ready(function () {
+      window.onload = function () {
+        var amounts=$(".itemAmount");
+        var prices=$(".itemPrice");
+        var total=0;
+        for (var i=0;i<amounts.length;i++){
+          total=total+prices[i].innerText*amounts[i].innerText;
+        }
+        $("#totalPrice").text(total);
+      };
+    });
+  </script>
+  <style>
+    #footer {
+      padding: 15px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    #topcontrol {
+      color: #fff;
+      z-index: 99;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      background: #222;
+      position: relative;
+      right: 14px !important;
+      bottom: 11px !important;
+      border-radius: 3px !important;
+    }
+
+    #topcontrol:after {
+      /*top: -2px;*/
+      left: 8.5px;
+      content: "\f106";
+      position: absolute;
+      text-align: center;
+      font-family: FontAwesome;
+    }
+
+    #topcontrol:hover {
+      color: #fff;
+      background: #18ba9b;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .label-type,
+    .label-status,
+    .label-order {
+      background-color: #fff;
+      color: #f60;
+      padding: 5px;
+      border: 1px #f60 solid;
+    }
+
+    #typeList :not(:first-child) {
+      margin-top: 20px;
+    }
+
+    .label-txt {
+      margin: 10px 10px;
+      border: 1px solid #ddd;
+      padding: 4px;
+      font-size: 14px;
+    }
+
+    .panel {
+      border-radius: 0;
+    }
+
+    .progress-bar-default {
+      background-color: #ddd;
+    }
+  </style>
+  <title>生成订单</title>
+</head>
+<body>
+<div class="navbar-wrapper">
+  <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html" th:href="@{/}" style="font-size:32px;">拼客-大学生自己的购物平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                      class="glyphicon glyphicon-user"></i>
+                (用户名)<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
+                <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
+                <li class="divider"></li>
+                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="container-fluid">
+              <div class="row clearfix">
+                <div class="col-md-12 column">
+                  <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
+                    <b>
+                      (用户名)，确认您的订单信息：
+                    </b>
+                  </blockquote>
+                  <div class="table-responsive">
+                    <table class="table  table-bordered">
+                      <thead>
+                      <tr>
+                        <th width="30">#</th>
+                        <th>商品名称</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>XXXXXXXXXXXX商品</td>
+                        <td><span class="itemPrice">12</span></td>
+                        <td><span class="itemAmount">5</span></td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>XXXXXXXXXXXX商品</td>
+                        <td><span class="itemPrice">56</span></td>
+                        <td><span class="itemAmount">1</span></td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>XXXXXXXXXXXX商品</td>
+                        <td><span class="itemPrice">53</span></td>
+                        <td><span class="itemAmount">1</span></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 column">
+            <div class="page-header" style="    border-bottom-style: dashed;">
+              <h3>
+                确认您的信息，支付订单
+              </h3>
+            </div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">收货人姓名</label>
+                <div class="col-sm-10">
+                  <label>哈哈哈</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">收货人电话号码</label>
+                <div class="col-sm-10">
+                  <label>哈哈哈</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">收货地址</label>
+                <div class="col-sm-10">
+                  <label>哈哈哈</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">总价格</label>
+                <div class="col-sm-10">
+                  <label id="totalPrice" style="font-size: 20px"></label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="panel-footer" style="text-align:center;">
+            <button type="button" class="btn  btn-warning btn-lg"
+                    onclick="window.location.href='#'">下单
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- /container -->
+</body>
+</>
