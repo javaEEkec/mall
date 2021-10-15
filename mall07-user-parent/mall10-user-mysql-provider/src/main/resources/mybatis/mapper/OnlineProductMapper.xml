@@ -74,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     product_id, product_name, brand, shop_id, price, product_img, category, produce_time,
-    'description', activity_type, end_time, online_num
+    description, activity_type, end_time, online_num
   </sql>
   <select id="selectByExample" parameterType="com.myteam.mall.entity.po.OnlineProductExample" resultMap="BaseResultMap">
     select
@@ -109,7 +109,7 @@
   <insert id="insert" parameterType="com.myteam.mall.entity.po.OnlineProduct">
     insert into online_product (product_id, product_name, brand, 
       shop_id, price, product_img, 
-      category, produce_time, 'description',
+      category, produce_time, description,
       activity_type, end_time, online_num
       )
     values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 

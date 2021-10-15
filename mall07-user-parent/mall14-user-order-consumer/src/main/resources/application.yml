@@ -20,3 +20,4 @@ eureka:
 ribbon:
   ReadTimeout: 60000
   ConnectTimeout: 60000
+

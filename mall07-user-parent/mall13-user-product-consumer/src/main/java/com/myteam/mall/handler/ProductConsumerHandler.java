@@ -16,11 +16,13 @@ import com.myteam.mall.util.ResultEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -120,5 +122,11 @@ public class ProductConsumerHandler {
             return ResultEntity.failed(resultEntity.getMessage());
         }
         return ResultEntity.successWithoutData();
+    }
+
+
+    @RequestMapping("/to/product/detail/{productId}")
+    public String toProductDetail(@PathVariable("productId") Integer productId){
+        return "product-detail";
     }
 }

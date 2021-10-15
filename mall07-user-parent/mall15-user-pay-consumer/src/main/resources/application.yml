@@ -1,0 +1,32 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: myteam-mall-pay
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+
+ali:
+  pay:
+    app-id: 2021000118629355
+    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1fu2xZSj4BsaHEvUEni2fLlirD48sWzTWpueaVDLhhwHUluu7MsKOtcWZkdypjuO+E+a0i+qMuW2KRVdk+llSPpe+9HnIDRfnCzt9j858FvUIrmt2Ge+GYSmGMZtvMT9WyPNz2WLWDBCIePh/eR4ZsXIj9Uh+iOLxRQ9zYF0MtFh1koM4y4HmjgGGw3O196hnbvW4ms/eJN0bVDznunCjkc+sqyAhSDjSEQrpJFIPFhkPXglIA1KV9E16cMhi2clZzEEfhteN38hKeGy84LxTrFsUecKEfkL2qeTYsGzqW0loYETDHT/2vwdhFjYnV8nyeat38NIaiATz1ip4Po0cQIDAQAB
+    merchant-private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCZwwLm3w40vrbx4zuTcgw8WBdRwxEkph6dUAMn6yU7OAwzANIlw0QF15HYji3CHggHbQo8cFIJdJRl5HfAQb3EyQaSXw+WrgWE179d9yjeX7x6kNFLAbCc5ujqAPwfjZ/2vaooN85E3qj/VfPlqyPp8Vcjq89xC1Fs7y1t7x1gC+5dmeATQsZ0e38PFLVXxaGHGelZLqmq8JE2nqKPm39+KEVNgwwSo3VpYtXtEZhsb3hQgXKU9ZfLtky2CEqfyOa56akvmJp81AuHO3B30VkLysHrypUHU0VokV9rMDXi/3HSpEOvK+UCvpoa931Ikn9BH+8fD2yonoJl3XqEgvL/AgMBAAECggEAfRT/ylIP22Z9qn5gm4x+WaSLq86UpoyggPZy6slGK0tn2SHE0kVrk5kOouzeWnhVrbzNQ+dXRSvaAJ1/sR2Jw4iI2Q+NvdTo1m0v1r/WNjgJOmeOaocAZlMNjDaq4vwx8eXOgxMKsEm1jqkcVGwJNilG6tS8VsiPP5++BB0td1BWMlbU20gnG555ugHTUtvhFfCiWL31UwQnQA6W9LpP94QgsV9xBk3GNsRNEVn8FJ0XFWedjVATlUN7x2ZiOdw+6KEeGUEp1kLOFm3D7srYQQ4KrKlRPBHjR8DEHFgKtxeELLiZ4Gaw602s4UtS4QB3Msvsuc5qMKiNJAbZvSQ1OQKBgQDp9L/v1jkJRyG3wR8aBi27D4mOwxZ61kjk9H/f8cOOUXmjP4xbik9N7mVMQyRMDNqqCNl72pdDyt0EXLjdoZxSZvab3AU7CcAd4rqSSJcmPMKiX7kOaKE8/hHfivZtAel2zym8ziq14Y6UJB0+JhoUkbU1fhmwG2veqlYf3Cx++wKBgQCoP+V4s3wY9d9SEgBHk4kyg7a/d1ZXocg2rzfw4q+jEZvma6zuejUfT1baQ6Dk8tt+t0uZzGubDyX2fOGl6Z/1eaqc6fBelUmtpcCokvyHQRLj5nVKCIlsD35Xyifg3R5R7PMS7xSztogBoNxAwZAfVqPa0zmMSbqA6Clqw1CMzQKBgH0zfYPcIKnWZzTvJLXImLCCoBrGTEFwa5IbRlOSDhUbhPzYBUT3v3j1G0C0rbgFKP/VvI2LbWfaKG0tMcFpuz5d25uNIz90+FsF+tJOBpVv7rj2gRI07BS34ti+hSHQ5B+wvaVMr46mJqcgrIWV3l8jmtYFpbmY8yE2BuEF8soBAoGAVkZdnyU6b3o1B9qfNhTbd4G/BjNlnQ4iopf68ZTsR4xSCzgPt0IHV4TRnp6rNHusPjAzniwKybpc1yZ2dyNzmObIrCnxzi5zV431Wvv0bk7aJu8YGdyCy1yuhsns5Qu97ni4tG7QiM8CswMPrk0TYF6HK0DA88Ui09M42bxJ48kCgYEAg/RSxjr1eoAuEtnlm/4sqhc1bKFmX79rfzBYcdjvwemrKeoUnqxLTXRbTd0m3t4nNkGPPj9QbH1yDGh69TI2WiVbPJ4PaDnT61DcL9QrWcYdVwNxLRfG2ROGeIdtlaA4NBky2DLTp6vbrSWJOiQEQGrRWl1lHYdyri5h/oVDt38=
+    charset: utf-8
+    gateway-url: https://openapi.alipaydev.com/gateway.do
+    sign-type: RSA2
+    notify-url: http://443yi33511.zicp.vip/pay/notify
+    return-url: http://www.mall.com/pay/return

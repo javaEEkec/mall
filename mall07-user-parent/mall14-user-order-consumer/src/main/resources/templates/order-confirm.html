@@ -16,17 +16,54 @@
   <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
   <link rel="stylesheet" href="/css/theme.css" th:href="@{/css/theme.css}">
   <script type="text/javascript">
-    $(document).ready(function () {
-      window.onload = function () {
-        var amounts=$(".itemAmount");
-        var prices=$(".itemPrice");
-        var total=0;
-        for (var i=0;i<amounts.length;i++){
-          total=total+prices[i].innerText*amounts[i].innerText;
-        }
-        $("#totalPrice").text(total);
-      };
-    });
+    // 获取商品详细数据
+    function getOnlineProductById(productId){
+      let ajaxResult = $.ajax({
+        url: "http://www.mall.com/product/get/online/product/detail/by/id",
+        type: "post",
+        data: {
+          productId: productId
+        },
+        //取消异步执行
+        async: false,
+        dataType:"json"
+      });
+      console.log(ajaxResult);
+      // 判断当前响应状态码是否为200
+      var statusCode = ajaxResult.status;
+      // 如果当前响应状态码不是200，说明出现错误，显示提示信息，让当前函数停止执行
+      if (statusCode !== 200) {
+        layer.msg("失败! 状态码=" + statusCode + " 提示信息=" + ajaxResult.statusText);
+        return null;
+      }
+      // 如果响应码为200，说明请求处理成功，获取pageInfo
+      var resultEntity = ajaxResult.responseJSON;
+      // 从resultEntity属性中获取result属性
+      var result = resultEntity.result;
+      // 判断result是否成功
+      if (result === "FAILED") {
+        layer.msg(resultEntity.message);
+        return null;
+      }
+      return resultEntity.data;
+    }
+
+    $(function () {
+      let buyNum = $(".buyNum").text();
+      let price = $(".productPrice").text();
+
+      let sum = buyNum*price;
+      let productId = $(".productId").text();
+      // let productId = $(".productId").text();
+      // let productName = $(".productName").text();
+      // let brand = $(".category").text();
+      $(".priceSum")
+              .append("<b>"+sum+"</b>")
+              .append("<input type='hidden' name='orderToPay' value='"+sum+"'/>")
+      // $(".orderForm").append("<input type='hidden' name='productId' value='"+productId+"'/>")
+      console.log(buyNum*price);
+    })
+
   </script>
   <style>
     #footer {
@@ -110,7 +147,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                       class="glyphicon glyphicon-user"></i>
-                (用户名)<span class="caret"></span></a>
+                [[${session.loginUser.userName}]]<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
                 <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
@@ -137,39 +174,32 @@
                 <div class="col-md-12 column">
                   <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
                     <b>
-                      (用户名)，确认您的订单信息：
+                      [[${session.loginUser.userName}]]，确认您的订单信息：
                     </b>
                   </blockquote>
                   <div class="table-responsive">
                     <table class="table  table-bordered">
                       <thead>
                       <tr>
-                        <th width="30">#</th>
+                        <th width="30">商品编号</th>
                         <th>商品名称</th>
+                        <th>品牌</th>
+                        <th>详情</th>
+                        <th>种类</th>
                         <th>单价</th>
                         <th>数量</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>XXXXXXXXXXXX商品</td>
-                        <td><span class="itemPrice">12</span></td>
-                        <td><span class="itemAmount">5</span></td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>XXXXXXXXXXXX商品</td>
-                        <td><span class="itemPrice">56</span></td>
-                        <td><span class="itemAmount">1</span></td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>XXXXXXXXXXXX商品</td>
-                        <td><span class="itemPrice">53</span></td>
-                        <td><span class="itemAmount">1</span></td>
-                      </tr>
-                      </tbody>
+                        <tr>
+                          <td class="productId" th:text="${session.orderProduct.productId}"></td>
+                          <td class="productName" th:text="${session.orderProduct.productName}"></td>
+                          <td class="brand" th:text="${session.orderProduct.brand}"></td>
+                          <td class="description" th:text="${session.orderProduct.description}"></td>
+                          <td class="category" th:text="${session.orderProduct.category}"></td>
+                          <td class="productPrice" th:text="${session.orderProduct.price}"></td>
+                          <td class="buyNum" th:text="${session.buyNum}"></td>
+                        </tr>
                     </table>
                   </div>
                 </div>
@@ -179,41 +209,41 @@
           <div class="col-md-12 column">
             <div class="page-header" style="    border-bottom-style: dashed;">
               <h3>
-                确认您的信息，支付订单
+                填写您的信息，支付订单
               </h3>
             </div>
-            <form class="form-horizontal">
+            <form th:action="@{/pay/generate/order}" method="post" id="summaryBox" class="form-horizontal orderForm">
+              <input type="hidden" name="orderUserId" th:value="${session.loginUser.userId}">
               <div class="form-group">
                 <label class="col-sm-2 control-label">收货人姓名</label>
                 <div class="col-sm-10">
-                  <label>哈哈哈</label>
+                  <input name="orderCogsigneeName">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">收货人电话号码</label>
                 <div class="col-sm-10">
-                  <label>哈哈哈</label>
+                  <input name="orderCogsigneePhone">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">收货地址</label>
                 <div class="col-sm-10">
-                  <label>哈哈哈</label>
+                  <input name="orderCogsigneeAddress">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">总价格</label>
-                <div class="col-sm-10">
-                  <label id="totalPrice" style="font-size: 20px"></label>
+                <div class="col-sm-10 priceSum">
                 </div>
+              </div>
+              <div class="panel-footer" style="text-align:center;">
+                <button type="submit" class="btn  btn-warning btn-lg">立即付款
+                </button>
               </div>
             </form>
           </div>
-          <div class="panel-footer" style="text-align:center;">
-            <button type="button" class="btn  btn-warning btn-lg"
-                    onclick="window.location.href='#'">下单
-            </button>
-          </div>
+
         </div>
       </div>
     </div>
@@ -221,4 +251,4 @@
 
 </div> <!-- /container -->
 </body>
-</>
+</html>

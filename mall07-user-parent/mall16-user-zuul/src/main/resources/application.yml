@@ -33,5 +33,8 @@ zuul:
     mall-order:
       service-id: myteam-mall-order
       path: /order/**
+    mall-pay:
+      service-id: myteam-mall-pay
+      path: /pay/**
 
 

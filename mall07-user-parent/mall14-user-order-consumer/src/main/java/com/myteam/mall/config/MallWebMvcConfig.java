@@ -12,8 +12,6 @@ public class MallWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/to/page").setViewName("product-page");
-        registry.addViewController("/to/apply/for/product/agency").setViewName("product-agency-apply");
-        registry.addViewController("/to/product/detail").setViewName("product-detail");
+        registry.addViewController("/test/to/order/page").setViewName("order-confirm");
     }
 }

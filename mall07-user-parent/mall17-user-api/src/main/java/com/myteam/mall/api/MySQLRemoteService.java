@@ -2,12 +2,14 @@ package com.myteam.mall.api;
 
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.po.*;
+import com.myteam.mall.entity.vo.OrderVO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -25,6 +27,10 @@ public interface MySQLRemoteService {
      */
     @RequestMapping("/save/user/remote")
     ResultEntity<String> saveUser(@RequestBody UserPO userPO);
+
+
+    @RequestMapping(value = "/save/order/remote")
+    ResultEntity<String> saveOrderRemote(@RequestBody OrderPO orderPO);
 
     /**
      * 根据用户id获取用户

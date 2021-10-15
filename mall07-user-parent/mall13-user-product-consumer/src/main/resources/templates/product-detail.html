@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UFT-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <title>商品详情</title>
+  <script src="jquery/jquery-3.5.1.js" th:src="@{/jquery/jquery-3.5.1.js}"></script>
+  <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+  <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+  <script type="text/javascript" th:src="@{/My97DatePicker/WdatePicker.js}"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#productName").text("未获取到商品名");
+      $("#productIntroduction").text("未获取到该商品介绍");
+      $("#price").text("未获取到该商品价格");
+      $("#productCategory").text("未获取到商品类别");
+      $("#productBrand").text("未获取到商品品牌");
+      $("#productCreateTime").text("未获取到商品生产日期");
+      $("#productEndTime").text("未获取到商品保质期");
+
+      $("#buy_name").text("未获取到商品名");
+      $("#buy_price").text("未获取到商品价格");
+      $("#buy_introduction").text("未获取到商品详情");
+
+      $("#cart_name").text("未获取到商品名");
+      $("#cart_price").text("未获取到商品价格");
+      $("#cart_introduction").text("未获取到商品详情");
+
+      $.ajax({
+        url: "http://www.mall.com/product/get/online/product/detail/by/id",
+        data: "productId="+1,
+        type: "GET",
+        success: function (dat) {
+          console.log(dat);
+          // var jsonObj = JSON.parse(dat);
+
+          $("#productName").text(dat.data.productName);
+          $("#productIntroduction").text(dat.data.description);
+          $("#price").text(dat.data.price);
+          $("#productCategory").text(dat.data.category);
+          $("#productBrand").text(dat.data.brand);
+          $("#productCreateTime").text(dat.data.produceTime);
+          $("#productEndTime").text(dat.data.endTime);
+          $("#itemPhoto").attr('src',dat.data.productImg);
+
+          $("#buy_name").text(dat.data.productName);
+          $("#buy_price").text(dat.data.price);
+          $("#buy_introduction").text(dat.data.description);
+
+          $("#cart_name").text(dat.data.productName);
+          $("#cart_price").text(dat.data.price);
+          $("#cart_introduction").text(dat.data.description);
+        },
+        dataType: "json"
+      });
+    });
+  </script>
+  <style>
+    body {
+      padding-top: 70px;
+      padding-bottom: 30px;
+    }
+
+    .theme-dropdown .dropdown-menu {
+      position: static;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .theme-showcase > p > .btn {
+      margin: 5px 0;
+    }
+
+    .theme-showcase .navbar .container {
+      width: auto;
+    }
+
+    #footer {
+      padding: 15px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    #topcontrol {
+      color: #fff;
+      z-index: 99;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      background: #222;
+      position: relative;
+      right: 14px !important;
+      bottom: 11px !important;
+      border-radius: 3px !important;
+    }
+
+    #topcontrol:after {
+      /*top: -2px;*/
+      left: 8.5px;
+      content: "\f106";
+      position: absolute;
+      text-align: center;
+      font-family: FontAwesome;
+    }
+
+    #topcontrol:hover {
+      color: #fff;
+      background: #18ba9b;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:focus,
+    .nav-tabs > li.active > a:hover {
+      border-bottom-color: #ddd;
+    }
+
+    .nav-tabs > li > a {
+      border-radius: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="navbar-wrapper">
+  <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="font-size:32px;">拼客-大学生自己的购物平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i>[[${session.loginUser.userName}]]<span
+                      class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
+                <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
+                <li class="divider"></li>
+                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <div class="jumbotron nofollow" style="    padding-top: 10px;">
+          <h3>
+            <span id="productName"></span>
+          </h3>
+          <div style="float:left;width:70%;">
+            <h5><span id="productIntroduction"></span></h5>
+          </div>
+          <br/><br/><br/><br/>
+          <h5>其他详情：</h5>
+          <table>
+            <tr>
+              <td align="center" width="150px">
+                商品类别：
+              </td>
+              <td width="300px">
+                <span id="productCategory"></span>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                品牌：
+              </td>
+              <td width="150px">
+                <span id="productBrand"></span>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                生产日期：
+              </td>
+              <td width="150px">
+                <span id="productCreateTime"></span>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                保质期：
+              </td>
+              <td width="150px">
+                <span id="productEndTime"></span>
+              </td>
+            </tr>
+
+          </table>
+          <!--          <div style="float:left;width:70%;">-->
+          <!--            商品类别：-->
+          <!--            <span id="productCategory"></span>-->
+          <!--          </div>-->
+          <!--          <div style="float:left;width:70%;">-->
+          <!--            品牌：-->
+          <!--            <span id="productBrand"></span>-->
+          <!--          </div>-->
+          <!--          <div style="float:left;width:70%;">-->
+          <!--            生产日期：-->
+          <!--            <span id="productCreateTime"></span>-->
+          <!--          </div>-->
+          <!--          <div style="float:left;width:70%;">-->
+          <!--            保质期：-->
+          <!--            <span id="productEndTime"></span>-->
+          <!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <div class="row clearfix">
+          <div class="col-md-8 column">
+            <!-- 商品图片 -->
+            <img id="itemPhoto" alt="商品的图片140x140" width="740" src="img/product_detail_head.jpg"/>
+
+          </div>
+          <div class="col-md-4 column">
+            <div class="panel panel-default" style="border-radius: 0px;">
+              <div class="panel-heading" style="background-color: #fff;border-color: #fff;">
+                <span class="label label-success"><i class="glyphicon glyphicon-tag"></i> 购买</span>
+              </div>
+              <div class="panel-body">
+                <h3>
+                  价格：<span id="price"></span>
+                </h3>
+                <div>
+                  <button id="buy" type="button" class="btn  btn-warning btn-lg btn-block"
+                          data-toggle="modal" data-target="#myModal">立即购买
+                  </button>
+                  <button id="addTpCart" type="button" class="btn  btn-warning btn-lg btn-block"
+                          data-toggle="modal" data-target="#myModal2">加入购物车
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " style="width:960px;height:400px;" role="document">
+    <div class="modal-content" data-spy="scroll" data-target="#myScrollspy">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">购买</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row clearfix">
+            <div id="navList2" class="col-sm-9 col-md-9 column" style="height:400px;overflow-y:auto;">
+              <h2 id="section-11" style="border-bottom:1px dashed #ddd;">
+                <span id="buy_name" style="font-size:20px;font-weight:bold;"></span>
+                <span id="buy_price" style="font-size:12px;margin-left:60px;"></span></h2>
+              <p>配送费用：全国包邮</p>
+              <p id="buy_introduction">(详情)</p>
+              <span>数量：</span>
+              <!-- toChange -->
+              <select>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <br/>
+              <button type="button" class="btn  btn-warning btn-lg "
+                      onclick="window.location.href='pay-step-1.html'">购买
+              </button>
+              <br>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jj -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " style="width:960px;height:400px;" role="document">
+    <div class="modal-content" data-spy="scroll" data-target="#myScrollspy">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">加入购物车</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row clearfix">
+            <div id="navList" class="col-sm-9 col-md-9 column" style="height:400px;overflow-y:auto;">
+              <h2 id="section-1" style="border-bottom:1px dashed #ddd;">
+                <span id="cart_name" style="font-size:20px;font-weight:bold;"></span>
+                <span id="cart_price" style="font-size:12px;margin-left:60px;"></span></h2>
+              <p>配送费用：全国包邮</p>
+              <p id="cart_introduction"></p>
+              <span>数量：</span>
+              <!-- toChange -->
+              <form>
+                <input type="hidden" th:value="">
+              </form>
+              <br/>
+              <button type="button" class="btn  btn-warning btn-lg "
+                      onclick="window.location.href='pay-step-1.html'">加入购物车
+              </button>
+              <br>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

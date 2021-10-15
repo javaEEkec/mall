@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UFT-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>订单</title>
+    <base th:href="@{/}">
+    <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-3.5.1.js}"></script>
+    <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <link rel="stylesheet" href="/css/theme.css" th:href="@{/css/theme.css}">
+    <script type="text/javascript">
+        $(function (){
+            var toReport=$(".reportIt");
+            for (var i=0;i<toReport.length;i++){
+                var $a=$(toReport[i]);
+                var linkTo=$a.parents("tr").find("td:eq(1)").text();
+                $a.attr("href","http://localhost:8080/pageSamples/report.jsp?item_to_report="+linkTo);
+            }
+        });
+    </script>
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        #topcontrol {
+            color: #fff;
+            z-index: 99;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            background: #222;
+            position: relative;
+            right: 14px !important;
+            bottom: 11px !important;
+            border-radius: 3px !important;
+        }
+
+        #topcontrol:after {
+            /*top: -2px;*/
+            left: 8.5px;
+            content: "\f106";
+            position: absolute;
+            text-align: center;
+            font-family: FontAwesome;
+        }
+
+        #topcontrol:hover {
+            color: #fff;
+            background: #18ba9b;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .label-type,
+        .label-status,
+        .label-order {
+            background-color: #fff;
+            color: #f60;
+            padding: 5px;
+            border: 1px #f60 solid;
+        }
+
+        #typeList :not(:first-child) {
+            margin-top: 20px;
+        }
+
+        .label-txt {
+            margin: 10px 10px;
+            border: 1px solid #ddd;
+            padding: 4px;
+            font-size: 14px;
+        }
+
+        .panel {
+            border-radius: 0;
+        }
+
+        .progress-bar-default {
+            background-color: #ddd;
+        }
+    </style>
+    <title>投诉商品</title>
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html" style="font-size:32px;">拼客-大学生自己的购物平台</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                    class="glyphicon glyphicon-user"></i>
+                                (用户名)<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
+                                <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="row clearfix">
+                                <div class="col-md-12 column">
+                                    <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
+                                        <b>
+                                            (获取的用户名)，欢迎进行投诉：
+                                        </b>
+                                    </blockquote>
+                                    <div class="table-responsive">
+                                        <table class="table  table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th width="30">#</th>
+                                                <th hidden="hidden">商品后台id</th>
+                                                <th>商品名称</th>
+                                                <th>单价</th>
+                                                <th>数量</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td hidden="hidden">12</td>
+                                                <td>XXXXXXXXXXXX商品</td>
+                                                <td><span>12</span></td>
+                                                <td><span>1</span></td>
+                                                <td><a class="reportIt">投诉</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td hidden="hidden">215</td>
+                                                <td>XXXXXXXXXXXX商品广告</td>
+                                                <td><span>56</span></td>
+                                                <td><span>1</span></td>
+                                                <td><a class="reportIt">投诉</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td hidden="hidden">139</td>
+                                                <td>XXXXXXXXXXXX商品广告</td>
+                                                <td><span>53</span></td>
+                                                <td><span>1</span></td>
+                                                <td><a class="reportIt">投诉</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+</body>
+</html>
