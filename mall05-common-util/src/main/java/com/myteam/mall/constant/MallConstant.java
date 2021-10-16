@@ -22,4 +22,5 @@ public class MallConstant {
     public static final String MESSAGE_OVER_INVENTORY_NUM = "超出商品库存";
     public static final String MESSAGE_OVER_ONLINE_NUM = "超过了商品上架的数量";
     public static final String MESSAGE_PICTURE_EMPTY = "图片不可为空！";
+    public static final String ATTR_NAME_PORTAL_DATA = "portal_data";
 }

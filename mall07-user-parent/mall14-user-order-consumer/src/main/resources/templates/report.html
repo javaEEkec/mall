@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UFT-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>投诉</title>
+    <base th:href="@{/}">
+    <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-3.5.1.js}"></script>
+    <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <link rel="stylesheet" href="/css/theme.css" th:href="@{/css/theme.css}">
+    <script type="text/javascript">
+        // function getQueryVariable(variable)
+        // {
+        //     var query = window.location.search.substring(1);
+        //     var vars = query.split("&");
+        //     for (var i=0;i<vars.length;i++) {
+        //         var pair = vars[i].split("=");
+        //         if(pair[0] == variable){return pair[1];}
+        //     }
+        //     return(false);
+        // }
+        // $(function () {
+        //     $("#item_id").text("未获取到商品名");
+        //     var theId=getQueryVariable("item_to_report");
+        //
+        //     // $.ajax({
+        //     //     url: "http://www.mall.com/product/get/online/product/detail/by/id",
+        //     //     data: "productId="+theId,
+        //     //     type: "GET",
+        //     //     success: function (dat) {
+        //     //         alert("服务器返回的数据是：" + dat);
+        //     //         var jsonObj = JSON.parse(dat);
+        //     //         $("#item_id").text(dat.date.productName);
+        //     //     },
+        //     //     dataType: "json"
+        //     // });
+        // });
+
+        $(function () {
+            $("#commitComplaint").click(function () {
+                let userId = $("#userId").val();
+                let productId = $("#productId").val();
+                let productName = $("#productName1").val();
+                let content = $("#content").val();
+
+                console.log(productId);
+                $.ajax({
+                    url:"http://www.mall.com/order/do/commit/report",
+                    type:"post",
+                    data:{
+                        userId: userId,
+                        productId: productId,
+                        productName: productName,
+                        content: content
+                    },
+                    dataType: "json",
+                    success: function(resp){
+                        var result = resp.result;
+                        if (result === "SUCCESS"){
+                            layer.msg("提交成功")
+                            window.location.href = "http://www.mall.com/order/to/order/to/report";
+                        }
+                        if (result === "FAILED") {
+                            layer.msg("操作失败！" + resp.message);
+                        }
+                    },
+                    error: function (resp) {
+                        layer.msg(resp.status + " " + resp.statusText);
+                    }
+                })
+            })
+        })
+    </script>
+
+    <title>投诉商品</title>
+    <style>
+        body {
+            padding-top: 70px;
+            padding-bottom: 30px;
+        }
+
+        .theme-dropdown .dropdown-menu {
+            position: static;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .theme-showcase > p > .btn {
+            margin: 5px 0;
+        }
+
+        .theme-showcase .navbar .container {
+            width: auto;
+        }
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+    </style>
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+    </style>
+    <!-- <script>
+      var element=document.getElementById("complaintInput");
+      $.ajax({
+        type:"get",
+        url:
+        data:
+      })
+    </script> -->
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html" style="font-size:32px;">拼客-大学生自己的购物平台</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 用户${sessionScope.user.userId}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
+                                <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+    <div class="page-header">
+        <h1>进行商品投诉：<span id="productName" th:text="${productName}"></span></h1>
+    </div>
+
+    <!--
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" ><a href="#"><span class="badge">1</span> 基本信息</a></li>
+              <li role="presentation" ><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
+              <li role="presentation" class="active"><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
+              <li role="presentation"><a href="#"><span class="badge">4</span> 申请确认</a></li>
+            </ul>
+    -->
+
+    <form role="form" style="margin-top:20px;">
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td>
+                        <label><h3>投诉详情</h3></label>
+                    </td>
+                    <td>
+                        <form id="complaintForm">
+                            <input id="userId" name="userId" type = "hidden" th:value="${userId}"/>
+                            <input id="productId" name="productId" type = "hidden" th:value="${productId}"/>
+                            <input id="productName1" name="productName" type = "hidden" th:value="${productName}"/>
+                            <textarea th:id="content" name="content" id="complaintInput" placeholder="请输入您的投诉描述" rows=5 cols=50 style="font-size:30px;"></textarea>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <center>
+            <button id="commitComplaint" type="button" class="btn btn-success">提交</button>
+        </center>
+    </form>
+    <hr>
+</div>
+</body>
+</html>

@@ -16,6 +16,9 @@
   <script type="text/javascript" th:src="@{/My97DatePicker/WdatePicker.js}"></script>
   <script type="text/javascript">
     $(function () {
+
+
+
       $("#productName").text("未获取到商品名");
       $("#productIntroduction").text("未获取到该商品介绍");
       $("#price").text("未获取到该商品价格");
@@ -32,9 +35,11 @@
       $("#cart_price").text("未获取到商品价格");
       $("#cart_introduction").text("未获取到商品详情");
 
+      let path = window.location.pathname
+      let productId = path.substr(path.length-1,1);
       $.ajax({
         url: "http://www.mall.com/product/get/online/product/detail/by/id",
-        data: "productId="+1,
+        data: "productId="+ productId,
         type: "GET",
         success: function (dat) {
           console.log(dat);
@@ -59,6 +64,12 @@
         },
         dataType: "json"
       });
+
+      $("#navList2").on("click","#buyBtn",function () {
+        let buyNum = $("#buyNum").val();
+        console.log(buyNum);
+        window.location.href = "http://www.mall.com/order/to/order/confirm/page/"+productId+"/"+buyNum;
+      })
     });
   </script>
   <style>
@@ -148,7 +159,7 @@
                 <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
                 <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
                 <li class="divider"></li>
-                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                <li><a href="index.html" th:href="@{/portal/user/logout}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
               </ul>
             </li>
           </ul>
@@ -281,16 +292,9 @@
               <p id="buy_introduction">(详情)</p>
               <span>数量：</span>
               <!-- toChange -->
-              <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+              <input name="buyNum" id="buyNum" type="number">
               <br/>
-              <button type="button" class="btn  btn-warning btn-lg "
-                      onclick="window.location.href='pay-step-1.html'">购买
+              <button id="buyBtn" type="button" class="btn  btn-warning btn-lg ">购买
               </button>
               <br>
               <hr>

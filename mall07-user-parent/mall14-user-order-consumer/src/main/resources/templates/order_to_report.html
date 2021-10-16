@@ -16,13 +16,105 @@
     <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
     <link rel="stylesheet" href="/css/theme.css" th:href="@{/css/theme.css}">
     <script type="text/javascript">
-        $(function (){
-            var toReport=$(".reportIt");
-            for (var i=0;i<toReport.length;i++){
-                var $a=$(toReport[i]);
-                var linkTo=$a.parents("tr").find("td:eq(1)").text();
-                $a.attr("href","http://localhost:8080/pageSamples/report.jsp?item_to_report="+linkTo);
+
+        function getOrderByUserId(userId){
+            let ajaxResult = $.ajax({
+                url: "http://www.mall.com/order/get/order/by/userId",
+                type: "post",
+                data: {
+                    userId: userId
+                },
+                //取消异步执行
+                async: false,
+                dataType:"json"
+            });
+            console.log(ajaxResult);
+            // 判断当前响应状态码是否为200
+            var statusCode = ajaxResult.status;
+            // 如果当前响应状态码不是200，说明出现错误，显示提示信息，让当前函数停止执行
+            if (statusCode !== 200) {
+                layer.msg("失败! 状态码=" + statusCode + " 提示信息=" + ajaxResult.statusText);
+                return null;
             }
+            // 如果响应码为200，说明请求处理成功，获取pageInfo
+            var resultEntity = ajaxResult.responseJSON;
+            // 从resultEntity属性中获取result属性
+            var result = resultEntity.result;
+            // 判断result是否成功
+            if (result === "FAILED") {
+                layer.msg(resultEntity.message);
+                return null;
+            }
+            return resultEntity.data;
+        }
+
+        function fillTableBody(dataList) {
+            let orderTableBody = $("#orderTableBody");
+
+            orderTableBody.empty();
+
+            if (dataList == null || dataList.length == 0){
+                orderTableBody.append("<tr><td colspan='5' align='center'>抱歉！没有查询到您搜索的数据</td></tr>");
+                return;
+            }
+            for(let i = 0;i < dataList.length; i++){
+                let order = dataList[i];
+                let orderId = order.orderId;
+                let orderOriginMoney = order.orderOriginMoney;
+                let orderToPay = order.orderToPay;
+                let orderCogsigneeName = order.orderCogsigneeName;
+                let orderStatus = order.orderStatus;
+                let productName = order.productName;
+                let productId = order.productId
+
+                let numberTd = "<td>" + (i + 1) + "</td>";
+                let orderIdTd ="<td>" + orderId + "</td>";
+                let orderOriginMoneyTd = "<td>" + orderOriginMoney + "</td>";
+                let orderToPayTd = "<td>" + orderToPay + "</td>";
+                let orderStatusTd = "<td>" + orderStatus + "</td>"
+                let orderCogsigneeNameTd = "<td>" + orderCogsigneeName + "</td>";
+                let productIdTd = "<td>" + productId + "</td>";
+                let productNameTd = "<td>" + productName + "</td>";
+
+                let toReportButton = "<button id='" + i + "' type=\"button\" class=\"btn btn-success btn-xs toReport\"><i class=\" glyphicon glyphicon-eye-open\"></i></button>"
+                let ButtonTd = "<td>"+toReportButton+ "</td>";
+                // let complaintTd =
+                let tr = "<tr>"+numberTd+orderIdTd+orderOriginMoneyTd+
+                    orderToPayTd+orderStatusTd+
+                    orderCogsigneeNameTd+productNameTd+productIdTd+
+                    ButtonTd+"</tr>";
+
+                orderTableBody.append(tr)
+            }
+
+
+        }
+
+        $(function (){
+
+            let userId = $("#userId").val();
+
+            let data = getOrderByUserId(userId);
+            console.log(userId);
+            console.log(data);
+
+            fillTableBody(data);
+            // var toReport=$(".reportIt");
+            // for (var i=0;i<toReport.length;i++){
+            //     var $a=$(toReport[i]);
+            //     var linkTo=$a.parents("tr").find("td:eq(1)").text();
+            //     $a.attr("href","http://localhost:8080/pageSamples/report.jsp?item_to_report="+linkTo);
+            // }
+
+            $("#orderTableBody").on("click",".toReport",function(){
+                let orderId = this.id;
+                let order = data[orderId]
+                let userId = order.orderUserId;
+                let productName = order.productName;
+                let productId = order.productId
+
+                window.location.href = "http://www.mall.com/order/to/report/page/"+userId+"/"+productId+"/"+productName;
+            });
         });
     </script>
     <style>
@@ -105,14 +197,14 @@
                 <div id="navbar" class="navbar-collapse collapse" style="float:right;">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                    class="glyphicon glyphicon-user"></i>
-                                (用户名)<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>[[${session.loginUser.userName}]]<span
+                                    class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="client_cart.jsp"><i class="glyphicon glyphicon-scale"></i>购物车</a></li>
                                 <li><a href="client_order.jsp"><i class="glyphicon glyphicon-comment"></i>订单</a></li>
                                 <li class="divider"></li>
-                                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                                <li><a href="index.html" th:href="@{/portal/user/logout}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -134,46 +226,35 @@
                                 <div class="col-md-12 column">
                                     <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
                                         <b>
-                                            (获取的用户名)，欢迎进行投诉：
+                                            [[${session.loginUser.userName}]]，欢迎进行投诉：
                                         </b>
+                                        <input id="userId" type="hidden" th:value="${session.loginUser.userId}">
                                     </blockquote>
                                     <div class="table-responsive">
                                         <table class="table  table-bordered">
                                             <thead>
                                             <tr>
                                                 <th width="30">#</th>
-                                                <th hidden="hidden">商品后台id</th>
-                                                <th>商品名称</th>
-                                                <th>单价</th>
-                                                <th>数量</th>
+                                                <th>订单编号</th>
+                                                <th>订单应付金额</th>
+                                                <th>最终应付金额</th>
+                                                <th>订单状态</th>
+                                                <th>收货人</th>
+                                                <th>商品编号</th>
+                                                <th>商品名</th>
                                                 <th>操作</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td hidden="hidden">12</td>
-                                                <td>XXXXXXXXXXXX商品</td>
-                                                <td><span>12</span></td>
-                                                <td><span>1</span></td>
-                                                <td><a class="reportIt">投诉</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td hidden="hidden">215</td>
-                                                <td>XXXXXXXXXXXX商品广告</td>
-                                                <td><span>56</span></td>
-                                                <td><span>1</span></td>
-                                                <td><a class="reportIt">投诉</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td hidden="hidden">139</td>
-                                                <td>XXXXXXXXXXXX商品广告</td>
-                                                <td><span>53</span></td>
-                                                <td><span>1</span></td>
-                                                <td><a class="reportIt">投诉</a></td>
-                                            </tr>
+                                            <tbody id="orderTableBody">
+<!--                                            <tr id="orderTableBody">-->
+<!--&lt;!&ndash;                                                <td>1</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <td hidden="hidden">12</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <td>XXXXXXXXXXXX商品</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <td><span>12</span></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <td><span>1</span></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <td><a class="reportIt">投诉</a></td>&ndash;&gt;-->
+<!--                                            </tr>-->
+
                                             </tbody>
                                         </table>
                                     </div>

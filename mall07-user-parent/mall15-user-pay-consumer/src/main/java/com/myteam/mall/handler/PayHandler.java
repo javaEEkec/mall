@@ -43,14 +43,15 @@ public class PayHandler {
 
     @ResponseBody
     @RequestMapping("/generate/order")
-    public String generateOrder(OrderPO orderPO, HttpSession session) throws AlipayApiException {
+    public String generateOrder(OrderVO orderVO, HttpSession session) throws AlipayApiException {
 
-        orderPO.setOrderPayingTime(new Date());
-        orderPO.setOrderOriginMoney(orderPO.getOrderToPay());
-        orderPO.setOrderStatus("待处理");
+        orderVO.setOrderPayingTime(new Date());
+        orderVO.setOrderOriginMoney(orderVO.getOrderToPay());
+        orderVO.setOrderStatus("待处理");
         String orderNum = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-        mySQLRemoteService.saveOrderRemote(orderPO);
-        return sendRequestToAliPay(orderNum,orderPO.getOrderToPay(),"拼客支付","商品");
+        mySQLRemoteService.saveOrderRemote(orderVO);
+
+        return sendRequestToAliPay(orderNum,orderVO.getOrderToPay(),"拼客支付","商品");
     }
 
     /**

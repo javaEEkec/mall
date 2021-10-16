@@ -3,6 +3,8 @@ package com.myteam.mall.mapper;
 import com.myteam.mall.entity.po.OrderPO;
 import com.myteam.mall.entity.po.OrderPOExample;
 import java.util.List;
+
+import com.myteam.mall.entity.vo.OrderProductUserVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -32,5 +34,7 @@ public interface OrderPOMapper {
 
     OrderPO getLastOrder();
 
-    void insertOrderWithProductforId(Integer orderId,Integer productId);
+    void insertOrderWithProductforId(@Param("orderId") Integer orderId,@Param("productId") Integer productId);
+
+    List<OrderProductUserVO> selectByUserId(Integer userId);
 }

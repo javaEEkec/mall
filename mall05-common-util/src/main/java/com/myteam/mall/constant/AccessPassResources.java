@@ -29,7 +29,7 @@ public class AccessPassResources {
 
         //测试方行
         PASS_RES_SET.add("/test/to/order/page");
-        PASS_RES_SET.add("/product/to/product/detail");
+        PASS_RES_SET.add("/product/to/product/detail/");
 
     }
 

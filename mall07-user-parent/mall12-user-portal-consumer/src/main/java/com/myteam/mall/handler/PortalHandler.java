@@ -1,13 +1,13 @@
 package com.myteam.mall.handler;
 
 
-import com.github.pagehelper.PageInfo;
 import com.myteam.mall.api.MySQLRemoteService;
+import com.myteam.mall.constant.MallConstant;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
-import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +23,16 @@ public class PortalHandler {
     private MySQLRemoteService mysqlRemoteService;
 
     @RequestMapping("/")
-    public String showPortalPage(){
+    public String showPortalPage(Model model){
+        ResultEntity<List<PortalCategoryVO>> resultEntity = mysqlRemoteService.getPortalCategoryDataRemote();
+
+        String result = resultEntity.getResult();
+
+        if (ResultEntity.SUCCESS.equals(result)){
+            List<PortalCategoryVO> list = resultEntity.getData();
+
+            model.addAttribute(MallConstant.ATTR_NAME_PORTAL_DATA, list);
+        }
         return "portal";
     }
 

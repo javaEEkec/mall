@@ -57,10 +57,10 @@
                         <a href="admin/to/shop/list/page.html"><i class="glyphicon glyphicon-comment"></i> 店铺列表</a>
                     </li>
                     <li style="height:30px;">
-                        <a href=""><i class="glyphicon glyphicon-comment"></i>订单管理</a>
+                        <a href="admin/to/order/page.html"><i class="glyphicon glyphicon-comment"></i>订单管理</a>
                     </li>
                     <li style="height:30px;">
-                        <a href=""><i class="glyphicon glyphicon-comment"></i>投诉处理</a>
+                        <a href="admin/to/compliant/page.html"><i class="glyphicon glyphicon-comment"></i>投诉处理</a>
                     </li>
                 </ul>
             </li>

@@ -1,11 +1,14 @@
 package com.myteam.mall.service.impl;
 
 import com.myteam.mall.entity.po.OrderPO;
+import com.myteam.mall.entity.vo.OrderProductUserVO;
 import com.myteam.mall.mapper.OrderPOMapper;
 import com.myteam.mall.service.api.OrderService;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -26,5 +29,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void insertInnerOrderProduct(Integer orderId,Integer productId) {
         orderPOMapper.insertOrderWithProductforId(orderId,productId);
+    }
+
+    @Override
+    public List<OrderProductUserVO> getOrderByUserId(Integer userId) {
+
+        return orderPOMapper.selectByUserId(userId);
     }
 }

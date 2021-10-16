@@ -2,6 +2,7 @@ package com.myteam.mall.api;
 
 import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.po.*;
+import com.myteam.mall.entity.vo.OrderProductUserVO;
 import com.myteam.mall.entity.vo.OrderVO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
@@ -30,7 +31,7 @@ public interface MySQLRemoteService {
 
 
     @RequestMapping(value = "/save/order/remote")
-    ResultEntity<String> saveOrderRemote(@RequestBody OrderPO orderPO);
+    ResultEntity<String> saveOrderRemote(@RequestBody OrderVO orderVO);
 
     /**
      * 根据用户id获取用户
@@ -87,4 +88,13 @@ public interface MySQLRemoteService {
 
     @RequestMapping("get/shop/by/id/remote")
     ResultEntity<Shop> getShopByIdRemote(@RequestParam("shopId") Integer shopId);
+
+    @RequestMapping("get/order/po/by/userId/remote")
+    ResultEntity<List<OrderProductUserVO>> getOrderPOByUserIdRemote(@RequestParam("userId") Integer userId);
+
+    @RequestMapping("insert/order/inner/product/remote")
+    ResultEntity<String> insertOrderWithId(@RequestParam("orderId") Integer orderId,@RequestParam("productId") Integer productId);
+
+    @RequestMapping("/save/complaint/remote")
+    ResultEntity<String> saveComplaintRemote(@RequestBody ComplaintPO complaintPO);
 }

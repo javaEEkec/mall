@@ -1,12 +1,15 @@
 package com.myteam.mall;
 
 import com.myteam.mall.entity.po.OnlineProduct;
+import com.myteam.mall.entity.po.OrderPO;
 import com.myteam.mall.entity.po.UserPO;
+import com.myteam.mall.entity.vo.OrderProductUserVO;
 import com.myteam.mall.entity.vo.PortalCategoryVO;
 import com.myteam.mall.entity.vo.ProductSimpleVO;
 import com.myteam.mall.entity.vo.UserDetailVO;
 import com.myteam.mall.mapper.OnlineProductMapper;
 import com.myteam.mall.mapper.UserPOMapper;
+import com.myteam.mall.service.api.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.junit.Test;
@@ -36,6 +39,9 @@ public class MybatisTest {
 
     @Autowired
     private OnlineProductMapper onlineProductMapper;
+
+    @Autowired
+    private OrderService orderService;
 
     @Test
     public void testConnection() throws SQLException {
@@ -104,4 +110,21 @@ public class MybatisTest {
         System.out.println(onlineProduct);
     }
 
+
+    @Test
+    public void testOrderById(){
+        List<OrderProductUserVO> order = orderService.getOrderByUserId(7);
+        System.out.println(order);
+    }
+
+    @Test
+    public void getLastOrder(){
+        OrderPO lastOrder = orderService.getLastOrder();
+        System.out.println(lastOrder);
+    }
+
+    @Test
+    public void insertRelation(){
+        orderService.insertInnerOrderProduct(1,1);
+    }
 }

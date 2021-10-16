@@ -13,5 +13,6 @@ public class MallWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/test/to/order/page").setViewName("order-confirm");
+        registry.addViewController("/to/order/to/report").setViewName("order_to_report");
     }
 }
