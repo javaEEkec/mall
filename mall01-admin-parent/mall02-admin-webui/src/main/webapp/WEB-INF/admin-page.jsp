@@ -107,11 +107,11 @@
                         window.location.href = "admin/get/page.html?pageNum=" +${pageInfo.pageNum};
                     }
                     if (result === "FAILED") {
-                        layer.msg("操作失败！" + response.message);
+                        layer.msg("操作失败！" + resp.message);
                     }
                 },
-                error: function (response) {
-                    layer.msg(response.status + " " + response.statusText);
+                error: function (resp) {
+                    layer.msg(resp.status + " " + resp.statusText);
                 }
             });
             //关闭模态框

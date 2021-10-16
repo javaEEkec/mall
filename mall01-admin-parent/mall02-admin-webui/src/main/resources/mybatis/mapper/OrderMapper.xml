@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myteam.mall.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.myteam.mall.entity.Order">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_coupon_id" jdbcType="INTEGER" property="orderCouponId" />
+    <result column="order_user_id" jdbcType="INTEGER" property="orderUserId" />
+    <result column="order_origin_money" jdbcType="DECIMAL" property="orderOriginMoney" />
+    <result column="order_moving_money" jdbcType="DECIMAL" property="orderMovingMoney" />
+    <result column="order_scoreto_money" jdbcType="DECIMAL" property="orderScoretoMoney" />
+    <result column="order_couponto_money" jdbcType="DECIMAL" property="orderCoupontoMoney" />
+    <result column="order_to_pay" jdbcType="DECIMAL" property="orderToPay" />
+    <result column="order_cogsignee_name" jdbcType="VARCHAR" property="orderCogsigneeName" />
+    <result column="order_cogsignee_phone" jdbcType="VARCHAR" property="orderCogsigneePhone" />
+    <result column="order_cogsignee_address" jdbcType="VARCHAR" property="orderCogsigneeAddress" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="order_paying_time" jdbcType="TIMESTAMP" property="orderPayingTime" />
+    <result column="order_receiving_time" jdbcType="TIMESTAMP" property="orderReceivingTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, order_coupon_id, order_user_id, order_origin_money, order_moving_money, 
+    order_scoreto_money, order_couponto_money, order_to_pay, order_cogsignee_name, order_cogsignee_phone, 
+    order_cogsignee_address, order_status, order_paying_time, order_receiving_time
+  </sql>
+  <select id="selectByExample" parameterType="com.myteam.mall.entity.OrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myteam.mall.entity.OrderExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myteam.mall.entity.Order">
+    insert into orders (order_id, order_coupon_id, order_user_id, 
+      order_origin_money, order_moving_money, order_scoreto_money, 
+      order_couponto_money, order_to_pay, order_cogsignee_name, 
+      order_cogsignee_phone, order_cogsignee_address, 
+      order_status, order_paying_time, order_receiving_time
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{orderCouponId,jdbcType=INTEGER}, #{orderUserId,jdbcType=INTEGER}, 
+      #{orderOriginMoney,jdbcType=DECIMAL}, #{orderMovingMoney,jdbcType=DECIMAL}, #{orderScoretoMoney,jdbcType=DECIMAL}, 
+      #{orderCoupontoMoney,jdbcType=DECIMAL}, #{orderToPay,jdbcType=DECIMAL}, #{orderCogsigneeName,jdbcType=VARCHAR}, 
+      #{orderCogsigneePhone,jdbcType=VARCHAR}, #{orderCogsigneeAddress,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=VARCHAR}, #{orderPayingTime,jdbcType=TIMESTAMP}, #{orderReceivingTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myteam.mall.entity.Order">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderCouponId != null">
+        order_coupon_id,
+      </if>
+      <if test="orderUserId != null">
+        order_user_id,
+      </if>
+      <if test="orderOriginMoney != null">
+        order_origin_money,
+      </if>
+      <if test="orderMovingMoney != null">
+        order_moving_money,
+      </if>
+      <if test="orderScoretoMoney != null">
+        order_scoreto_money,
+      </if>
+      <if test="orderCoupontoMoney != null">
+        order_couponto_money,
+      </if>
+      <if test="orderToPay != null">
+        order_to_pay,
+      </if>
+      <if test="orderCogsigneeName != null">
+        order_cogsignee_name,
+      </if>
+      <if test="orderCogsigneePhone != null">
+        order_cogsignee_phone,
+      </if>
+      <if test="orderCogsigneeAddress != null">
+        order_cogsignee_address,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderPayingTime != null">
+        order_paying_time,
+      </if>
+      <if test="orderReceivingTime != null">
+        order_receiving_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCouponId != null">
+        #{orderCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserId != null">
+        #{orderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="orderOriginMoney != null">
+        #{orderOriginMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderMovingMoney != null">
+        #{orderMovingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderScoretoMoney != null">
+        #{orderScoretoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderCoupontoMoney != null">
+        #{orderCoupontoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderToPay != null">
+        #{orderToPay,jdbcType=DECIMAL},
+      </if>
+      <if test="orderCogsigneeName != null">
+        #{orderCogsigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCogsigneePhone != null">
+        #{orderCogsigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCogsigneeAddress != null">
+        #{orderCogsigneeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPayingTime != null">
+        #{orderPayingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderReceivingTime != null">
+        #{orderReceivingTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myteam.mall.entity.OrderExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByKeyword" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    where order_cogsignee_name like concat('%',#{keyword},'%')
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderCouponId != null">
+        order_coupon_id = #{record.orderCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderUserId != null">
+        order_user_id = #{record.orderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderOriginMoney != null">
+        order_origin_money = #{record.orderOriginMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderMovingMoney != null">
+        order_moving_money = #{record.orderMovingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderScoretoMoney != null">
+        order_scoreto_money = #{record.orderScoretoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderCoupontoMoney != null">
+        order_couponto_money = #{record.orderCoupontoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderToPay != null">
+        order_to_pay = #{record.orderToPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderCogsigneeName != null">
+        order_cogsignee_name = #{record.orderCogsigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCogsigneePhone != null">
+        order_cogsignee_phone = #{record.orderCogsigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCogsigneeAddress != null">
+        order_cogsignee_address = #{record.orderCogsigneeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderPayingTime != null">
+        order_paying_time = #{record.orderPayingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderReceivingTime != null">
+        order_receiving_time = #{record.orderReceivingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      order_coupon_id = #{record.orderCouponId,jdbcType=INTEGER},
+      order_user_id = #{record.orderUserId,jdbcType=INTEGER},
+      order_origin_money = #{record.orderOriginMoney,jdbcType=DECIMAL},
+      order_moving_money = #{record.orderMovingMoney,jdbcType=DECIMAL},
+      order_scoreto_money = #{record.orderScoretoMoney,jdbcType=DECIMAL},
+      order_couponto_money = #{record.orderCoupontoMoney,jdbcType=DECIMAL},
+      order_to_pay = #{record.orderToPay,jdbcType=DECIMAL},
+      order_cogsignee_name = #{record.orderCogsigneeName,jdbcType=VARCHAR},
+      order_cogsignee_phone = #{record.orderCogsigneePhone,jdbcType=VARCHAR},
+      order_cogsignee_address = #{record.orderCogsigneeAddress,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=VARCHAR},
+      order_paying_time = #{record.orderPayingTime,jdbcType=TIMESTAMP},
+      order_receiving_time = #{record.orderReceivingTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myteam.mall.entity.Order">
+    update orders
+    <set>
+      <if test="orderCouponId != null">
+        order_coupon_id = #{orderCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserId != null">
+        order_user_id = #{orderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="orderOriginMoney != null">
+        order_origin_money = #{orderOriginMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderMovingMoney != null">
+        order_moving_money = #{orderMovingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderScoretoMoney != null">
+        order_scoreto_money = #{orderScoretoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderCoupontoMoney != null">
+        order_couponto_money = #{orderCoupontoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderToPay != null">
+        order_to_pay = #{orderToPay,jdbcType=DECIMAL},
+      </if>
+      <if test="orderCogsigneeName != null">
+        order_cogsignee_name = #{orderCogsigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCogsigneePhone != null">
+        order_cogsignee_phone = #{orderCogsigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCogsigneeAddress != null">
+        order_cogsignee_address = #{orderCogsigneeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPayingTime != null">
+        order_paying_time = #{orderPayingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderReceivingTime != null">
+        order_receiving_time = #{orderReceivingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myteam.mall.entity.Order">
+    update orders
+    set order_coupon_id = #{orderCouponId,jdbcType=INTEGER},
+      order_user_id = #{orderUserId,jdbcType=INTEGER},
+      order_origin_money = #{orderOriginMoney,jdbcType=DECIMAL},
+      order_moving_money = #{orderMovingMoney,jdbcType=DECIMAL},
+      order_scoreto_money = #{orderScoretoMoney,jdbcType=DECIMAL},
+      order_couponto_money = #{orderCoupontoMoney,jdbcType=DECIMAL},
+      order_to_pay = #{orderToPay,jdbcType=DECIMAL},
+      order_cogsignee_name = #{orderCogsigneeName,jdbcType=VARCHAR},
+      order_cogsignee_phone = #{orderCogsigneePhone,jdbcType=VARCHAR},
+      order_cogsignee_address = #{orderCogsigneeAddress,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_paying_time = #{orderPayingTime,jdbcType=TIMESTAMP},
+      order_receiving_time = #{orderReceivingTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

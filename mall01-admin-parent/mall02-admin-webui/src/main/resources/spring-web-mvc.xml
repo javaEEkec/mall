@@ -17,8 +17,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-
-
     <!--配置基于XML的异常映射-->
     <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <!-- 配置异常类型和具体视图页面对应关系 -->
@@ -34,7 +32,14 @@
     <!--配置view-controller，直接把请求地址和视图名称关联起来，从而无需写handler方法-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
-    <mvc:view-controller path="admin/to/page.html" view-name="admin-page"/>
+    <mvc:view-controller path="/admin/to/page.html" view-name="admin-page"/>
+    <mvc:view-controller path="/admin/to/inventory/product/page.html" view-name="inventory-product-page"/>
+    <mvc:view-controller path="/admin/to/online/product/page.html" view-name="online-product-page"/>
+    <mvc:view-controller path="/admin/to/shop/list/page.html" view-name="shop-list"/>
+    <mvc:view-controller path="/admin/to/examine/product/page.html" view-name="examine-product-page"/>
+    <mvc:view-controller path="/admin/to/check/shop/page.html" view-name="check-shop-page"/>
+    <mvc:view-controller path="/admin/to/order/page.html" view-name="order-page"/>
+    <mvc:view-controller path="/admin/to/compliant/page.html" view-name="compliant-page"/>
 
     <!--注册拦截器-->
     <mvc:interceptors>

@@ -1,9 +1,17 @@
 package com.myteam.mall.test;
 
 
+import com.github.pagehelper.PageInfo;
 import com.myteam.mall.entity.Admin;
+import com.myteam.mall.entity.ExamineProduct;
+import com.myteam.mall.entity.InventoryProductVO;
+import com.myteam.mall.entity.Shop;
 import com.myteam.mall.mapper.AdminMapper;
+import com.myteam.mall.mapper.InventoryProductMapper0;
 import com.myteam.mall.service.api.AdminService;
+import com.myteam.mall.service.api.ExamineService;
+import com.myteam.mall.service.api.InventoryProductService;
+import com.myteam.mall.service.api.ShopService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -22,6 +30,18 @@ public class CrowdTest {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private InventoryProductService inventoryProductService;
+
+    @Autowired
+    private InventoryProductMapper0 inventoryProductMapper0;
+
+    @Autowired
+    private ExamineService examineService;
 
     @Test
     public void testConnection() throws SQLException {
@@ -43,6 +63,41 @@ public class CrowdTest {
         adminService.saveAdmin(admin);
     }
 
+    @Test
+    public void saveShop(){
+        Shop shop = new Shop(null,"10004","platform33","老刘","1254862588","12345");
 
+        shopService.saveShop(shop);
+    }
+
+    @Test
+    public void testPageShop(){
+        PageInfo<Shop> pageInfo = shopService.getPageInfo("", 1, 2);
+        System.out.println(pageInfo);
+    }
+
+    @Test
+    public void testInventoryProductVOPageInfo(){
+        PageInfo<InventoryProductVO> productPageInfo = inventoryProductService.getProductPageInfo("", 1, 5);
+        System.out.println(productPageInfo);
+    }
+
+    @Test
+    public void testGetInventoryNum(){
+        Integer integer = inventoryProductMapper0.selectInventoryNum(1);
+        System.out.println("inventoryNum="+integer);
+    }
+
+    @Test
+    public void testChangeInventoryNum(){
+        inventoryProductService.increaseOrDecreaseInventory(1,110);
+    }
+
+    @Test
+    public void testExamineProduct(){
+        PageInfo<ExamineProduct> examineProductPageInfo = examineService.getExamineProductPageInfo("", 1, 5);
+
+        System.out.println(examineProductPageInfo);
+    }
 
 }

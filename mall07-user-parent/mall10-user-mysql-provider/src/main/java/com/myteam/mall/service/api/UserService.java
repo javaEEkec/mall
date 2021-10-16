@@ -5,4 +5,8 @@ import com.myteam.mall.entity.po.UserPO;
 public interface UserService {
 
     UserPO getUserPOByUserAcct(String userAcct);
+
+    void saveUser(UserPO userPO);
+
+    UserPO getUserPOByUserId(Integer userId);
 }

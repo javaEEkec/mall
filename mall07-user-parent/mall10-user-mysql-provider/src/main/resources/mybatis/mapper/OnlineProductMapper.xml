@@ -1,0 +1,356 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myteam.mall.mapper.OnlineProductMapper">
+  <resultMap id="BaseResultMap" type="com.myteam.mall.entity.po.OnlineProduct">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="product_img" jdbcType="VARCHAR" property="productImg" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="produce_time" jdbcType="TIMESTAMP" property="produceTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="activity_type" jdbcType="VARCHAR" property="activityType" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="online_num" jdbcType="INTEGER" property="onlineNum" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    product_id, product_name, brand, shop_id, price, product_img, category, produce_time,
+    description, activity_type, end_time, online_num
+  </sql>
+  <select id="selectByExample" parameterType="com.myteam.mall.entity.po.OnlineProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from online_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from online_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from online_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myteam.mall.entity.po.OnlineProductExample">
+    delete from online_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myteam.mall.entity.po.OnlineProduct">
+    insert into online_product (product_id, product_name, brand, 
+      shop_id, price, product_img, 
+      category, produce_time, description,
+      activity_type, end_time, online_num
+      )
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{shopId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{productImg,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{produceTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{activityType,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{onlineNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myteam.mall.entity.po.OnlineProduct">
+    insert into online_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="productImg != null">
+        product_img,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="produceTime != null">
+        produce_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="activityType != null">
+        activity_type,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="onlineNum != null">
+        online_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="productImg != null">
+        #{productImg,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="produceTime != null">
+        #{produceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null">
+        #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onlineNum != null">
+        #{onlineNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myteam.mall.entity.po.OnlineProductExample" resultType="java.lang.Long">
+    select count(*) from online_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <resultMap id="loadPortalProductListResultMap" type="com.myteam.mall.entity.vo.PortalCategoryVO">
+    <result column="category" property="category"/>
+    <collection property="productSimpleVOList"
+                column="category"
+                ofType="com.myteam.mall.entity.vo.ProductSimpleVO"
+                select="com.myteam.mall.mapper.OnlineProductMapper.selectProductSimpleVOList"/>
+  </resultMap>
+  <select id="selectPortalCategoryVOList" resultMap="loadPortalProductListResultMap">
+    select distinct category from online_product
+  </select>
+  <select id="selectProductSimpleVOList" resultType="com.myteam.mall.entity.vo.ProductSimpleVO">
+    select product_id productId,
+           product_name productName,
+           brand,
+           price,
+           product_img productImg
+           from online_product
+        where category = #{category}
+        order by product_id
+        Limit 0,4
+  </select>
+    <select id="selectProductsByKeyword" resultType="com.myteam.mall.entity.vo.ProductSimpleVO">
+      select product_id productId,
+             product_name productName,
+             brand,
+             price,
+             product_img productImg
+      from online_product
+    where product_name like concat('%',#{keyword},'%')
+    or brand like concat('%',#{keyword},'%')
+    or category like concat('%',#{keyword},'%')
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map">
+    update online_product
+    <set>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null">
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopId != null">
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productImg != null">
+        product_img = #{record.productImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.produceTime != null">
+        produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityType != null">
+        activity_type = #{record.activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.onlineNum != null">
+        online_num = #{record.onlineNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update online_product
+    set product_id = #{record.productId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      product_img = #{record.productImg,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      activity_type = #{record.activityType,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      online_num = #{record.onlineNum,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myteam.mall.entity.po.OnlineProduct">
+    update online_product
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="productImg != null">
+        product_img = #{productImg,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="produceTime != null">
+        produce_time = #{produceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null">
+        activity_type = #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onlineNum != null">
+        online_num = #{onlineNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myteam.mall.entity.po.OnlineProduct">
+    update online_product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      product_img = #{productImg,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      produce_time = #{produceTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      activity_type = #{activityType,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      online_num = #{onlineNum,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

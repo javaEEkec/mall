@@ -3,6 +3,19 @@ server:
 spring:
   application:
     name: myteam-mall-zuul
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
 eureka:
   client:
     service-url:
@@ -14,3 +27,14 @@ zuul:
     mall-portal:
       service-id: myteam-mall-portal
       path: /**
+    mall-product:
+      service-id: myteam-mall-product
+      path: /product/**
+    mall-order:
+      service-id: myteam-mall-order
+      path: /order/**
+    mall-pay:
+      service-id: myteam-mall-pay
+      path: /pay/**
+
+

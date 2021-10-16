@@ -2,21 +2,40 @@ package com.myteam.mall.mvc.config;
 
 import com.google.gson.Gson;
 import com.myteam.mall.constant.MallConstant;
-import com.myteam.mall.exception.AccessForbiddenException;
-import com.myteam.mall.exception.LoginAcctAlreadyInUseException;
-import com.myteam.mall.exception.LoginAcctAlreadyInUseForUpdateException;
-import com.myteam.mall.exception.LoginFailedException;
+import com.myteam.mall.exception.*;
 import com.myteam.mall.util.MallUtil;
 import com.myteam.mall.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+/**
+ * @author ljs
+ */
 @ControllerAdvice
 public class MallExceptionResolver {
+
+    @ExceptionHandler(value = DecreaseNumOverOnlineNumException.class)
+    public ModelAndView resolveDecreaseNumOverInventoryNumException(DecreaseNumOverOnlineNumException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "online-product-page";
+        return commonResolve(viewName,exception,request,response);
+    }
+
+    @ExceptionHandler(value = DecreaseNumOverInventoryNumException.class)
+    public ModelAndView resolveDecreaseNumOverInventoryNumException(DecreaseNumOverInventoryNumException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "inventory-product-page";
+        return commonResolve(viewName,exception,request,response);
+    }
+
+    @ExceptionHandler(value = ShopAcctAlreadyInUseException.class)
+    public ModelAndView resolveShopAcctAlreadyInUseException(ShopAcctAlreadyInUseException exception,HttpServletRequest request,HttpServletResponse response)throws IOException{
+        String viewName = "shop-list";
+        return commonResolve(viewName,exception,request,response);
+    }
 
     @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
     public ModelAndView resolveLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseForUpdateException exception,HttpServletRequest request,HttpServletResponse response) throws IOException {

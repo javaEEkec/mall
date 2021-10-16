@@ -1,6 +1,7 @@
 package com.myteam.mall.entity.po;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 

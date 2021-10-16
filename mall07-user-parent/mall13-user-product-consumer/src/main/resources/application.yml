@@ -1,0 +1,42 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: myteam-mall-product
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+huaweicloud:
+  obs:
+    access-key-id: C7MSZTKHGOAYXSVXQGZL
+    access-key-secret: 0xh9SuIfOGDYzJgI8paIvywkojpWblgS2ijsuHll
+    bucket-domain: https://myteam001.obs.cn-south-1.myhuaweicloud.com
+    bucket-name: myteam001
+    end-point: https://obs.cn-south-1.myhuaweicloud.com
+
+aliyun:
+  oss:
+    access-key-id: LTAI5tCybmKpnme9KaPV5TKb
+    access-key-secret: sszoiGna4220Cw1JKA3pj9Js28GIri
+    bucket-domain: https://myteam01.oss-cn-guangzhou.aliyuncs.com
+    bucket-name: myteam01
+    end-point: https://oss-cn-guangzhou.aliyuncs.com

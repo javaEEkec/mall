@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UFT-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>申请商品代理资格</title>
+    <script src="jquery/jquery-3.5.1.js" th:src="@{/jquery/jquery-3.5.1.js}"></script>
+    <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-theme.css}">
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/My97DatePicker/WdatePicker.js}"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $("#commitBtn").click(function () {
+                let formData = new FormData($("#commitExamine")[0]);
+                $.ajax({
+                    url:"http://www.mall.com/product/shop/commit/inventory/product/to/examine",
+                    type: "post",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success:function (resp) {
+                        if (resp.result === "SUCCESS"){
+                            layer.msg("提交成功！");
+
+                            window.location.href = "http://www.mall.com/portal/shop/to/shop/center";
+                        }
+                        if (resp.result === "FAILED"){
+                            layer.msg("操作失败"+resp.message);
+                        }
+                    },
+                    error: function (resp){
+                        layer.msg(resp.status,resp.message)
+                    }
+                })
+
+            })
+
+        })
+
+        // function pushItem(){
+            // console.log($("input[name='picture']").val());
+            // var formElement = document.querySelector("form");
+            // var request = new XMLHttpRequest();
+            // request.open("POST", "http://www.baidu.com");
+            // request.send(new FormData(formElement));
+
+            // var formData = new FormData();
+            // formData.append("username",$("input[name='itemName']").val());
+            // formData.append("category",$("input[name='category']:checked").val());
+            // formData.append("brand",$("input[name='itemBrand']").val());
+            // formData.append("introduction",$("textarea[name='itemIntroduction']").val());
+            // formData.append("produceTime",$("input[name='produceTime']").val());
+            // formData.append("endTime",$("input[name='endTime']").val());
+            // formData.append("photo",$("input[name='photo']").val());
+            //
+            // var request = new XMLHttpRequest();
+            // request.open("POST", "http://www.baidu.com");
+            // request.send(formData);
+        // }
+
+    </script>
+    <style>
+        body {
+            padding-top: 70px;
+            padding-bottom: 30px;
+        }
+
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        #topcontrol {
+            color: #fff;
+            z-index: 99;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            background: #222;
+            position: relative;
+            right: 14px !important;
+            bottom: 11px !important;
+            border-radius: 3px !important;
+        }
+
+        #topcontrol:after {
+            /*top: -2px;*/
+            left: 8.5px;
+            content: "\f106";
+            position: absolute;
+            text-align: center;
+            font-family: FontAwesome;
+        }
+
+        #topcontrol:hover {
+            color: #fff;
+            background: #18ba9b;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .label-type,
+        .label-status,
+        .label-order {
+            background-color: #fff;
+            color: #f60;
+            padding: 5px;
+            border: 1px #f60 solid;
+        }
+
+        #typeList :not(:first-child) {
+            margin-top: 20px;
+        }
+
+        .label-txt {
+            margin: 10px 10px;
+            border: 1px solid #ddd;
+            padding: 4px;
+            font-size: 14px;
+        }
+
+        .panel {
+            border-radius: 0;
+        }
+
+        .progress-bar-default {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html" th:href="@{/}" style="font-size:32px;">拼客-大学生自己的购物平台</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                    class="glyphicon glyphicon-user"></i> [[${session.loginShop.shopName}]]<span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="member.html" th:href="@{/portal/shop/to/shop/center}"><i class="glyphicon glyphicon-scale"></i> 商户中心</a></li>
+                                <li><a id="theProducts" href="shop_items.jsp"><i class="glyphicon glyphicon-scale"></i>商品</a></li>
+                                <li><a id="theAds"  href="shop_ads.jsp"><i class="glyphicon glyphicon-comment"></i>广告</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html" th:href="@{/shop/logout}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="row clearfix">
+                                <div class="col-md-12 column">
+                                    <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
+                                        <b>
+                                            申请商品销售资格
+                                        </b>
+                                    </blockquote>
+                                </div>
+                                <div class="col-md-12 column">
+                                    <div class="page-header" style="    border-bottom-style: dashed;">
+                                        <h3>
+                                            商品信息
+                                        </h3>
+                                    </div>
+                                    <form id="commitExamine" class="form-horizontal"
+                                          method="post" enctype="multipart/form-data" action="#">
+                                        <input name="shopId" type="hidden" th:value="${session.loginShop.shopId}">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">分类信息</label>
+                                            <div class="col-sm-10">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="category" id="inlineRadio1"
+                                                           value="交通工具"> 交通工具
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="category" id="inlineRadio2"
+                                                           value="日用品"> 日用品
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="category" id="inlineRadio3"
+                                                           value="333"> 333
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="category" id="inlineRadio4"
+                                                           value="444"> 444
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="category" id="inlineRadio5"
+                                                           value="555"> 555
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="category" id="inlineRadio6"
+                                                           value="666"> 666
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">商品名称</label>
+                                            <div class="col-sm-10">
+                                                <input name="productName" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">商品简介</label>
+                                            <div class="col-sm-10">
+                                                <textarea name="description" class="form-control" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">商品价格</label>
+                                            <div class="col-sm-10">
+                                                <input name="price" type="number" class="form-control" style="width:100px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">品牌</label>
+                                            <div class="col-sm-10">
+                                                <input name="brand" type="text" class="form-control" style="width:100px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">生产日期</label>
+                                            <div class="col-sm-10">
+                                                <input name="produceTime" class="Wdate,form-control" id="createTime" type="text"
+                                                       style="width:200px;"
+                                                       onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">过期日期</label>
+                                            <div class="col-sm-10">
+                                                <input name="endTime" class="Wdate,form-control" id="endTime" type="text"
+                                                       style="width:200px;"
+                                                       onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">入库数量</label>
+                                            <div class="col-sm-10">
+                                                <input name="inventoryNum" type="number" class="form-control" style="width:100px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">商品图片</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" id="picture" name="picture"/>
+                                                <!-- <button type="button" class="btn btn-primary btn-lg active">上传图片</button> -->
+                                                <label class="control-label">图片支持
+<!--                                                    jpg、jpeg、-->
+                                                    png格式</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer commit" style="text-align:center;">
+                        <button id="commitBtn" type="button" class="btn btn-warning btn-lg">提交申请</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>
