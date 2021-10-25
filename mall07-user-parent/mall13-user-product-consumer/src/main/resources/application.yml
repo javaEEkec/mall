@@ -27,16 +27,16 @@ ribbon:
 
 huaweicloud:
   obs:
-    access-key-id: C7MSZTKHGOAYXSVXQGZL
-    access-key-secret: 0xh9SuIfOGDYzJgI8paIvywkojpWblgS2ijsuHll
+    access-key-id: 
+    access-key-secret: 
     bucket-domain: https://myteam001.obs.cn-south-1.myhuaweicloud.com
     bucket-name: myteam001
     end-point: https://obs.cn-south-1.myhuaweicloud.com
 
 aliyun:
   oss:
-    access-key-id: LTAI5tCybmKpnme9KaPV5TKb
-    access-key-secret: sszoiGna4220Cw1JKA3pj9Js28GIri
+    access-key-id: 
+    access-key-secret: 
     bucket-domain: https://myteam01.oss-cn-guangzhou.aliyuncs.com
     bucket-name: myteam01
     end-point: https://oss-cn-guangzhou.aliyuncs.com
